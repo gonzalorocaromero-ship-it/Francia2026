@@ -1,6 +1,6 @@
 # Francia 2026 · App Familiar 🗼
 
-Guía de viaje interactiva para París y Disneyland Paris.
+Guía de viaje interactiva para París y Disneyland Paris. 
 **29 Agosto — 4 Septiembre 2026 · Le Victoria Garden, Serris**
 
 ---
