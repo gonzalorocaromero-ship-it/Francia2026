@@ -244,7 +244,328 @@ body { background:var(--cream); color:var(--navy); font-family:'DM Sans',sans-se
 .divider span { background:var(--cream); padding:0 12px; position:relative; font-family:'Playfair Display',serif; font-style:italic; color:#aaa; font-size:.88rem; }
 
 /* ── DARK MODE ── */
-/* ── SAFE AREA (notch / Dynamic Island) ── */
+/* ═══════════════════════════════════
+   UX v8 — NAVEGACIÓN Y ESTRUCTURA
+═══════════════════════════════════ */
+
+/* Hide old tab bar completely */
+.tabs-wrapper { display: none !important; }
+
+/* ── BOTTOM NAV ── */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: rgba(10,22,40,.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(201,168,76,.2);
+  display: flex;
+  z-index: 200;
+  padding-bottom: env(safe-area-inset-bottom);
+  box-shadow: 0 -4px 24px rgba(0,0,0,.3);
+}
+.bn-btn {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 10px 4px 8px;
+  border: none; background: none; cursor: pointer;
+  color: rgba(245,240,232,.4);
+  font-family: 'DM Sans', sans-serif;
+  transition: color .2s, transform .15s;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+}
+.bn-btn.active { color: var(--gold); }
+.bn-btn:active { transform: scale(.9); }
+.bn-icon { font-size: 1.35rem; line-height: 1; margin-bottom: 3px; transition: transform .2s; }
+.bn-btn.active .bn-icon { transform: translateY(-2px); }
+.bn-label { font-size: .58rem; font-weight: 600; letter-spacing: .3px; text-transform: uppercase; }
+.bn-dot {
+  position: absolute; top: 6px; right: calc(50% - 14px);
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--gold); display: none;
+}
+.bn-dot.visible { display: block; animation: pulse-dot 2s infinite; }
+@keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(.8)} }
+
+/* Body padding for bottom nav */
+body { padding-bottom: calc(65px + env(safe-area-inset-bottom)); }
+
+/* ── SECTION AREAS (replaces individual tab-content) ── */
+.area { display: none; min-height: 100vh; }
+.area.active { display: block; animation: fadeSlideUp .3s cubic-bezier(.4,0,.2,1); }
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SUB-NAV (within areas) ── */
+.sub-nav {
+  position: sticky; top: 0; z-index: 90;
+  background: rgba(245,240,232,.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+  padding: 10px 16px 0;
+  overflow-x: auto; scrollbar-width: none;
+  display: flex; gap: 0;
+}
+.sub-nav::-webkit-scrollbar { display: none; }
+.sub-btn {
+  flex-shrink: 0; padding: 8px 14px;
+  border: none; background: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-size: .78rem; font-weight: 600;
+  color: #999; border-bottom: 3px solid transparent;
+  transition: color .2s, border-color .2s; white-space: nowrap;
+}
+.sub-btn.active { color: var(--navy); border-bottom-color: var(--gold); }
+body.dark .sub-nav { background: rgba(17,24,39,.95); border-color: rgba(255,255,255,.08); }
+body.dark .sub-btn { color: #6b7280; }
+body.dark .sub-btn.active { color: #f5f0e8; }
+
+/* ── PARTICLES CANVAS ── */
+#particles-canvas {
+  position: absolute; inset: 0; pointer-events: none; z-index: 1;
+}
+
+/* ── HOME HERO ── */
+.home-hero {
+  background: var(--navy);
+  position: relative; overflow: hidden;
+  padding: 48px 24px 40px;
+  text-align: center; color: var(--cream);
+  min-height: 340px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+}
+.home-hero-bg {
+  position: absolute; inset: 0;
+  background: url('https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=800&q=80') center/cover;
+  opacity: .18; z-index: 0;
+}
+.home-hero > * { position: relative; z-index: 2; }
+.home-hero .greeting {
+  font-size: .7rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold); font-weight: 600; margin-bottom: 12px;
+}
+.home-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.4rem; font-weight: 700; line-height: 1.1; margin-bottom: 8px;
+}
+.home-hero h1 span { color: var(--gold); }
+.home-hero .hero-sub { font-size: .85rem; color: rgba(245,240,232,.6); margin-bottom: 24px; }
+
+/* Countdown ring */
+.countdown-ring-wrap {
+  display: flex; gap: 14px; justify-content: center; margin-bottom: 24px;
+}
+.ring-box {
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(201,168,76,.25);
+  border-radius: 12px; padding: 10px 14px; text-align: center; min-width: 58px;
+  backdrop-filter: blur(8px);
+}
+.ring-box .rn {
+  font-family: 'Playfair Display', serif; font-size: 1.8rem;
+  font-weight: 700; color: var(--gold); line-height: 1;
+}
+.ring-box .ru { font-size: .58rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(245,240,232,.4); margin-top: 3px; }
+
+/* Today card */
+.today-card {
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(201,168,76,.3);
+  border-radius: 14px; padding: 16px 20px;
+  text-align: left; cursor: pointer; width: 100%;
+  max-width: 340px;
+  transition: transform .2s, background .2s;
+  backdrop-filter: blur(8px);
+}
+.today-card:active { transform: scale(.97); }
+.today-card .tc-label { font-size: .65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; font-weight: 600; }
+.today-card .tc-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+.today-card .tc-sub { font-size: .78rem; color: rgba(245,240,232,.6); }
+.today-card .tc-arrow { float: right; font-size: 1.2rem; margin-top: -22px; color: var(--gold); }
+
+/* ── HOME QUICK ACTIONS ── */
+.quick-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  padding: 20px 20px 8px;
+}
+.quick-btn {
+  background: #fff; border-radius: 14px; border: 1px solid rgba(0,0,0,.06);
+  padding: 14px 10px; text-align: center; cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0,0,0,.05);
+  transition: transform .15s, box-shadow .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.quick-btn:active { transform: scale(.93); box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+.quick-btn .qb-icon { font-size: 1.6rem; margin-bottom: 6px; }
+.quick-btn .qb-label { font-size: .68rem; font-weight: 600; color: #555; line-height: 1.3; }
+body.dark .quick-btn { background: #1f2937; border-color: rgba(255,255,255,.08); }
+body.dark .quick-btn .qb-label { color: #9ca3af; }
+
+/* ── DAY CARDS 3D ── */
+.day-cards-scroll {
+  padding: 20px 20px 8px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.day-card-3d {
+  border-radius: 18px; overflow: hidden; position: relative;
+  cursor: pointer; box-shadow: 0 4px 20px rgba(0,0,0,.1);
+  transition: transform .25s cubic-bezier(.4,0,.2,1), box-shadow .25s;
+  -webkit-tap-highlight-color: transparent;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.day-card-3d:active { transform: scale(.97) translateY(1px); }
+.day-card-3d.is-today {
+  box-shadow: 0 0 0 3px var(--gold), 0 8px 30px rgba(201,168,76,.3);
+}
+.dc3-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, var(--navy), #1e3a5f);
+}
+.dc3-content { position: relative; z-index: 2; padding: 20px 22px; }
+.dc3-day { font-size: .65rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 700; opacity: .6; margin-bottom: 4px; }
+.dc3-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.dc3-sub { font-size: .78rem; color: rgba(255,255,255,.6); margin-bottom: 14px; }
+.dc3-stops { display: flex; gap: 6px; flex-wrap: wrap; }
+.dc3-stop { background: rgba(255,255,255,.1); border-radius: 20px; padding: 4px 10px; font-size: .7rem; color: rgba(255,255,255,.8); }
+.dc3-emoji { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 2.8rem; opacity: .4; z-index: 1; }
+.dc3-today-badge {
+  position: absolute; top: 14px; right: 14px; z-index: 3;
+  background: var(--gold); color: #fff; font-size: .62rem; font-weight: 700;
+  letter-spacing: .5px; padding: 4px 10px; border-radius: 20px;
+  text-transform: uppercase;
+}
+
+/* ── PAGE TRANSITIONS ── */
+.sub-panel { display: none; animation: fadeSlideUp .25s ease; }
+.sub-panel.active { display: block; }
+
+/* ── CONFETTI ── */
+.confetti-container {
+  position: fixed; inset: 0; pointer-events: none; z-index: 9999; overflow: hidden;
+}
+.confetti-piece {
+  position: absolute; width: 10px; height: 10px; top: -20px;
+  border-radius: 2px; animation: confettiFall linear forwards;
+}
+@keyframes confettiFall {
+  to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+}
+
+/* ── CHECKLIST DONE ANIMATION ── */
+.check-box.checked { animation: checkPop .3s cubic-bezier(.4,0,.2,1); }
+@keyframes checkPop { 0%{transform:scale(1)} 50%{transform:scale(1.4)} 100%{transform:scale(1)} }
+
+/* ── MAP BTN FEEDBACK ── */
+.map-btn { position: relative; overflow: hidden; }
+.map-btn::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,.3);
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .3s;
+}
+.map-btn.tapped::after { transform: scaleX(1); }
+
+/* ── SCROLL PROGRESS BAR ── */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--gold), #e8c56a);
+  z-index: 999; transition: width .1s;
+  width: 0%;
+}
+
+/* ── FLOATING TODAY BTN ── */
+.fab-today {
+  position: fixed; bottom: calc(75px + env(safe-area-inset-bottom)); right: 16px;
+  background: var(--gold); color: #fff; border: none; border-radius: 50%;
+  width: 46px; height: 46px; font-size: 1.1rem; cursor: pointer;
+  box-shadow: 0 4px 16px rgba(201,168,76,.5);
+  display: none; align-items: center; justify-content: center;
+  z-index: 150; transition: transform .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.fab-today:active { transform: scale(.9); }
+.fab-today.visible { display: flex; animation: fadeSlideUp .3s ease; }
+
+/* Remove old floating toolbar since we have bottom nav */
+.floating-toolbar { display: none !important; }
+
+/* Dark mode bottom nav */
+body.dark .bottom-nav { background: rgba(17,24,39,.97); border-color: rgba(201,168,76,.15); }
+body.dark .quick-btn { background: #1f2937; }
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
+
+/* ── ALWAYS-VISIBLE BOTTOM NAV ── */
+.bottom-nav { transform: translateY(0) !important; }
+
+/* ── BREADCRUMB BAR ── */
+.breadcrumb-bar {
+  position: sticky; top: 0; z-index: 95;
+  background: rgba(245,240,232,.97);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,.07);
+  padding: 10px 16px;
+  display: flex; align-items: center; gap: 8px;
+  min-height: 46px;
+}
+body.dark .breadcrumb-bar { background: rgba(17,24,39,.97); border-color: rgba(255,255,255,.08); }
+.bc-back {
+  display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: rgba(0,0,0,.06); border: none; cursor: pointer;
+  font-size: 1.1rem; flex-shrink: 0;
+  transition: background .15s, transform .15s;
+  -webkit-tap-highlight-color: transparent;
+}
+.bc-back:active { background: rgba(0,0,0,.14); transform: scale(.88); }
+body.dark .bc-back { background: rgba(255,255,255,.1); color: #f5f0e8; }
+.bc-trail { display: flex; align-items: center; gap: 5px; font-size: .75rem; flex: 1; overflow: hidden; white-space: nowrap; }
+.bc-area { color: #999; cursor: pointer; font-weight: 500; transition: color .15s; }
+.bc-area:hover, .bc-area:active { color: var(--navy); }
+body.dark .bc-area { color: #6b7280; }
+body.dark .bc-area:hover { color: #f5f0e8; }
+.bc-sep { color: #ccc; font-size: .85rem; }
+.bc-current { color: var(--navy); font-weight: 600; overflow: hidden; text-overflow: ellipsis; }
+body.dark .bc-current { color: #f5f0e8; }
+#area-home .breadcrumb-bar { display: none; }
+
+/* ── SWIPE BACK INDICATOR ── */
+.swipe-indicator {
+  position: fixed; left: 0; top: 50%; transform: translateY(-50%);
+  width: 4px; height: 64px; border-radius: 0 6px 6px 0;
+  background: var(--gold); opacity: 0;
+  transition: opacity .2s, width .15s;
+  z-index: 51; pointer-events: none;
+}
+.swipe-indicator.showing { opacity: .7; width: 7px; }
+
+/* ── TOAST ── */
+.nav-toast {
+  position: fixed; bottom: calc(78px + env(safe-area-inset-bottom));
+  left: 50%; transform: translateX(-50%) translateY(8px);
+  background: rgba(10,22,40,.92); color: #f5f0e8;
+  padding: 9px 20px; border-radius: 22px;
+  font-size: .78rem; font-weight: 500;
+  white-space: nowrap; pointer-events: none;
+  opacity: 0; transition: opacity .25s, transform .25s;
+  z-index: 300; backdrop-filter: blur(10px);
+  border: 1px solid rgba(201,168,76,.2);
+}
+.nav-toast.visible { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── RIPPLE ── */
+.ripple {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,.3);
+  transform: scale(0); animation: rippleAnim .5s linear;
+  pointer-events: none;
+}
+@keyframes rippleAnim { to { transform: scale(4); opacity: 0; } }
+
+
 .floating-toolbar { bottom: calc(20px + env(safe-area-inset-bottom)); right: calc(16px + env(safe-area-inset-right)); }
 .presentation-bar { padding-bottom: calc(10px + env(safe-area-inset-bottom)); }
 @media (display-mode: standalone) {
@@ -497,42 +818,264 @@ body.presentation .presentation-bar { display:flex; }
 </head>
 <body>
 
-<!-- COVER -->
-<div class="cover">
-  <div class="flag-stripe">
-    <div class="stripe s-blue"></div><div class="stripe s-white"></div><div class="stripe s-red"></div>
+<!-- ═══════════════════════════════════
+     ÁREA: HOY (HOME)
+═══════════════════════════════════ -->
+<div class="area active" id="area-home">
+
+  <!-- HERO CON PARTÍCULAS -->
+  <div class="home-hero">
+    <canvas id="particles-canvas"></canvas>
+    <div class="home-hero-bg"></div>
+
+    <p class="greeting" id="home-greeting">Bienvenidos · Francia 2026</p>
+    <h1>¡<span>Bon</span><br>Voyage!</h1>
+    <p class="hero-sub" id="hero-sub">8 exploradores · 7 días de aventura</p>
+
+    <!-- COUNTDOWN RINGS -->
+    <div class="countdown-ring-wrap" id="homeCountdown">
+      <div class="ring-box"><div class="rn" id="hc-d">—</div><div class="ru">días</div></div>
+      <div class="ring-box"><div class="rn" id="hc-h">—</div><div class="ru">horas</div></div>
+      <div class="ring-box"><div class="rn" id="hc-m">—</div><div class="ru">min</div></div>
+      <div class="ring-box"><div class="rn" id="hc-s">—</div><div class="ru">seg</div></div>
+    </div>
+
+    <!-- TODAY CARD -->
+    <div class="today-card" id="todayCard" onclick="goToToday()">
+      <div class="tc-label" id="tc-label">Próxima parada</div>
+      <div class="tc-title" id="tc-title">Cargando...</div>
+      <div class="tc-sub" id="tc-sub"></div>
+      <div class="tc-arrow">→</div>
+    </div>
   </div>
-  <p class="subtitle">Itinerario Familiar · 9 personas</p>
-  <h1>Francia <span style="color:var(--gold);">2026</span></h1>
-  <div class="dates">29 Agosto — 4 Septiembre</div>
-  <div class="group-pills">
-    <span class="pill">👴👵 2 Abuelos</span>
-    <span class="pill">👨‍👩‍👧 Padres</span>
-    <span class="pill">👩 Tía</span>
-    <span class="pill">👧 Niña 11 años</span>
-    <span class="pill">👦👦 Gemelos 5 años</span>
+
+  <!-- ACCESOS RÁPIDOS -->
+  <div style="padding:20px 20px 4px;">
+    <div style="font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;color:#aaa;font-weight:600;margin-bottom:10px;">Acceso rápido</div>
   </div>
+  <div class="quick-grid">
+    <div class="quick-btn" onclick="switchArea('trip');switchSub('trip','d1')">
+      <div class="qb-icon">🛬</div><div class="qb-label">Llegada<br>29 Ago</div>
+    </div>
+    <div class="quick-btn" onclick="switchArea('trip');switchSub('trip','d2')">
+      <div class="qb-icon">🗼</div><div class="qb-label">París<br>Día 1</div>
+    </div>
+    <div class="quick-btn" onclick="switchArea('trip');switchSub('trip','d4')">
+      <div class="qb-icon">🏰</div><div class="qb-label">Disneyland<br>1 Sep</div>
+    </div>
+    <div class="quick-btn" onclick="switchArea('trip');switchSub('trip','d5')">
+      <div class="qb-icon">❄️</div><div class="qb-label">Adventure<br>2 Sep</div>
+    </div>
+    <div class="quick-btn" onclick="switchArea('tools');switchSub('tools','budget')">
+      <div class="qb-icon">💶</div><div class="qb-label">Presu-<br>puesto</div>
+    </div>
+    <div class="quick-btn" onclick="switchArea('guides');switchSub('guides','explorer')">
+      <div class="qb-icon">🔍</div><div class="qb-label">Guía<br>Explorador</div>
+    </div>
+  </div>
+
+  <!-- DARK MODE TOGGLE integrado -->
+  <div style="padding:16px 20px;display:flex;justify-content:flex-end;gap:10px;align-items:center;">
+    <span style="font-size:.75rem;color:#aaa;">Modo oscuro</span>
+    <button onclick="toggleDark()" id="darkBtn"
+      style="background:var(--navy);color:var(--gold-light);border:none;padding:6px 14px;border-radius:20px;cursor:pointer;font-size:.8rem;font-family:'DM Sans',sans-serif;">🌙 Activar</button>
+    <button onclick="togglePresentation()" id="presBtn"
+      style="background:var(--gold);color:#fff;border:none;padding:6px 14px;border-radius:20px;cursor:pointer;font-size:.8rem;font-family:'DM Sans',sans-serif;">📺 Presentar</button>
+  </div>
+
+  <!-- RESUMEN SEMANA (cards 3D) -->
+  <div style="padding:0 20px 8px;">
+    <div style="font-size:.68rem;text-transform:uppercase;letter-spacing:1.5px;color:#aaa;font-weight:600;margin-bottom:10px;">Los 7 días</div>
+  </div>
+  <div class="day-cards-scroll">
+
+    <div class="day-card-3d" onclick="switchArea('trip');switchSub('trip','d1')" id="dc-d1"
+      style="--dc-color1:#1a4d2e;--dc-color2:#2d6a4f;">
+      <div class="dc3-bg" style="background:linear-gradient(135deg,#1a4d2e,#2d6a4f);"></div>
+      <div class="dc3-emoji">🛬</div>
+      <div class="dc3-content">
+        <div class="dc3-day">Sábado 29 agosto</div>
+        <div class="dc3-title">Llegada a Francia</div>
+        <div class="dc3-sub">Aeropuerto → Apartamento → Auchan</div>
+        <div class="dc3-stops">
+          <span class="dc3-stop">11:25h aterrizaje</span>
+          <span class="dc3-stop">Auchan</span>
+          <span class="dc3-stop">Check-in 16h</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-3d" onclick="switchArea('trip');switchSub('trip','d2')" id="dc-d2"
+      style="">
+      <div class="dc3-bg" style="background:linear-gradient(135deg,#003087,#1565c0);"></div>
+      <div class="dc3-emoji">🗼</div>
+      <div class="dc3-content">
+        <div class="dc3-day">Domingo 30 agosto</div>
+        <div class="dc3-title">París · Día 1</div>
+        <div class="dc3-sub">Trocadéro · Batobus · Notre-Dame · Arco del Triunfo</div>
+        <div class="dc3-stops">
+          <span class="dc3-stop">Trocadéro</span>
+          <span class="dc3-stop">⛵ Batobus</span>
+          <span class="dc3-stop">Notre-Dame</span>
+          <span class="dc3-stop">Arco</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-3d" onclick="switchArea('trip');switchSub('trip','d3')" id="dc-d3">
+      <div class="dc3-bg" style="background:linear-gradient(135deg,#003087,#0d47a1);"></div>
+      <div class="dc3-emoji">🎨</div>
+      <div class="dc3-content">
+        <div class="dc3-day">Lunes 31 agosto</div>
+        <div class="dc3-title">París · Día 2</div>
+        <div class="dc3-sub">Louvre · Saint-Germain · Le Marais</div>
+        <div class="dc3-stops">
+          <span class="dc3-stop">Louvre</span>
+          <span class="dc3-stop">Saint-Germain</span>
+          <span class="dc3-stop">Le Marais</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-3d" onclick="switchArea('trip');switchSub('trip','d4')" id="dc-d4">
+      <div class="dc3-bg" style="background:linear-gradient(135deg,#4b0082,#7b1fa2);"></div>
+      <div class="dc3-emoji">🏰</div>
+      <div class="dc3-content">
+        <div class="dc3-day">Martes 1 septiembre</div>
+        <div class="dc3-title">Disneyland Park</div>
+        <div class="dc3-sub">Fantasyland · Parade · Disney Illuminations</div>
+        <div class="dc3-stops">
+          <span class="dc3-stop">Peter Pan</span>
+          <span class="dc3-stop">Parade</span>
+          <span class="dc3-stop">Fuegos</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-3d" onclick="switchArea('trip');switchSub('trip','d5')" id="dc-d5">
+      <div class="dc3-bg" style="background:linear-gradient(135deg,#0d47a1,#1976d2);"></div>
+      <div class="dc3-emoji">❄️</div>
+      <div class="dc3-content">
+        <div class="dc3-day">Miércoles 2 septiembre</div>
+        <div class="dc3-title">Disney Adventure World</div>
+        <div class="dc3-sub">World of Frozen · Avengers · Pixar</div>
+        <div class="dc3-stops">
+          <span class="dc3-stop">❄️ Frozen</span>
+          <span class="dc3-stop">🕷️ Avengers</span>
+          <span class="dc3-stop">🐀 Ratatouille</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-3d" onclick="switchArea('trip');switchSub('trip','d6')" id="dc-d6">
+      <div class="dc3-bg" style="background:linear-gradient(135deg,#7a3500,#c0602b);"></div>
+      <div class="dc3-emoji">☀️</div>
+      <div class="dc3-content">
+        <div class="dc3-day">Jueves 3 septiembre</div>
+        <div class="dc3-title">Día Libre</div>
+        <div class="dc3-sub">Versalles · La Vallée Village · Descanso</div>
+        <div class="dc3-stops">
+          <span class="dc3-stop">Versalles</span>
+          <span class="dc3-stop">La Vallée Village</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="day-card-3d" onclick="switchArea('trip');switchSub('trip','d7')" id="dc-d7">
+      <div class="dc3-bg" style="background:linear-gradient(135deg,#7a0000,#c0392b);"></div>
+      <div class="dc3-emoji">✈️</div>
+      <div class="dc3-content">
+        <div class="dc3-day">Viernes 4 septiembre</div>
+        <div class="dc3-title">Vuelta a Casa</div>
+        <div class="dc3-sub">Check-out · Traslado 10:15h · Vuelo 14:05h ORY→SCQ</div>
+        <div class="dc3-stops">
+          <span class="dc3-stop">Check-out 9h</span>
+          <span class="dc3-stop">Orly 14:05h</span>
+          <span class="dc3-stop">Vueling</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div><!-- /area-home -->
+
+<!-- ═══════════════════════════════════
+     ÁREA: VIAJE (itinerario día a día)
+═══════════════════════════════════ -->
+<div class="area" id="area-trip">
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb-bar">
+    <button class="bc-back" onclick="switchArea('home')" aria-label="Volver">←</button>
+    <div class="bc-trail">
+      <span class="bc-area" onclick="switchArea('home')">🏠 Inicio</span>
+      <span class="bc-sep">›</span>
+      <span class="bc-current" id="bc-trip-current">📅 Viaje</span>
+    </div>
+  </div>
+  <div class="sub-nav" id="subnav-trip">
+    <button class="sub-btn active" onclick="switchSub('trip','d1')">🛬 29 Ago</button>
+    <button class="sub-btn" onclick="switchSub('trip','d2')">🗼 30 Ago</button>
+    <button class="sub-btn" onclick="switchSub('trip','d3')">🎨 31 Ago</button>
+    <button class="sub-btn" onclick="switchSub('trip','d4')">🏰 1 Sep</button>
+    <button class="sub-btn" onclick="switchSub('trip','d5')">❄️ 2 Sep</button>
+    <button class="sub-btn" onclick="switchSub('trip','d6')">☀️ 3 Sep</button>
+    <button class="sub-btn" onclick="switchSub('trip','d7')">✈️ 4 Sep</button>
+  </div>
+
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<!-- ═══ BOTTOM NAVIGATION ═══ -->
+<div class="bottom-nav">
+  <button class="bn-btn active" onclick="switchArea('home')" id="bn-home">
+    <div class="bn-dot visible" id="dot-home"></div>
+    <span class="bn-icon">🏠</span>
+    <span class="bn-label">Hoy</span>
+  </button>
+  <button class="bn-btn" onclick="switchArea('trip')" id="bn-trip">
+    <span class="bn-icon">📅</span>
+    <span class="bn-label">Viaje</span>
+  </button>
+  <button class="bn-btn" onclick="switchArea('guides')" id="bn-guides">
+    <span class="bn-icon">🗺️</span>
+    <span class="bn-label">Guías</span>
+  </button>
+  <button class="bn-btn" onclick="switchArea('tools')" id="bn-tools">
+    <span class="bn-icon">🛠️</span>
+    <span class="bn-label">Útiles</span>
+  </button>
+  <button class="bn-btn" onclick="switchArea('more')" id="bn-more">
+    <span class="bn-icon">⋯</span>
+    <span class="bn-label">Más</span>
+  </button>
 </div>
 
-<!-- ═══ INSTALL BANNER (shown when not yet installed as PWA) ═══ -->
-<div id="install-banner">
-  <span class="ib-icon">🗼</span>
-  <div class="ib-text">
-    <strong>Instalar app · Francia 2026</strong>
-    Añade esta guía a tu pantalla de inicio para acceder sin navegador
+<!-- FAB TODAY -->
+<button class="fab-today" id="fabToday" onclick="goToToday()" title="Ir al día de hoy">📅</button>
+
+<!-- SWIPE BACK INDICATOR -->
+<div class="swipe-indicator" id="swipeIndicator"></div>
+
+<!-- NAVIGATION TOAST -->
+<div class="nav-toast" id="navToast"></div>
+
+<!-- CONFETTI CONTAINER -->
+<div class="confetti-container" id="confettiContainer"></div>
+
+<!-- ═══ INSTALL BANNER ═══ -->
+<div id="install-banner" style="display:none;position:fixed;top:0;left:0;right:0;background:linear-gradient(90deg,#0a1628,#1e3a5f);color:#fff;padding:12px 16px;z-index:9999;align-items:center;gap:12px;box-shadow:0 3px 16px rgba(0,0,0,.4);border-bottom:2px solid var(--gold);">
+  <span style="font-size:1.4rem;flex-shrink:0;">🗼</span>
+  <div style="flex:1;font-size:.78rem;line-height:1.4;">
+    <strong style="display:block;font-size:.85rem;color:var(--gold-light);">Instalar app · Francia 2026</strong>
+    Añade esta guía a tu pantalla de inicio
   </div>
-  <button class="ib-install" id="install-btn">Instalar</button>
-  <button class="ib-close" onclick="dismissInstall()">✕</button>
+  <button id="install-btn" style="background:var(--gold);color:#fff;border:none;padding:8px 16px;border-radius:20px;font-weight:700;font-size:.78rem;cursor:pointer;white-space:nowrap;font-family:'DM Sans',sans-serif;">Instalar</button>
+  <button onclick="dismissInstall()" style="background:none;border:none;color:rgba(255,255,255,.5);font-size:1.1rem;cursor:pointer;padding:4px;flex-shrink:0;">✕</button>
 </div>
 
-<!-- FLOATING TOOLBAR -->
-<div class="floating-toolbar">
-  <button class="ftb-btn ftb-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Ir arriba">⬆️</button>
-  <button class="ftb-btn ftb-dark" onclick="toggleDark()" title="Modo oscuro" id="darkBtn">🌙</button>
-  <button class="ftb-btn ftb-present" onclick="togglePresentation()" title="Modo presentación" id="presBtn">📺</button>
-</div>
-
-<!-- PRESENTATION NAV BAR -->
+<!-- PRESENTATION BAR -->
 <div class="presentation-bar">
   <button class="pres-btn" onclick="presNav(-1)">← Anterior</button>
   <span class="pres-slide-info" id="presInfo">Vista general</span>
@@ -540,64 +1083,10 @@ body.presentation .presentation-bar { display:flex; }
   <button class="pres-btn" onclick="togglePresentation()" style="background:rgba(200,0,0,.3);">✕ Salir</button>
 </div>
 
-<!-- LIVE TRAVEL BANNER (hidden until travel dates) -->
-<div id="live-banner" style="display:none;background:linear-gradient(90deg,#c9a84c,#e8c56a);padding:12px 20px;align-items:center;gap:12px;cursor:pointer;justify-content:center;">
-  <span style="font-size:1.1rem;">🗓️</span>
-  <span id="live-banner-text" style="font-weight:700;font-size:.9rem;color:var(--navy);"></span>
-  <span style="font-size:.8rem;color:var(--navy);opacity:.7;">· Pulsa para ir al día de hoy →</span>
-</div>
 
-<!-- COUNTDOWN -->
-<div class="countdown-bar">
-  <div>
-    <div class="days-num" id="daysLeft">—</div>
-    <div class="days-label">días para el viaje</div>
-  </div>
-  <div class="countdown-nums" id="countdown-nums">
-    <div class="c-box"><div class="n" id="c-d">—</div><div class="u">días</div></div>
-    <div class="c-box"><div class="n" id="c-h">—</div><div class="u">horas</div></div>
-    <div class="c-box"><div class="n" id="c-m">—</div><div class="u">min</div></div>
-  </div>
-  <div class="progress-wrap">
-    <div class="label">Progreso hasta el viaje</div>
-    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-    <div class="day-markers"><span>Hoy</span><span>29 ago</span></div>
-  </div>
-</div>
-
-<!-- TABS -->
-<div class="tabs-wrapper">
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('overview')">📅 Resumen</button>
-    <button class="tab-btn" onclick="switchTab('d1')">29 Ago · Llegada</button>
-    <button class="tab-btn" onclick="switchTab('d2')">30 Ago · París 1</button>
-    <button class="tab-btn" onclick="switchTab('d3')">31 Ago · París 2</button>
-    <button class="tab-btn" onclick="switchTab('d4')">1 Sep · Disney 1</button>
-    <button class="tab-btn" onclick="switchTab('d5')">2 Sep · Disney 2</button>
-    <button class="tab-btn" onclick="switchTab('d6')">3 Sep · Libre</button>
-    <button class="tab-btn" onclick="switchTab('d7')">4 Sep · Vuelta</button>
-    <button class="tab-btn" onclick="switchTab('budget')">💶 Presupuesto</button>
-    <button class="tab-btn" onclick="switchTab('batobus')">⛵ Batobus</button>
-    <button class="tab-btn" onclick="switchTab('french')">🇫🇷 Francés</button>
-    <button class="tab-btn" onclick="switchTab('food')">🧀 Comida</button>
-    <button class="tab-btn" onclick="switchTab('checklist')">✅ Checklist</button>
-    <button class="tab-btn" onclick="switchTab('rain')">🌧️ Plan B</button>
-    <button class="tab-btn" onclick="switchTab('emergency')">🏥 Emergencias</button>
-    <button class="tab-btn" onclick="switchTab('disney-guide')">🎢 Guía Disney</button>
-    <button class="tab-btn" onclick="switchTab('souvenirs')">🎁 Souvenirs</button>
-    <button class="tab-btn" onclick="switchTab('paris-map')">🗺️ Mapa París</button>
-    <button class="tab-btn" onclick="switchTab('weather')">🌤️ El Tiempo</button>
-    <button class="tab-btn" onclick="switchTab('firstaid')">🩹 Primeros Auxilios</button>
-    <button class="tab-btn" onclick="switchTab('games')">🎮 Juegos RER</button>
-    <button class="tab-btn" onclick="switchTab('photos')">📸 Nuestras Fotos</button>
-    <button class="tab-btn" onclick="switchTab('explorer')">🔍 Guía Explorador</button>
-    <button class="tab-btn" onclick="switchTab('maps')">🧭 Rutas y Mapas</button>
-    <button class="tab-btn" onclick="switchTab('install')">📲 Instalar App</button>
-  </div>
-</div>
 
 <!-- ═══════════ TAB: RESUMEN ═══════════ -->
-<div id="tab-overview" class="tab-content active">
+<div id="sub-overview" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#e8eef5;color:var(--paris-blue);">🗺️</div>
@@ -664,7 +1153,7 @@ body.presentation .presentation-bar { display:flex; }
       <!-- Foto salón -->
       <div style="border-radius:10px;overflow:hidden;background:#f0f4e8;height:140px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
         <span style="font-size:2rem;">🛋️</span>
-        <span style="font-size:.72rem;color:#666;text-align:center;padding:0 8px;">Salón amplio con mesa<br>para 9 personas</span>
+        <span style="font-size:.72rem;color:#666;text-align:center;padding:0 8px;">Salón amplio con mesa<br>para 8 personas</span>
       </div>
       <!-- Foto cocina -->
       <div style="border-radius:10px;overflow:hidden;background:#f5f0e8;height:140px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
@@ -697,7 +1186,7 @@ body.presentation .presentation-bar { display:flex; }
 
     <!-- Características clave vistas en las fotos -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-      <div style="background:#e8f4e8;border-radius:8px;padding:8px 10px;font-size:.78rem;">✅ Salón-comedor para 9 personas</div>
+      <div style="background:#e8f4e8;border-radius:8px;padding:8px 10px;font-size:.78rem;">✅ Salón-comedor para 8 personas</div>
       <div style="background:#e8f4e8;border-radius:8px;padding:8px 10px;font-size:.78rem;">✅ Cocina completa con isla</div>
       <div style="background:#e8f4e8;border-radius:8px;padding:8px 10px;font-size:.78rem;">✅ 2 literas para los gemelos</div>
       <div style="background:#e8f4e8;border-radius:8px;padding:8px 10px;font-size:.78rem;">✅ Terraza/jardín con sillas</div>
@@ -757,7 +1246,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: DÍA 1 ═══════════ -->
-<div id="tab-d1" class="tab-content">
+<div id="sub-d1" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#e8f4e8;color:var(--green);">✈️</div>
@@ -781,7 +1270,7 @@ body.presentation .presentation-bar { display:flex; }
         </div>
         <div class="timeline-item">
           <div class="t-time">13:30</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🛒 Gran compra en Auchan · Val d'Europe</strong><p>El Auchan de Val d'Europe es enorme. Primera compra grande para toda la estancia: desayunos, cenas en casa, snacks Disney, agua.</p><div class="tip">🛒 Presupuesto orientativo: 200-260€ para 9 personas (leche, pan, fruta, embutidos, agua×15 litros, snacks, café).</div></div>
+          <div class="t-content"><strong>🛒 Gran compra en Auchan · Val d'Europe</strong><p>El Auchan de Val d'Europe es enorme. Primera compra grande para toda la estancia: desayunos, cenas en casa, snacks Disney, agua.</p><div class="tip">🛒 Presupuesto orientativo: 200-260€ para 8 personas (leche, pan, fruta, embutidos, agua×15 litros, snacks, café).</div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">15:30</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
@@ -802,7 +1291,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: DÍA 2 ═══════════ -->
-<div id="tab-d2" class="tab-content">
+<div id="sub-d2" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#e8eef5;color:var(--paris-blue);">🗼</div>
@@ -836,7 +1325,7 @@ body.presentation .presentation-bar { display:flex; }
         </div>
         <div class="timeline-item">
           <div class="t-time">11:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>⛵ → Notre-Dame · Picnic en Île de la Cité</strong><p>Bajar en parada Notre-Dame. Admirar la catedral. Picnic en los jardines — la opción más práctica con 9 personas y gemelos.</p></div>
+          <div class="t-content"><strong>⛵ → Notre-Dame · Picnic en Île de la Cité</strong><p>Bajar en parada Notre-Dame. Admirar la catedral. Picnic en los jardines — la opción más práctica con 8 personas y gemelos.</p></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">13:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
@@ -861,7 +1350,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: DÍA 3 ═══════════ -->
-<div id="tab-d3" class="tab-content">
+<div id="sub-d3" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#e8eef5;color:var(--paris-blue);">🎨</div>
@@ -908,7 +1397,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: DÍA 4 ═══════════ -->
-<div id="tab-d4" class="tab-content">
+<div id="sub-d4" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#f0e8f8;color:var(--disney-purple);">🏰</div>
@@ -959,7 +1448,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: DÍA 5 ═══════════ -->
-<div id="tab-d5" class="tab-content">
+<div id="sub-d5" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#e8f0f8;color:var(--disney-blue);">❄️</div>
@@ -1014,7 +1503,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: DÍA 6 ═══════════ -->
-<div id="tab-d6" class="tab-content">
+<div id="sub-d6" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#fff0e8;color:#c0602b;">☀️</div>
@@ -1059,7 +1548,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: DÍA 7 ═══════════ -->
-<div id="tab-d7" class="tab-content">
+<div id="sub-d7" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#f5e8e8;color:var(--red);">✈️</div>
@@ -1086,7 +1575,7 @@ body.presentation .presentation-bar { display:flex; }
         </div>
         <div class="timeline-item">
           <div class="t-time">11:05</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🛫 Llegada a Orly · 3h antes</strong><p>Facturación, seguridad, control de pasaportes. Con 9 personas y niños, el margen de 3h es el correcto.</p></div>
+          <div class="t-content"><strong>🛫 Llegada a Orly · 3h antes</strong><p>Facturación, seguridad, control de pasaportes. Con 8 personas y niños, el margen de 3h es el correcto.</p></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">14:05</div><div class="t-dot-col"><div class="t-dot"></div></div>
@@ -1099,7 +1588,53 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: PRESUPUESTO ═══════════ -->
-<div id="tab-budget" class="tab-content">
+</div><!-- /area-trip -->
+
+<!-- ═══ ÁREA: GUÍAS ═══ -->
+<div class="area" id="area-guides">
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb-bar">
+    <button class="bc-back" onclick="switchArea('home')" aria-label="Volver">←</button>
+    <div class="bc-trail">
+      <span class="bc-area" onclick="switchArea('home')">🏠 Inicio</span>
+      <span class="bc-sep">›</span>
+      <span class="bc-current" id="bc-guides-current">🗺️ Guías</span>
+    </div>
+  </div>
+<div class="sub-nav" id="subnav-guides">
+  <button class="sub-btn active" onclick="switchSub('guides','explorer')">🔍 Explorador</button>
+  <button class="sub-btn" onclick="switchSub('guides','batobus')">⛵ Batobus</button>
+  <button class="sub-btn" onclick="switchSub('guides','maps')">🧭 Rutas</button>
+  <button class="sub-btn" onclick="switchSub('guides','paris-map')">🗺️ Mapa París</button>
+  <button class="sub-btn" onclick="switchSub('guides','french')">🇫🇷 Francés</button>
+  <button class="sub-btn" onclick="switchSub('guides','food')">🧀 Comida</button>
+  <button class="sub-btn" onclick="switchSub('guides','disney-guide')">🎢 Disney</button>
+</div>
+
+</div><!-- /area-guides -->
+
+<!-- ═══ ÁREA: ÚTILES ═══ -->
+<div class="area" id="area-tools">
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb-bar">
+    <button class="bc-back" onclick="switchArea('home')" aria-label="Volver">←</button>
+    <div class="bc-trail">
+      <span class="bc-area" onclick="switchArea('home')">🏠 Inicio</span>
+      <span class="bc-sep">›</span>
+      <span class="bc-current" id="bc-tools-current">🛠️ Útiles</span>
+    </div>
+  </div>
+<div class="sub-nav" id="subnav-tools">
+  <button class="sub-btn active" onclick="switchSub('tools','budget')">💶 Presupuesto</button>
+  <button class="sub-btn" onclick="switchSub('tools','checklist')">✅ Checklist</button>
+  <button class="sub-btn" onclick="switchSub('tools','weather')">🌤️ Tiempo</button>
+  <button class="sub-btn" onclick="switchSub('tools','firstaid')">🩹 Primeros Auxilios</button>
+  <button class="sub-btn" onclick="switchSub('tools','rain')">🌧️ Plan B</button>
+  <button class="sub-btn" onclick="switchSub('tools','emergency')">🏥 Emergencias</button>
+  <button class="sub-btn" onclick="switchSub('tools','souvenirs')">🎁 Souvenirs</button>
+</div>
+
+<div id="sub-budget" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#e8f4e8;color:var(--green);">💶</div>
@@ -1108,7 +1643,7 @@ body.presentation .presentation-bar { display:flex; }
   <div class="info-box">
     <h4>⚙️ Ajusta tu grupo</h4>
     <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:14px;">
-      <label style="font-size:.82rem;">Adultos (≥12): <input type="number" id="numAdults" class="budget-input" value="6" min="0" max="10" oninput="calcBudget()"></label>
+      <label style="font-size:.82rem;">Adultos (≥12): <input type="number" id="numAdults" class="budget-input" value="5" min="0" max="10" oninput="calcBudget()"></label>
       <label style="font-size:.82rem;">Niños 4-11: <input type="number" id="numKids" class="budget-input" value="3" min="0" max="10" oninput="calcBudget()"></label>
       <label style="font-size:.82rem;">Días París: <input type="number" id="numParisDays" class="budget-input" value="2" min="1" max="5" oninput="calcBudget()"></label>
       <label style="font-size:.82rem;">Días Disney: <input type="number" id="numDisneyDays" class="budget-input" value="2" min="1" max="3" oninput="calcBudget()"></label>
@@ -1135,7 +1670,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: BATOBUS ═══════════ -->
-<div id="tab-batobus" class="tab-content">
+<div id="sub-batobus" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#e8f0f8;color:#1a6cb5;">⛵</div>
@@ -1220,7 +1755,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: FRANCÉS ═══════════ -->
-<div id="tab-french" class="tab-content">
+<div id="sub-french" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#e8eef5;color:var(--paris-blue);">🇫🇷</div>
@@ -1381,7 +1916,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: COMIDA ═══════════ -->
-<div id="tab-food" class="tab-content">
+<div id="sub-food" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#fff0e8;color:#c0602b;">🧀</div>
@@ -1444,7 +1979,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: CHECKLIST ═══════════ -->
-<div id="tab-checklist" class="tab-content">
+<div id="sub-checklist" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#e8f4e8;color:var(--green);">✅</div>
@@ -1470,10 +2005,10 @@ body.presentation .presentation-bar { display:flex; }
     <div class="checklist-label">Progreso: <span id="prog-res">0/0</span></div>
     <div class="checklist-progress"><div class="checklist-progress-fill" id="pfill-res" style="width:0%"></div></div>
     <ul class="checklist" id="cl-res">
-      <li onclick="toggleCheck(this,'cl-res')"><div class="check-box"></div><span><strong>Entradas Disney (192€ · pase 2 días)</strong> × 9 personas — comprar ya online</span></li>
+      <li onclick="toggleCheck(this,'cl-res')"><div class="check-box"></div><span><strong>Entradas Disney (192€ · pase 2 días)</strong> × 8 personas — comprar ya online</span></li>
       <li onclick="toggleCheck(this,'cl-res')"><div class="check-box"></div><span><strong>Batobus pase 2 días</strong> × 8 — reservar online para saltar cola</span></li>
       <li onclick="toggleCheck(this,'cl-res')"><div class="check-box"></div><span><strong>Versalles</strong> (si se elige el jueves) — reserva online muy recomendable</span></li>
-      <li onclick="toggleCheck(this,'cl-res')"><div class="check-box"></div><span><strong>Seguro de viaje</strong> con cobertura médica y cancelación para 9 personas</span></li>
+      <li onclick="toggleCheck(this,'cl-res')"><div class="check-box"></div><span><strong>Seguro de viaje</strong> con cobertura médica y cancelación para 8 personas</span></li>
       <li onclick="toggleCheck(this,'cl-res')"><div class="check-box"></div><span>Comprobar <strong>Tarjeta Sanitaria Europea</strong> vigente para todos</span></li>
     </ul>
   </div>
@@ -1498,7 +2033,7 @@ body.presentation .presentation-bar { display:flex; }
     <div class="checklist-label">Progreso: <span id="prog-health">0/0</span></div>
     <div class="checklist-progress"><div class="checklist-progress-fill" id="pfill-health" style="width:0%"></div></div>
     <ul class="checklist" id="cl-health">
-      <li onclick="toggleCheck(this,'cl-health')"><div class="check-box"></div><span>Pasaportes válidos × 9 personas</span></li>
+      <li onclick="toggleCheck(this,'cl-health')"><div class="check-box"></div><span>Pasaportes válidos × 8 personas</span></li>
       <li onclick="toggleCheck(this,'cl-health')"><div class="check-box"></div><span>Fotocopia/foto digital de todos los pasaportes en la nube</span></li>
       <li onclick="toggleCheck(this,'cl-health')"><div class="check-box"></div><span>Medicamentos habituales (tensión, colesterol, etc. — especialmente abuelos)</span></li>
       <li onclick="toggleCheck(this,'cl-health')"><div class="check-box"></div><span>Botiquín: ibuprofeno, paracetamol, tiritas, alcohol, antihistamínico</span></li>
@@ -1524,7 +2059,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: PLAN B LLUVIA ═══════════ -->
-<div id="tab-rain" class="tab-content">
+<div id="sub-rain" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#e8f0f8;color:#1a6cb5;">🌧️</div>
@@ -1579,7 +2114,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: EMERGENCIAS ═══════════ -->
-<div id="tab-emergency" class="tab-content">
+<div id="sub-emergency" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#f5e8e8;color:var(--red);">🏥</div>
@@ -1672,7 +2207,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: GUÍA DISNEY ═══════════ -->
-<div id="tab-disney-guide" class="tab-content">
+<div id="sub-disney-guide" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#f0e8f8;color:var(--disney-purple);">🎢</div>
@@ -1874,7 +2409,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: SOUVENIRS ═══════════ -->
-<div id="tab-souvenirs" class="tab-content">
+<div id="sub-souvenirs" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#fff0e8;color:#c0602b;">🎁</div>
@@ -1991,7 +2526,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: MAPA PARÍS ═══════════ -->
-<div id="tab-paris-map" class="tab-content">
+<div id="sub-paris-map" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#e8eef5;color:var(--paris-blue);">🗺️</div>
@@ -2209,7 +2744,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: EL TIEMPO ═══════════ -->
-<div id="tab-weather" class="tab-content">
+<div id="sub-weather" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#e3f2fd;color:#1565c0;">🌤️</div>
@@ -2316,7 +2851,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: PRIMEROS AUXILIOS ═══════════ -->
-<div id="tab-firstaid" class="tab-content">
+<div id="sub-firstaid" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#fce4ec;color:var(--red);">🩹</div>
@@ -2445,7 +2980,26 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: JUEGOS RER ═══════════ -->
-<div id="tab-games" class="tab-content">
+</div><!-- /area-tools -->
+
+<!-- ═══ ÁREA: MÁS ═══ -->
+<div class="area" id="area-more">
+  <!-- BREADCRUMB -->
+  <div class="breadcrumb-bar">
+    <button class="bc-back" onclick="switchArea('home')" aria-label="Volver">←</button>
+    <div class="bc-trail">
+      <span class="bc-area" onclick="switchArea('home')">🏠 Inicio</span>
+      <span class="bc-sep">›</span>
+      <span class="bc-current" id="bc-more-current">⋯ Más</span>
+    </div>
+  </div>
+<div class="sub-nav" id="subnav-more">
+  <button class="sub-btn active" onclick="switchSub('more','games')">🎮 Juegos</button>
+  <button class="sub-btn" onclick="switchSub('more','photos')">📸 Fotos</button>
+  <button class="sub-btn" onclick="switchSub('more','install')">📲 Instalar</button>
+</div>
+
+<div id="sub-games" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#f0e8f8;color:var(--disney-purple);">🎮</div>
@@ -2514,14 +3068,14 @@ body.presentation .presentation-bar { display:flex; }
     </div>
     <div class="aid-card" style="border:none;padding:8px 0;">
       <div class="aid-icon" style="font-size:1.3rem;">✋</div>
-      <div><h5 style="font-size:.85rem;">Piedra, papel, tijera · Torneo</h5><p style="font-size:.78rem;color:#555;">El torneo familiar de los 9. Emparejamientos al azar hasta el campeón. Los abuelos arbitran. Garantizado 5 minutos de risas.</p></div>
+      <div><h5 style="font-size:.85rem;">Piedra, papel, tijera · Torneo</h5><p style="font-size:.78rem;color:#555;">El torneo familiar de los 8. Emparejamientos al azar hasta el campeón. Los abuelos arbitran. Garantizado 5 minutos de risas.</p></div>
     </div>
   </div>
 </div>
 </div>
 
 <!-- ═══════════ TAB: NUESTRAS FOTOS ═══════════ -->
-<div id="tab-photos" class="tab-content">
+<div id="sub-photos" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#fff0e8;color:#c0602b;">📸</div>
@@ -2561,7 +3115,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: INSTALAR APP ═══════════ -->
-<div id="tab-install" class="tab-content">
+<div id="sub-install" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#e8f4e8;color:var(--green);">📲</div>
@@ -2663,7 +3217,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: GUÍA DEL EXPLORADOR ═══════════ -->
-<div id="tab-explorer" class="tab-content">
+<div id="sub-explorer" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#fff0e8;color:#c0602b;">🔍</div>
@@ -3157,7 +3711,7 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <!-- ═══════════ TAB: RUTAS Y MAPAS ═══════════ -->
-<div id="tab-maps" class="tab-content">
+<div id="sub-maps" class="sub-panel">
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#e8eef5;color:var(--paris-blue);">🧭</div>
@@ -3351,6 +3905,9 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 </div>
 
+</div><!-- /area-more -->
+
+
 <!-- FOOTER -->
 <div class="footer">
   <p>Itinerario creado para la familia · <strong>Francia 2026</strong></p>
@@ -3363,27 +3920,145 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 
 <script>
-// ─── TAB SWITCHER ───
+// ═══════════════════════════════════════
+// UX ENGINE v8 — NAVEGACIÓN + BACK + SWIPE
+// ═══════════════════════════════════════
+
+// ─── NAVIGATION HISTORY ───
+const navHistory = [];
+const AREA_NAMES = {
+  home: '🏠 Inicio', trip: '📅 Viaje', guides: '🗺️ Guías',
+  tools: '🛠️ Útiles', more: '⋯ Más'
+};
+const SUB_NAMES = {
+  d1:'Llegada 29 Ago', d2:'París Día 1', d3:'París Día 2',
+  d4:'Disneyland Park', d5:'Disney Adventure', d6:'Día Libre', d7:'Vuelta a casa',
+  budget:'Presupuesto', checklist:'Checklist', weather:'El Tiempo',
+  firstaid:'Primeros Auxilios', rain:'Plan B Lluvia', emergency:'Emergencias', souvenirs:'Souvenirs',
+  batobus:'Batobus', french:'Francés', food:'Comida',
+  'disney-guide':'Guía Disney', 'paris-map':'Mapa París', explorer:'Guía Explorador', maps:'Rutas y Mapas',
+  games:'Juegos RER', photos:'Nuestras Fotos', install:'Instalar App'
+};
+const AREA_ICONS = { home:'🏠', trip:'📅', guides:'🗺️', tools:'🛠️', more:'⋯' };
+
+// ─── AREA NAVIGATION ───
+const AREA_DEFAULTS = {
+  home: null, trip: 'd1', guides: 'explorer', tools: 'budget', more: 'games'
+};
+let currentArea = 'home';
+let currentSub = null;
+
+function switchArea(area, noScroll) {
+  document.querySelectorAll('.area').forEach(a => a.classList.remove('active'));
+  document.querySelectorAll('.bn-btn').forEach(b => b.classList.remove('active'));
+  const el = document.getElementById('area-' + area);
+  if (el) el.classList.add('active');
+  const btn = document.getElementById('bn-' + area);
+  if (btn) { btn.classList.add('active'); addRipple(btn); }
+  if (area !== 'home' && area !== currentArea) {
+    navHistory.push({area: currentArea, sub: currentSub});
+  }
+  currentArea = area;
+  if (!noScroll) window.scrollTo({top: 0, behavior: 'instant'});
+  if (AREA_DEFAULTS[area]) switchSub(area, AREA_DEFAULTS[area]);
+  updateBreadcrumb(area, currentSub);
+}
+
+// ─── SUB-NAV ───
+function switchSub(area, panelId) {
+  const areaEl = document.getElementById('area-' + area);
+  if (!areaEl) return;
+  areaEl.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById('sub-' + panelId);
+  if (panel) panel.classList.add('active');
+  currentSub = panelId;
+  const subnav = document.getElementById('subnav-' + area);
+  if (subnav) {
+    subnav.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+    subnav.querySelectorAll('.sub-btn').forEach(b => {
+      if (b.getAttribute('onclick') && b.getAttribute('onclick').includes("'" + panelId + "'")) {
+        b.classList.add('active');
+        b.scrollIntoView({block:'nearest', inline:'center', behavior:'smooth'});
+      }
+    });
+  }
+  updateBreadcrumb(area, panelId);
+}
+
+// ─── BREADCRUMB ───
+function updateBreadcrumb(area, panelId) {
+  if (area === 'home') return;
+  const bcCurrent = document.getElementById('bc-' + area + '-current');
+  if (!bcCurrent) return;
+  if (panelId && SUB_NAMES[panelId]) {
+    bcCurrent.textContent = (AREA_ICONS[area]||'') + ' ' + SUB_NAMES[panelId];
+  } else {
+    bcCurrent.textContent = AREA_NAMES[area] || area;
+  }
+}
+
+// ─── BACK NAVIGATION ───
+function goBack() {
+  if (navHistory.length > 0) {
+    const prev = navHistory.pop();
+    currentArea = 'home'; // prevent re-pushing
+    switchArea(prev.area, false);
+    if (prev.sub) setTimeout(() => switchSub(prev.area, prev.sub), 60);
+  } else {
+    switchArea('home');
+  }
+}
+
+// ─── LEGACY switchTab ───
 function switchTab(id) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  const btns = document.querySelectorAll('.tab-btn');
-  const labels = ['overview','d1','d2','d3','d4','d5','d6','d7','budget','batobus','french','food','checklist','rain','emergency','disney-guide','souvenirs','paris-map','weather','firstaid','games','photos','explorer','maps','install'];
-  const idx = labels.indexOf(id);
-  if (idx >= 0) {
-    btns[idx].classList.add('active');
-    // Scroll the active tab button into view within the tab bar (horizontal), not the page
-    btns[idx].scrollIntoView({block: 'nearest', inline: 'center', behavior: 'smooth'});
+  const areaMap = {
+    overview:'trip', d1:'trip', d2:'trip', d3:'trip', d4:'trip', d5:'trip', d6:'trip', d7:'trip',
+    budget:'tools', checklist:'tools', weather:'tools', firstaid:'tools', rain:'tools', emergency:'tools', souvenirs:'tools',
+    batobus:'guides', french:'guides', food:'guides', 'disney-guide':'guides', 'paris-map':'guides', explorer:'guides', maps:'guides',
+    games:'more', photos:'more', install:'more'
+  };
+  const area = areaMap[id] || 'home';
+  switchArea(area, false);
+  setTimeout(() => switchSub(area, id), 50);
+}
+
+// ─── SWIPE BACK GESTURE ───
+let touchStartX = 0, touchStartY = 0, isSwiping = false;
+const swipeIndicator = document.getElementById('swipeIndicator');
+document.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+  isSwiping = touchStartX < 28;
+}, {passive:true});
+document.addEventListener('touchmove', e => {
+  if (!isSwiping) return;
+  const dx = e.touches[0].clientX - touchStartX;
+  const dy = Math.abs(e.touches[0].clientY - touchStartY);
+  if (dy > 40) { isSwiping = false; if (swipeIndicator) swipeIndicator.classList.remove('showing'); return; }
+  if (dx > 12 && swipeIndicator) swipeIndicator.classList.add('showing');
+}, {passive:true});
+document.addEventListener('touchend', e => {
+  if (!isSwiping) return;
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (swipeIndicator) swipeIndicator.classList.remove('showing');
+  isSwiping = false;
+  if (dx > 60 && currentArea !== 'home') {
+    haptic('light');
+    const dest = navHistory.length > 0 ? navHistory[navHistory.length-1] : {area:'home'};
+    showToast('← ' + AREA_NAMES[dest.area]);
+    setTimeout(goBack, 80);
   }
-  // Scroll page just enough to show content below sticky tab bar, without jumping to top
-  const tabsWrapper = document.querySelector('.tabs-wrapper');
-  const tabsBottom = tabsWrapper.getBoundingClientRect().bottom;
-  if (tabsBottom > window.innerHeight * 0.5) {
-    // Tab bar is in view already — just nudge to content
-    const targetY = tabsWrapper.getBoundingClientRect().bottom + window.scrollY - 10;
-    window.scrollTo({top: Math.max(0, targetY - tabsWrapper.offsetHeight - 60), behavior: 'smooth'});
-  }
+}, {passive:true});
+
+// ─── TOAST ───
+let toastTimer = null;
+function showToast(msg) {
+  const toast = document.getElementById('navToast');
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.classList.add('visible');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove('visible'), 1600);
 }
 
 // ─── ACCORDION ───
@@ -3393,223 +4068,229 @@ function toggleAccordion(el) {
   document.querySelectorAll('.accordion-item.open').forEach(i => i.classList.remove('open'));
   if (!isOpen) item.classList.add('open');
 }
+
 // ─── FLIP CARDS ───
-function flipCard(el) { el.classList.toggle('flipped'); }
+function flipCard(el) { el.classList.toggle('flipped'); haptic('light'); }
 
 // ─── DARK MODE ───
 function toggleDark() {
   document.body.classList.toggle('dark');
+  const isDark = document.body.classList.contains('dark');
   const btn = document.getElementById('darkBtn');
-  btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
-  try { localStorage.setItem('darkMode', document.body.classList.contains('dark')); } catch(e){}
+  if (btn) btn.textContent = isDark ? '☀️ Desactivar' : '🌙 Activar';
+  try { localStorage.setItem('darkMode', isDark); } catch(e){}
 }
 (function(){
-  try { if(localStorage.getItem('darkMode')==='true'){document.body.classList.add('dark'); const b=document.getElementById('darkBtn'); if(b) b.textContent='☀️';} } catch(e){}
+  try {
+    if (localStorage.getItem('darkMode') === 'true') {
+      document.body.classList.add('dark');
+      const b = document.getElementById('darkBtn');
+      if (b) b.textContent = '☀️ Desactivar';
+    }
+  } catch(e){}
 })();
 
-// ─── PRESENTATION MODE ───
-const presLabels = ['overview','d1','d2','d3','d4','d5','d6','d7','budget','batobus','french','food','checklist','rain','emergency','disney-guide','souvenirs','paris-map','weather','firstaid','games','photos','explorer','maps','install'];
-const presNames  = ['Resumen','Llegada 29 ago','París Día 1','París Día 2','Disney 1 sep','Disney 2 sep','Día Libre','Vuelta','Presupuesto','Batobus','Francés','Comida','Checklist','Plan lluvia','Emergencias','Guía Disney','Souvenirs','Mapa París','El Tiempo','Primeros Auxilios','Juegos RER','Nuestras Fotos','Guía Explorador','Rutas y Mapas','Instalar App'];
-let presIdx = 0;
-function togglePresentation() {
-  document.body.classList.toggle('presentation');
-  if (document.body.classList.contains('presentation')) {
-    const activeId = (document.querySelector('.tab-content.active')||{id:'tab-overview'}).id.replace('tab-','');
-    presIdx = Math.max(0, presLabels.indexOf(activeId));
-    updatePresSlide();
-    document.getElementById('presBtn').textContent = '✕';
-  } else {
-    document.getElementById('presBtn').textContent = '📺';
+// ─── PARTICLES ───
+function initParticles() {
+  const canvas = document.getElementById('particles-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const hero = canvas.closest('.home-hero');
+  if (!hero) return;
+  
+  function resize() {
+    canvas.width = hero.offsetWidth;
+    canvas.height = hero.offsetHeight;
   }
-}
-function presNav(dir) {
-  presIdx = Math.max(0, Math.min(presLabels.length - 1, presIdx + dir));
-  updatePresSlide();
-}
-function updatePresSlide() {
-  switchTab(presLabels[presIdx]);
-  const info = document.getElementById('presInfo');
-  if(info) info.textContent = (presIdx+1) + ' / ' + presLabels.length + ' · ' + presNames[presIdx];
-}
+  resize();
+  window.addEventListener('resize', resize);
 
-// ─── LIVE TRAVEL MODE ───
-function checkLiveDay() {
-  const tripDays = [
-    {date:'2026-08-29',tab:'d1',label:'¡Hoy llegáis a Francia! 🛬'},
-    {date:'2026-08-30',tab:'d2',label:'¡Hoy es París Día 1! 🗼'},
-    {date:'2026-08-31',tab:'d3',label:'¡Hoy es París Día 2! 🎨'},
-    {date:'2026-09-01',tab:'d4',label:'¡Hoy es Disneyland Park! 🏰'},
-    {date:'2026-09-02',tab:'d5',label:'¡Hoy es Disney Adventure World! ❄️'},
-    {date:'2026-09-03',tab:'d6',label:'¡Hoy es el día libre! ☀️'},
-    {date:'2026-09-04',tab:'d7',label:'¡Hoy voláis a casa! ✈️'},
-  ];
-  const todayStr = new Date().toISOString().slice(0,10);
-  const match = tripDays.find(d=>d.date===todayStr);
-  if(match){
-    const banner=document.getElementById('live-banner');
-    const txt=document.getElementById('live-banner-text');
-    if(banner&&txt){txt.textContent=match.label; banner.style.display='flex'; banner.onclick=()=>switchTab(match.tab);}
+  const particles = Array.from({length: 55}, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 2.5 + .5,
+    vx: (Math.random() - .5) * .4,
+    vy: (Math.random() - .5) * .4,
+    alpha: Math.random() * .6 + .2,
+    hue: Math.random() > .6 ? 45 : 0 // gold or white
+  }));
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = p.hue > 0
+        ? `rgba(201,168,76,${p.alpha})`
+        : `rgba(245,240,232,${p.alpha * .5})`;
+      ctx.fill();
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = canvas.width;
+      if (p.x > canvas.width) p.x = 0;
+      if (p.y < 0) p.y = canvas.height;
+      if (p.y > canvas.height) p.y = 0;
+    });
+    requestAnimationFrame(draw);
   }
+  draw();
 }
 
-// ─── PHOTO GALLERY ───
-let photoStore = [];
-try { photoStore = JSON.parse(localStorage.getItem('familyPhotos')||'[]'); } catch(e){}
-function renderPhotos() {
-  const grid=document.getElementById('photo-gallery-grid');
-  const count=document.getElementById('photo-count');
-  if(!grid) return;
-  grid.innerHTML='';
-  photoStore.forEach((p,i)=>{
-    const slot=document.createElement('div'); slot.className='photo-slot';
-    slot.innerHTML=`<img src="${p.data}" alt="foto"><div class="day-tag">${p.day||''}</div><button class="del-btn" onclick="deletePhoto(${i},event)">✕</button>`;
-    grid.appendChild(slot);
-  });
-  const addSlot=document.createElement('div'); addSlot.className='photo-slot';
-  addSlot.innerHTML=`<div class="add-icon">📷</div><div class="add-label">Añadir foto</div>`;
-  addSlot.onclick=()=>document.getElementById('photo-input').click();
-  grid.appendChild(addSlot);
-  if(count) count.textContent=photoStore.length+' foto'+(photoStore.length!==1?'s':'')+' guardada'+(photoStore.length!==1?'s':'');
-}
-function handlePhotoUpload(input) {
-  const day=document.getElementById('photo-day-select').value;
-  const files=Array.from(input.files); let loaded=0;
-  files.forEach(file=>{
-    const reader=new FileReader();
-    reader.onload=e=>{
-      photoStore.push({data:e.target.result,day,ts:Date.now()}); loaded++;
-      if(loaded===files.length){ try{localStorage.setItem('familyPhotos',JSON.stringify(photoStore));}catch(e){} renderPhotos(); }
-    };
-    reader.readAsDataURL(file);
-  });
-  input.value='';
-}
-function deletePhoto(i,e) {
-  e.stopPropagation();
-  if(confirm('¿Eliminar esta foto?')){ photoStore.splice(i,1); try{localStorage.setItem('familyPhotos',JSON.stringify(photoStore));}catch(e){} renderPhotos(); }
-}
+// ─── COUNTDOWN & HOME LOGIC ───
+const TRIP_DAYS = [
+  {date:'2026-08-29', tab:'d1', label:'¡Hoy llegáis! 🛬', sub:'Apartamento · Auchan · Instalación'},
+  {date:'2026-08-30', tab:'d2', label:'¡Hoy es París Día 1! 🗼', sub:'Trocadéro · Batobus · Notre-Dame'},
+  {date:'2026-08-31', tab:'d3', label:'¡Hoy es París Día 2! 🎨', sub:'Louvre · Saint-Germain · Le Marais'},
+  {date:'2026-09-01', tab:'d4', label:'¡Hoy es Disneyland Park! 🏰', sub:'Fantasyland · Parade · Fuegos'},
+  {date:'2026-09-02', tab:'d5', label:'¡Hoy es Disney Adventure World! ❄️', sub:'World of Frozen · Avengers · Pixar'},
+  {date:'2026-09-03', tab:'d6', label:'¡Hoy es el día libre! ☀️', sub:'Versalles · La Vallée Village'},
+  {date:'2026-09-04', tab:'d7', label:'¡Hoy voláis a casa! ✈️', sub:'Check-out 9h · Orly 10:15h · Vueling 14:05h'},
+];
 
-// ─── GAMES ───
-function randomPastel(){return `hsl(${Math.floor(Math.random()*360)},60%,82%)`;}
-// Number Hunt
-let huntTarget=0,huntFound=0,huntTotal=0;
-function startNumberHunt(){
-  huntTarget=Math.floor(Math.random()*9)+1; huntFound=0;
-  const ti=document.getElementById('hunt-target'); const fi=document.getElementById('hunt-found'); const tot=document.getElementById('hunt-total'); const grid=document.getElementById('hunt-grid');
-  if(!ti||!grid) return;
-  const nums=Array.from({length:24},()=>Math.floor(Math.random()*9)+1);
-  // Ensure at least 3 targets
-  for(let i=0;i<3;i++) nums[Math.floor(Math.random()*24)]=huntTarget;
-  huntTotal=nums.filter(n=>n===huntTarget).length;
-  ti.textContent=huntTarget; fi.textContent=0; if(tot) tot.textContent=huntTotal;
-  grid.innerHTML=nums.map(n=>`<div class="number-cell" style="background:${randomPastel()};color:#333;" onclick="huntTap(this,${n})">${n}</div>`).join('');
-}
-function huntTap(el,n){
-  if(el.classList.contains('found')) return;
-  if(n===huntTarget){ el.classList.add('found'); huntFound++; document.getElementById('hunt-found').textContent=huntFound; if(huntFound===huntTotal) setTimeout(()=>{alert('🎉 ¡Encontrados todos los '+huntTarget+'!'); startNumberHunt();},300); }
-  else { el.style.background='#ffcccc'; setTimeout(()=>el.style.background=randomPastel(),500); }
-}
-// Memory
-const memEmojis=['🏰','⛵','🗼','🥐','🎡','🍦','🐭','👑'];
-let memFlipped=[],memMatched=0,memLock=false;
-function startMemory(){
-  const pairs=[...memEmojis,...memEmojis].sort(()=>Math.random()-.5);
-  memFlipped=[]; memMatched=0; memLock=false;
-  const sc=document.getElementById('mem-score'); const grid=document.getElementById('memory-grid');
-  if(!grid) return;
-  if(sc) sc.textContent='0 parejas';
-  grid.innerHTML=pairs.map((e,i)=>`<div class="mem-card" data-emoji="${e}" onclick="flipMemCard(this)">\u00a0</div>`).join('');
-}
-function flipMemCard(el){
-  if(memLock||el.classList.contains('flipped')||el.classList.contains('matched')) return;
-  el.classList.add('flipped'); el.textContent=el.dataset.emoji; memFlipped.push(el);
-  if(memFlipped.length===2){
-    memLock=true;
-    if(memFlipped[0].dataset.emoji===memFlipped[1].dataset.emoji){
-      memFlipped.forEach(c=>c.classList.add('matched')); memMatched++;
-      const sc=document.getElementById('mem-score'); if(sc) sc.textContent=memMatched+' pareja'+(memMatched>1?'s':'');
-      memFlipped=[]; memLock=false;
-      if(memMatched===8) setTimeout(()=>alert('🎉 ¡Memoria perfecta!'),200);
-    } else { setTimeout(()=>{memFlipped.forEach(c=>{c.classList.remove('flipped');c.textContent='\u00a0';});memFlipped=[];memLock=false;},900); }
-  }
-}
-// Color game
-const colorList=[{name:'Rojo',hex:'#e74c3c'},{name:'Azul',hex:'#3498db'},{name:'Verde',hex:'#2ecc71'},{name:'Amarillo',hex:'#f1c40f'},{name:'Morado',hex:'#9b59b6'},{name:'Naranja',hex:'#e67e22'}];
-let colorTarget=null;
-function startColorGame(){
-  colorTarget=colorList[Math.floor(Math.random()*colorList.length)];
-  const box=document.getElementById('color-target-box'); if(box) box.style.background=colorTarget.hex;
-  const res=document.getElementById('color-result'); if(res) res.textContent='';
-  document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('selected'));
-}
-function selectColor(name){
-  document.querySelectorAll('.color-swatch').forEach(s=>s.classList.toggle('selected',s.dataset.color===name));
-  const res=document.getElementById('color-result'); if(!res||!colorTarget) return;
-  const ok=name===colorTarget.name;
-  res.textContent=ok?'✅ ¡Correcto! Es '+colorTarget.name:'❌ Era '+colorTarget.name+'. ¡Inténtalo!';
-  if(ok) setTimeout(startColorGame,1200);
-}
+let todayTabId = null;
 
-// ─── INIT ALL ───
-window.addEventListener('load', () => {
-  checkLiveDay();
-  renderPhotos();
-  startNumberHunt();
-  startMemory();
-  startColorGame();
-});
-
-// ─── WHATSAPP SHARE ───
-function shareWhatsApp() {
-  const msg = encodeURIComponent(
-    '🇫🇷 *Guía de Viaje · Francia 2026*\n\n' +
-    '📅 29 Agosto – 4 Septiembre\n' +
-    '🏠 Le Victoria Garden · Serris\n' +
-    '🏰 Disneyland Paris (2 días)\n' +
-    '🗼 París (2 días)\n\n' +
-    'Aquí tenéis el itinerario completo con todo lo que necesitáis saber:\n' +
-    '👉 ' + window.location.href
-  );
-  window.open('https://wa.me/?text=' + msg, '_blank');
-}
-function updateCountdown() {
+function updateHomeCountdown() {
   const target = new Date('2026-08-29T00:00:00');
   const now = new Date();
   const diff = target - now;
-  if (diff <= 0) {
-    document.getElementById('daysLeft').textContent = '¡Estáis en Francia!';
-    document.getElementById('c-d').textContent = '0';
-    document.getElementById('c-h').textContent = '0';
-    document.getElementById('c-m').textContent = '0';
-    document.getElementById('progressFill').style.width = '100%';
-    return;
-  }
-  const days = Math.floor(diff / 86400000);
-  const hours = Math.floor((diff % 86400000) / 3600000);
-  const mins = Math.floor((diff % 3600000) / 60000);
-  document.getElementById('daysLeft').textContent = days;
-  document.getElementById('c-d').textContent = days;
-  document.getElementById('c-h').textContent = String(hours).padStart(2,'0');
-  document.getElementById('c-m').textContent = String(mins).padStart(2,'0');
-  // Progress: from today (Apr 30, 2026) to Aug 29, 2026
-  const start = new Date('2026-04-30');
-  const totalRange = target - start;
-  const elapsed = now - start;
-  const pct = Math.max(0, Math.min(100, (1 - diff / totalRange) * 100));
-  document.getElementById('progressFill').style.width = pct + '%';
-}
-updateCountdown();
-setInterval(updateCountdown, 60000);
+  const todayStr = now.toISOString().slice(0,10);
+  const todayDay = TRIP_DAYS.find(d => d.date === todayStr);
 
-// ─── INTERACTIVE CHECKLIST ───
+  // Today card
+  const tcLabel = document.getElementById('tc-label');
+  const tcTitle = document.getElementById('tc-title');
+  const tcSub = document.getElementById('tc-sub');
+  const greeting = document.getElementById('home-greeting');
+
+  if (todayDay) {
+    todayTabId = todayDay.tab;
+    if (tcLabel) tcLabel.textContent = '📅 HOY';
+    if (tcTitle) tcTitle.textContent = todayDay.label;
+    if (tcSub) tcSub.textContent = todayDay.sub;
+    if (greeting) greeting.textContent = '¡Estáis en Francia! 🇫🇷';
+    // Highlight today card
+    const dc = document.getElementById('dc-' + todayDay.tab);
+    if (dc) { dc.classList.add('is-today'); const b = document.createElement('div'); b.className='dc3-today-badge'; b.textContent='HOY'; dc.appendChild(b); }
+    // Show FAB
+    const fab = document.getElementById('fabToday');
+    if (fab) fab.classList.add('visible');
+  } else if (diff <= 0) {
+    if (tcTitle) tcTitle.textContent = '¡El viaje ha terminado! 🏠';
+    if (tcSub) tcSub.textContent = '¡Qué recuerdos tan bonitos!';
+  } else {
+    const days = Math.floor(diff / 86400000);
+    const hrs  = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    if (tcLabel) tcLabel.textContent = 'Próxima parada';
+    if (tcTitle) tcTitle.textContent = `¡En ${days} días estaréis en París! 🗼`;
+    if (tcSub) tcSub.textContent = `Salida: Sábado 29 de agosto de 2026`;
+    // Ring countdown
+    const setR = (id, v) => { const el = document.getElementById(id); if(el) el.textContent = String(v).padStart(2,'0'); };
+    setR('hc-d', days); setR('hc-h', hrs); setR('hc-m', mins); setR('hc-s', secs);
+  }
+  // DaysLeft in ring
+  if (diff > 0) {
+    const days = Math.floor(diff / 86400000);
+    const hrs  = Math.floor((diff % 86400000) / 3600000);
+    const mins = Math.floor((diff % 3600000) / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    const setR = (id, v) => { const el = document.getElementById(id); if(el) el.textContent = String(v).padStart(2,'0'); };
+    setR('hc-d', days); setR('hc-h', hrs); setR('hc-m', mins); setR('hc-s', secs);
+  }
+}
+
+function goToToday() {
+  if (todayTabId) { switchArea('trip'); setTimeout(() => switchSub('trip', todayTabId), 60); }
+  else { switchArea('trip'); }
+}
+
+// ─── SCROLL PROGRESS ───
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
+  const bar = document.getElementById('scrollProgress');
+  if (bar) bar.style.width = Math.min(100, pct) + '%';
+}, {passive: true});
+
+// ─── HAPTIC FEEDBACK ───
+function haptic(type) {
+  if (!navigator.vibrate) return;
+  if (type === 'light') navigator.vibrate(10);
+  else if (type === 'medium') navigator.vibrate(30);
+  else if (type === 'success') navigator.vibrate([15, 50, 15]);
+  else if (type === 'celebration') navigator.vibrate([50, 30, 80, 30, 120]);
+}
+
+// ─── CONFETTI ───
+function launchConfetti() {
+  haptic('celebration');
+  const container = document.getElementById('confettiContainer');
+  if (!container) return;
+  const colors = ['#c9a84c','#e8d49e','#fff','#003087','#e8c56a','#4b0082','#2d6a4f'];
+  for (let i = 0; i < 80; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'confetti-piece';
+      p.style.cssText = `
+        left:${Math.random()*100}%;
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        width:${6+Math.random()*8}px;
+        height:${6+Math.random()*8}px;
+        border-radius:${Math.random()>.5?'50%':'2px'};
+        animation-duration:${1.5+Math.random()*2}s;
+        animation-delay:${Math.random()*0.5}s;
+      `;
+      container.appendChild(p);
+      setTimeout(() => p.remove(), 3000);
+    }, i * 20);
+  }
+}
+
+// ─── CHECKLIST SOUND + CONFETTI ───
+const checkSound = (() => {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    return (freq, dur) => {
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value = freq;
+      o.type = 'sine';
+      g.gain.setValueAtTime(.15, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(.001, ctx.currentTime + dur);
+      o.start(); o.stop(ctx.currentTime + dur);
+    };
+  } catch(e) { return () => {}; }
+})();
+
 function toggleCheck(li, listId) {
   li.classList.toggle('done');
   const box = li.querySelector('.check-box');
   box.classList.toggle('checked');
-  if (box.classList.contains('checked')) box.textContent = '✓';
-  else box.textContent = '';
+  const isChecked = box.classList.contains('checked');
+  box.textContent = isChecked ? '✓' : '';
+  
+  if (isChecked) {
+    haptic('light');
+    checkSound(880, .15);
+    setTimeout(() => checkSound(1100, .1), 80);
+  } else {
+    haptic('light');
+  }
+  
   updateChecklistProgress(listId);
+  
+  // Check if entire list is done
+  const list = document.getElementById(listId);
+  if (list) {
+    const total = list.querySelectorAll('li').length;
+    const done = list.querySelectorAll('li.done').length;
+    if (done === total && total > 0) {
+      setTimeout(() => { launchConfetti(); }, 200);
+    }
+  }
 }
+
 function updateChecklistProgress(listId) {
   const list = document.getElementById(listId);
   if (!list) return;
@@ -3622,8 +4303,220 @@ function updateChecklistProgress(listId) {
   if (prog) prog.textContent = done + '/' + total;
   if (fill) fill.style.width = (total > 0 ? (done/total*100) : 0) + '%';
 }
-// Init progress labels
 ['apps','res','bag','health','france'].forEach(id => updateChecklistProgress('cl-' + id));
+
+// ─── RIPPLE EFFECT ───
+function addRipple(btn) {
+  if (!btn) return;
+  const r = document.createElement('span');
+  r.className = 'ripple';
+  r.style.cssText = `width:60px;height:60px;left:50%;top:50%;margin-left:-30px;margin-top:-30px;`;
+  btn.style.position = 'relative'; btn.style.overflow = 'hidden';
+  btn.appendChild(r);
+  setTimeout(() => r.remove(), 600);
+}
+
+// ─── MAP BTN FEEDBACK ───
+document.addEventListener('click', e => {
+  const btn = e.target.closest('.map-btn');
+  if (btn) { haptic('light'); btn.classList.add('tapped'); setTimeout(() => btn.classList.remove('tapped'), 400); }
+});
+
+// ─── 3D CARD TILT ON POINTER MOVE ───
+document.addEventListener('pointermove', e => {
+  document.querySelectorAll('.day-card-3d').forEach(card => {
+    const rect = card.getBoundingClientRect();
+    if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
+      card.style.transform = '';
+      return;
+    }
+    const cx = (e.clientX - rect.left) / rect.width - .5;
+    const cy = (e.clientY - rect.top) / rect.height - .5;
+    card.style.transform = `perspective(600px) rotateY(${cx*8}deg) rotateX(${-cy*6}deg) scale(1.02)`;
+  });
+});
+document.addEventListener('pointerleave', () => {
+  document.querySelectorAll('.day-card-3d').forEach(c => c.style.transform = '');
+});
+
+// ─── PRESENTATION MODE ───
+const presLabels = ['home','trip','guides','tools','more'];
+const presNames  = ['Inicio','Viaje · 7 días','Guías','Útiles','Más'];
+let presIdx = 0;
+function togglePresentation() {
+  document.body.classList.toggle('presentation');
+  const isP = document.body.classList.contains('presentation');
+  const btn = document.getElementById('presBtn');
+  if (btn) btn.textContent = isP ? '✕ Salir' : '📺 Presentar';
+  if (isP) { presIdx = 0; updatePresSlide(); }
+}
+function presNav(dir) { presIdx = Math.max(0, Math.min(presLabels.length-1, presIdx+dir)); updatePresSlide(); }
+function updatePresSlide() {
+  switchArea(presLabels[presIdx], true);
+  const info = document.getElementById('presInfo');
+  if (info) info.textContent = (presIdx+1) + '/' + presLabels.length + ' · ' + presNames[presIdx];
+}
+
+// ─── LIVE TRAVEL MODE (integrated into home) ───
+function checkLiveDay() { updateHomeCountdown(); }
+
+// ─── PHOTO GALLERY ───
+let photoStore = [];
+try { photoStore = JSON.parse(localStorage.getItem('familyPhotos')||'[]'); } catch(e){}
+function renderPhotos() {
+  const grid = document.getElementById('photo-gallery-grid');
+  const count = document.getElementById('photo-count');
+  if (!grid) return;
+  grid.innerHTML = '';
+  photoStore.forEach((p,i) => {
+    const slot = document.createElement('div'); slot.className = 'photo-slot';
+    slot.innerHTML = `<img src="${p.data}" alt="foto"><div class="day-tag">${p.day||''}</div><button class="del-btn" onclick="deletePhoto(${i},event)">✕</button>`;
+    grid.appendChild(slot);
+  });
+  const addSlot = document.createElement('div'); addSlot.className = 'photo-slot';
+  addSlot.innerHTML = `<div class="add-icon">📷</div><div class="add-label">Añadir foto</div>`;
+  addSlot.onclick = () => document.getElementById('photo-input').click();
+  grid.appendChild(addSlot);
+  if (count) count.textContent = photoStore.length + ' foto' + (photoStore.length!==1?'s':'') + ' guardada' + (photoStore.length!==1?'s':'');
+}
+function handlePhotoUpload(input) {
+  const day = document.getElementById('photo-day-select').value;
+  const files = Array.from(input.files); let loaded = 0;
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      photoStore.push({data:e.target.result, day, ts:Date.now()}); loaded++;
+      if (loaded===files.length) { try{localStorage.setItem('familyPhotos',JSON.stringify(photoStore));}catch(e){} renderPhotos(); haptic('success'); }
+    };
+    reader.readAsDataURL(file);
+  });
+  input.value = '';
+}
+function deletePhoto(i,e) {
+  e.stopPropagation();
+  if (confirm('¿Eliminar esta foto?')) { photoStore.splice(i,1); try{localStorage.setItem('familyPhotos',JSON.stringify(photoStore));}catch(e){} renderPhotos(); }
+}
+
+// ─── GAMES ───
+function randomPastel(){return `hsl(${Math.floor(Math.random()*360)},60%,82%)`;}
+let huntTarget=0,huntFound=0,huntTotal=0;
+function startNumberHunt(){
+  huntTarget=Math.floor(Math.random()*9)+1; huntFound=0;
+  const ti=document.getElementById('hunt-target'); const fi=document.getElementById('hunt-found'); const tot=document.getElementById('hunt-total'); const grid=document.getElementById('hunt-grid');
+  if(!ti||!grid) return;
+  const nums=Array.from({length:24},()=>Math.floor(Math.random()*9)+1);
+  for(let i=0;i<3;i++) nums[Math.floor(Math.random()*24)]=huntTarget;
+  huntTotal=nums.filter(n=>n===huntTarget).length;
+  ti.textContent=huntTarget; fi.textContent=0; if(tot) tot.textContent=huntTotal;
+  grid.innerHTML=nums.map(n=>`<div class="number-cell" style="background:${randomPastel()};color:#333;" onclick="huntTap(this,${n})">${n}</div>`).join('');
+}
+function huntTap(el,n){
+  if(el.classList.contains('found')) return;
+  if(n===huntTarget){
+    el.classList.add('found'); huntFound++; document.getElementById('hunt-found').textContent=huntFound;
+    haptic('light'); checkSound(660,.1);
+    if(huntFound===huntTotal){setTimeout(()=>{launchConfetti(); alert('🎉 ¡Encontrados todos los '+huntTarget+'!'); startNumberHunt();},300);}
+  } else {
+    el.style.background='#ffcccc'; haptic('light');
+    setTimeout(()=>el.style.background=randomPastel(),500);
+  }
+}
+const memEmojis=['🏰','⛵','🗼','🥐','🎡','🍦','🐭','👑'];
+let memFlipped=[],memMatched=0,memLock=false;
+function startMemory(){
+  const pairs=[...memEmojis,...memEmojis].sort(()=>Math.random()-.5);
+  memFlipped=[]; memMatched=0; memLock=false;
+  const sc=document.getElementById('mem-score'); const grid=document.getElementById('memory-grid');
+  if(!grid) return;
+  if(sc) sc.textContent='0 parejas';
+  grid.innerHTML=pairs.map(e=>`<div class="mem-card" data-emoji="${e}" onclick="flipMemCard(this)">\u00a0</div>`).join('');
+}
+function flipMemCard(el){
+  if(memLock||el.classList.contains('flipped')||el.classList.contains('matched')) return;
+  el.classList.add('flipped'); el.textContent=el.dataset.emoji; memFlipped.push(el); haptic('light');
+  if(memFlipped.length===2){
+    memLock=true;
+    if(memFlipped[0].dataset.emoji===memFlipped[1].dataset.emoji){
+      memFlipped.forEach(c=>c.classList.add('matched')); memMatched++;
+      const sc=document.getElementById('mem-score'); if(sc) sc.textContent=memMatched+' pareja'+(memMatched>1?'s':'');
+      checkSound(880,.1); setTimeout(()=>checkSound(1100,.1),80);
+      memFlipped=[]; memLock=false;
+      if(memMatched===8){setTimeout(()=>{launchConfetti(); alert('🎉 ¡Memoria perfecta!');},200);}
+    } else {
+      setTimeout(()=>{memFlipped.forEach(c=>{c.classList.remove('flipped');c.textContent='\u00a0';});memFlipped=[];memLock=false;},900);
+    }
+  }
+}
+const colorList=[{name:'Rojo',hex:'#e74c3c'},{name:'Azul',hex:'#3498db'},{name:'Verde',hex:'#2ecc71'},{name:'Amarillo',hex:'#f1c40f'},{name:'Morado',hex:'#9b59b6'},{name:'Naranja',hex:'#e67e22'}];
+let colorTarget=null;
+function startColorGame(){
+  colorTarget=colorList[Math.floor(Math.random()*colorList.length)];
+  const box=document.getElementById('color-target-box'); if(box) box.style.background=colorTarget.hex;
+  const res=document.getElementById('color-result'); if(res) res.textContent='';
+  document.querySelectorAll('.color-swatch').forEach(s=>s.classList.remove('selected'));
+}
+function selectColor(name){
+  document.querySelectorAll('.color-swatch').forEach(s=>s.classList.toggle('selected',s.dataset.color===name));
+  const res=document.getElementById('color-result'); if(!res||!colorTarget) return;
+  const ok=name===colorTarget.name;
+  haptic(ok?'success':'light');
+  if(ok) checkSound(880,.15);
+  res.textContent=ok?'✅ ¡Correcto! Es '+colorTarget.name:'❌ Era '+colorTarget.name+'. ¡Inténtalo!';
+  if(ok) setTimeout(startColorGame,1200);
+}
+
+// ─── PWA: SERVICE WORKER ───
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').catch(()=>{});
+}
+
+// ─── PWA: INSTALL PROMPT ───
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault(); deferredPrompt = e;
+  if (!sessionStorage.getItem('installDismissed')) {
+    const banner = document.getElementById('install-banner');
+    if (banner) { banner.style.display='flex'; document.body.style.paddingTop='62px'; }
+  }
+});
+document.getElementById('install-btn').addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const {outcome} = await deferredPrompt.userChoice;
+  deferredPrompt = null; dismissInstall();
+  if (outcome==='accepted') showInstallSuccess();
+});
+document.getElementById('install-btn-tab') && document.getElementById('install-btn-tab').addEventListener('click', async () => {
+  if (deferredPrompt) { deferredPrompt.prompt(); const {outcome}=await deferredPrompt.userChoice; deferredPrompt=null; dismissInstall(); if(outcome==='accepted') showInstallSuccess(); }
+  else if (isIOS && !isInStandalone) { showIOSInstructions(); }
+  else { const btn=document.getElementById('install-btn-tab'); if(btn){btn.textContent='✅ Ya instalada'; btn.style.background='#888';} }
+});
+function dismissInstall() {
+  const banner=document.getElementById('install-banner'); if(banner) banner.style.display='none';
+  document.body.style.paddingTop=''; sessionStorage.setItem('installDismissed','1');
+}
+window.addEventListener('appinstalled',()=>{dismissInstall(); showInstallSuccess();});
+function showInstallSuccess() {
+  launchConfetti();
+  const toast=document.createElement('div');
+  toast.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#2d6a4f;color:#fff;padding:12px 22px;border-radius:30px;font-size:.85rem;font-weight:600;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.3);white-space:nowrap;';
+  toast.textContent='✅ ¡App instalada! Búscala en tu pantalla de inicio';
+  document.body.appendChild(toast); setTimeout(()=>toast.remove(),4000);
+}
+const isIOS=/iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.MSStream;
+const isInStandalone=window.matchMedia('(display-mode:standalone)').matches||window.navigator.standalone;
+if(isIOS&&!isInStandalone&&!sessionStorage.getItem('installDismissed')){
+  const banner=document.getElementById('install-banner');
+  const btn=document.getElementById('install-btn');
+  if(btn){btn.textContent='Ver instrucciones'; btn.onclick=()=>{dismissInstall();showIOSInstructions();};}
+  if(banner) banner.style.display='flex';
+}
+function showIOSInstructions(){
+  const modal=document.createElement('div');
+  modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9998;display:flex;align-items:flex-end;';
+  modal.innerHTML=`<div style="background:#fff;border-radius:20px 20px 0 0;padding:28px 24px 40px;width:100%;max-height:80vh;overflow-y:auto;"><h3 style="font-family:Playfair Display,serif;margin-bottom:16px;font-size:1.2rem;">📱 Instalar en iPhone / iPad</h3><div style="display:flex;flex-direction:column;gap:14px;font-size:.85rem;color:#444;"><div style="display:flex;gap:12px;align-items:flex-start;"><span style="background:#007AFF;color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;">1</span><p>Pulsa el botón <strong>Compartir</strong> ⬆️ en Safari</p></div><div style="display:flex;gap:12px;align-items:flex-start;"><span style="background:#007AFF;color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;">2</span><p>Pulsa <strong>"Añadir a la pantalla de inicio"</strong></p></div><div style="display:flex;gap:12px;align-items:flex-start;"><span style="background:#007AFF;color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;">3</span><p>Pulsa <strong>"Añadir"</strong> arriba a la derecha</p></div></div><button onclick="this.closest('div[style]').remove()" style="margin-top:20px;width:100%;background:#0a1628;color:#fff;border:none;padding:14px;border-radius:12px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">Entendido</button></div>`;
+  document.body.appendChild(modal);
+}
 
 // ─── BUDGET CALCULATOR ───
 function calcBudget() {
@@ -3632,191 +4525,67 @@ function calcBudget() {
   const parisDays = parseInt(document.getElementById('numParisDays').value) || 0;
   const disneyDays = parseInt(document.getElementById('numDisneyDays').value) || 0;
   const total = adults + kids;
-
-  // FIXED costs (ya pagados / reservados)
+  const totalDays = parisDays + disneyDays + 2;
+  const rerTrips = parisDays * 2;
+  const rerTotal = Math.round((adults * 2.55 + kids * 1.30) * rerTrips);
+  const batobusTotal = adults * 27 + kids * 13;
+  const disneyTotal = total * 192;
   const fixedRows = [
     {label:'✈️ Vuelos (ida y vuelta)', detail:'Total grupo · Ya reservado', fixed: 3803},
     {label:'🏠 Apartamento Le Victoria Garden', detail:'6 noches · Ya reservado', fixed: 1663},
-    {label:'🚐 Traslados aeropuerto (llegada + salida)', detail:'Traslado privado ambas direcciones · Ya reservado', fixed: 212},
+    {label:'🚐 Traslados aeropuerto', detail:'Privados · Ya reservado', fixed: 212},
   ];
-
-  // VARIABLE costs (gastos en destino)
-  const totalDays = parisDays + disneyDays + 2; // +2: llegada + día libre
-  const rerTrips = parisDays * 2; // ida + vuelta cada día París
-  const rerAdult = 2.55, rerKid = 1.30;
-  const rerTotal = Math.round((adults * rerAdult + kids * rerKid) * rerTrips);
-
-  const batobusAdult = 27, batobusKid = 13;
-  const batobusTotal = adults * batobusAdult + kids * batobusKid;
-
-  // Disney: 192€ es el precio del pase 2 días, NO por día
-  const disneyTotal = total * 192;
-
   const variableRows = [
-    {label:'🛒 Supermercado Auchan', detail:`Desayunos + cenas en casa + snacks × ${totalDays} días`, lo: total*6*totalDays, hi: total*9*totalDays},
-    {label:'🍽️ Almuerzos en París', detail:`Brasseries/restaurantes × ${adults} adultos + ${kids} niños × ${parisDays} días`, lo: adults*20*parisDays + kids*9*parisDays, hi: adults*30*parisDays + kids*13*parisDays},
+    {label:'🛒 Supermercado Auchan', detail:`Desayunos + cenas + snacks × ${totalDays} días`, lo: total*6*totalDays, hi: total*9*totalDays},
+    {label:'🍽️ Almuerzos en París', detail:`Restaurantes × ${adults} adultos + ${kids} niños × ${parisDays} días`, lo: adults*20*parisDays + kids*9*parisDays, hi: adults*30*parisDays + kids*13*parisDays},
     {label:'🚆 RER A (ida + vuelta)', detail:`${adults} adultos×2,55€ + ${kids} niños×1,30€ × ${rerTrips} trayectos`, lo: rerTotal, hi: rerTotal},
-    {label:'⛵ Batobus pase 2 días', detail:`${adults} adultos×27€ + ${kids} niños×13€ (pase 2 días, no por día)`, lo: batobusTotal, hi: batobusTotal},
-    {label:'🏰 Entradas Disney (pase 2 días)', detail:`${total} personas × 192€ · Pase válido 2 días completos`, lo: disneyTotal, hi: disneyTotal},
-    {label:'☀️ Día libre · Transporte + extras', detail:`Versalles (transporte+palacio) o La Vallée Village`, lo: 40, hi: 140},
-    {label:'🍦 Extras · Helados, souvenirs, cafés', detail:`Imprevistos, propinas, caprichos, emergencias menores`, lo: total*10, hi: total*20},
+    {label:'⛵ Batobus pase 2 días', detail:`${adults} adultos×27€ + ${kids} niños×13€`, lo: batobusTotal, hi: batobusTotal},
+    {label:'🏰 Entradas Disney (pase 2 días)', detail:`${total} personas × 192€ · Pase válido 2 días`, lo: disneyTotal, hi: disneyTotal},
+    {label:'☀️ Día libre · Transporte + extras', detail:`Versalles o La Vallée Village`, lo: 40, hi: 140},
+    {label:'🍦 Extras · Helados, souvenirs, cafés', detail:`Imprevistos y caprichos`, lo: total*10, hi: total*20},
   ];
-
   const tbody = document.getElementById('budgetTable');
-
+  if (!tbody) return;
   let html = '<tr><th colspan="3" style="background:#f0f4f8;color:#555;padding:8px 9px;font-size:.72rem;letter-spacing:.5px;">GASTOS FIJOS (ya reservados)</th></tr>';
   html += '<tr><th>Concepto</th><th>Detalle</th><th class="amount">€</th></tr>';
   let fixedTotal = 0;
-  fixedRows.forEach(r => {
-    fixedTotal += r.fixed;
-    html += `<tr style="background:#fafcff;"><td>${r.label}</td><td style="font-size:.76rem;color:#888;">${r.detail}</td><td class="amount" style="color:#1565c0;">${r.fixed.toLocaleString('es-ES')}€</td></tr>`;
-  });
+  fixedRows.forEach(r => { fixedTotal += r.fixed; html += `<tr style="background:#fafcff;"><td>${r.label}</td><td style="font-size:.76rem;color:#888;">${r.detail}</td><td class="amount" style="color:#1565c0;">${r.fixed.toLocaleString('es-ES')}€</td></tr>`; });
   html += `<tr style="background:#e8eef5;"><td colspan="2" style="font-weight:700;font-size:.82rem;">Subtotal fijos</td><td class="amount" style="color:#1565c0;font-weight:700;">${fixedTotal.toLocaleString('es-ES')}€</td></tr>`;
-
   html += '<tr><th colspan="3" style="background:#f5f0e8;color:#555;padding:8px 9px;font-size:.72rem;letter-spacing:.5px;padding-top:14px;">GASTOS EN DESTINO (estimados)</th></tr>';
   html += '<tr><th>Concepto</th><th>Detalle</th><th class="amount">€</th></tr>';
   let varLo = 0, varHi = 0;
-  variableRows.forEach(r => {
-    const lo = Math.round(r.lo), hi = Math.round(r.hi);
-    varLo += lo; varHi += hi;
-    html += `<tr><td>${r.label}</td><td style="font-size:.76rem;color:#888;">${r.detail}</td><td class="amount">${lo === hi ? lo+'€' : lo+'–'+hi+'€'}</td></tr>`;
-  });
+  variableRows.forEach(r => { const lo=Math.round(r.lo),hi=Math.round(r.hi); varLo+=lo; varHi+=hi; html+=`<tr><td>${r.label}</td><td style="font-size:.76rem;color:#888;">${r.detail}</td><td class="amount">${lo===hi?lo+'€':lo+'–'+hi+'€'}</td></tr>`; });
   html += `<tr style="background:#fdf5e0;"><td colspan="2" style="font-weight:700;font-size:.82rem;">Subtotal en destino</td><td class="amount" style="color:var(--gold);font-weight:700;">${varLo}–${varHi}€</td></tr>`;
-
-  const grandLo = fixedTotal + varLo;
-  const grandHi = fixedTotal + varHi;
+  const grandLo = fixedTotal + varLo, grandHi = fixedTotal + varHi;
   const grandMid = Math.round((grandLo + grandHi) / 2);
   html += `<tr class="total-row"><td colspan="2"><strong>TOTAL VIAJE COMPLETO</strong></td><td class="amount"><strong>${grandLo.toLocaleString('es-ES')}–${grandHi.toLocaleString('es-ES')}€</strong></td></tr>`;
-
   tbody.innerHTML = html;
-
-  document.getElementById('totalDisplay').textContent = grandLo.toLocaleString('es-ES') + '–' + grandHi.toLocaleString('es-ES') + '€';
-  document.getElementById('perPersonDisplay').textContent = `≈ ${Math.round(grandMid/total).toLocaleString('es-ES')}€ por persona`;
-  document.getElementById('totalNoDisney').textContent = (varLo) + '–' + (varHi) + '€ en destino';
+  const td = document.getElementById('totalDisplay'); if(td) td.textContent = grandLo.toLocaleString('es-ES')+'–'+grandHi.toLocaleString('es-ES')+'€';
+  const pp = document.getElementById('perPersonDisplay'); if(pp) pp.textContent = `≈ ${Math.round(grandMid/total).toLocaleString('es-ES')}€ por persona`;
+  const nd = document.getElementById('totalNoDisney'); if(nd) nd.textContent = varLo+'–'+varHi+'€ en destino';
 }
 calcBudget();
+
+// ─── INIT ───
+window.addEventListener('load', () => {
+  initParticles();
+  updateHomeCountdown();
+  setInterval(updateHomeCountdown, 1000);
+  renderPhotos();
+  startNumberHunt();
+  startMemory();
+  startColorGame();
+  // Activate initial sub-panels
+  switchSub('trip', 'd1');
+  switchSub('guides', 'explorer');
+  switchSub('tools', 'budget');
+  switchSub('more', 'games');
+});
+
 
 // ═══════════════════════════════════════════
 // ─── PWA: SERVICE WORKER REGISTRATION ───
 // ═══════════════════════════════════════════
-const SW_CODE = `
-const CACHE = 'francia2026-v1';
-self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./'])));
-  self.skipWaiting();
-});
-self.addEventListener('activate', e => {
-  e.waitUntil(caches.keys().then(keys =>
-    Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
-  ));
-  self.clients.claim();
-});
-self.addEventListener('fetch', e => {
-  e.respondWith(
-    fetch(e.request).catch(() => caches.match(e.request))
-  );
-});
-`;
-
-if ('serviceWorker' in navigator) {
-  const blob = new Blob([SW_CODE], { type: 'application/javascript' });
-  const swUrl = URL.createObjectURL(blob);
-  navigator.serviceWorker.register(swUrl, { scope: './' }).catch(() => {});
-}
-
-// ─── PWA: INSTALL PROMPT ───
-let deferredPrompt = null;
-
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  deferredPrompt = e;
-  // Show banner only if not already dismissed this session
-  if (!sessionStorage.getItem('installDismissed')) {
-    const banner = document.getElementById('install-banner');
-    banner.style.display = 'flex';
-    document.body.classList.add('has-install-banner');
-  }
-});
-
-document.getElementById('install-btn').addEventListener('click', async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  dismissInstall();
-  if (outcome === 'accepted') showInstallSuccess();
-});
-
-// Tab install button — same logic
-document.getElementById('install-btn-tab').addEventListener('click', async () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    deferredPrompt = null;
-    dismissInstall();
-    if (outcome === 'accepted') showInstallSuccess();
-  } else if (isIOS && !isInStandalone) {
-    showIOSInstructions();
-  } else {
-    const btn = document.getElementById('install-btn-tab');
-    btn.textContent = '✅ Ya instalada o usa las instrucciones de abajo';
-    btn.style.background = '#888';
-  }
-});
-
-function dismissInstall() {
-  const banner = document.getElementById('install-banner');
-  banner.style.display = 'none';
-  document.body.classList.remove('has-install-banner');
-  sessionStorage.setItem('installDismissed', '1');
-}
-
-window.addEventListener('appinstalled', () => {
-  dismissInstall();
-  showInstallSuccess();
-});
-
-function showInstallSuccess() {
-  const toast = document.createElement('div');
-  toast.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#2d6a4f;color:#fff;padding:12px 22px;border-radius:30px;font-size:.85rem;font-weight:600;z-index:9999;box-shadow:0 4px 20px rgba(0,0,0,.3);white-space:nowrap;';
-  toast.textContent = '✅ ¡App instalada! Búscala en tu pantalla de inicio';
-  document.body.appendChild(toast);
-  setTimeout(() => toast.remove(), 4000);
-}
-
-// ─── MANUAL INSTALL INSTRUCTIONS TAB ───
-// Detect iOS (no beforeinstallprompt support)
-const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
-const isInStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-
-if (isIOS && !isInStandalone && !sessionStorage.getItem('installDismissed')) {
-  const banner = document.getElementById('install-banner');
-  const btn = document.getElementById('install-btn');
-  btn.textContent = 'Ver instrucciones';
-  btn.onclick = () => {
-    dismissInstall();
-    showIOSInstructions();
-  };
-  banner.style.display = 'flex';
-  document.body.classList.add('has-install-banner');
-}
-
-function showIOSInstructions() {
-  const modal = document.createElement('div');
-  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9998;display:flex;align-items:flex-end;';
-  modal.innerHTML = `
-    <div style="background:#fff;border-radius:20px 20px 0 0;padding:28px 24px 40px;width:100%;max-height:80vh;overflow-y:auto;">
-      <h3 style="font-family:Playfair Display,serif;margin-bottom:16px;font-size:1.2rem;">📱 Instalar en iPhone / iPad</h3>
-      <div style="display:flex;flex-direction:column;gap:14px;font-size:.85rem;color:#444;">
-        <div style="display:flex;gap:12px;align-items:flex-start;"><span style="background:#007AFF;color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;">1</span><p>Pulsa el botón <strong>Compartir</strong> <span style="font-size:1.1rem;">⬆️</span> en la barra inferior de Safari</p></div>
-        <div style="display:flex;gap:12px;align-items:flex-start;"><span style="background:#007AFF;color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;">2</span><p>Desplázate hacia abajo en el menú y pulsa <strong>"Añadir a la pantalla de inicio"</strong></p></div>
-        <div style="display:flex;gap:12px;align-items:flex-start;"><span style="background:#007AFF;color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;">3</span><p>Pulsa <strong>"Añadir"</strong> en la esquina superior derecha</p></div>
-        <div style="background:#e8f4e8;border-radius:10px;padding:12px;font-size:.8rem;color:#2d6a4f;">✅ La app aparecerá en tu pantalla de inicio con el icono de la Torre Eiffel 🗼</div>
-      </div>
-      <button onclick="this.closest('div[style]').remove()" style="margin-top:20px;width:100%;background:#0a1628;color:#fff;border:none;padding:14px;border-radius:12px;font-size:.9rem;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;">Entendido</button>
-    </div>`;
-  document.body.appendChild(modal);
-}
 </script>
 </body>
 </html>
