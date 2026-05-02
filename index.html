@@ -28,8 +28,10 @@
 }">
 
 <!-- Apple touch icon inline SVG -->
-<link rel="apple-touch-icon" href="icon-192.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%230a1628'/><text x='256' y='340' font-size='320' text-anchor='middle'>🗼</text></svg>">
+
+<!-- Favicon -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🗼</text></svg>">
 
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -266,6 +268,88 @@ body { background:var(--cream); color:var(--navy); font-family:'DM Sans',sans-se
 #install-banner .ib-close { background:none; border:none; color:rgba(255,255,255,.5); font-size:1.1rem; cursor:pointer; padding:4px; flex-shrink:0; }
 body.has-install-banner { padding-top: 62px; }
 
+/* ── GUÍA DEL EXPLORADOR ── */
+.explorer-intro { background:linear-gradient(135deg,#0a1628 0%,#1e3a5f 100%); border-radius:16px; padding:20px 22px; margin-bottom:16px; color:var(--cream); }
+.explorer-intro h4 { font-family:'Playfair Display',serif; color:var(--gold-light); font-size:1.05rem; margin-bottom:6px; }
+.explorer-intro p { font-size:.82rem; color:rgba(245,240,232,.75); line-height:1.5; }
+.flip-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:14px; }
+@media(max-width:480px){ .flip-grid { grid-template-columns:1fr; } }
+.flip-card { perspective:1000px; cursor:pointer; min-height:190px; }
+.flip-inner { position:relative; width:100%; height:100%; min-height:190px; transition:transform .6s cubic-bezier(.4,0,.2,1); transform-style:preserve-3d; }
+.flip-card.flipped .flip-inner { transform:rotateY(180deg); }
+.flip-front,.flip-back { position:absolute; inset:0; border-radius:14px; backface-visibility:hidden; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:16px 13px; text-align:center; }
+.flip-front { background:#fff; border:1px solid rgba(0,0,0,.07); box-shadow:0 2px 12px rgba(0,0,0,.06); }
+.flip-front .monument-emoji { font-size:2.2rem; margin-bottom:8px; }
+.flip-front .monument-name { font-family:'Playfair Display',serif; font-size:.92rem; font-weight:700; margin-bottom:3px; }
+.flip-front .monument-phonetic { font-size:.68rem; color:#888; font-style:italic; margin-bottom:8px; }
+.flip-front .flip-hint { font-size:.66rem; color:#ccc; margin-top:auto; }
+.flip-back { background:linear-gradient(135deg,#0a1628,#1e3a5f); transform:rotateY(180deg); color:var(--cream); align-items:flex-start; text-align:left; }
+.flip-back .secret-badge { background:var(--gold); color:#fff; font-size:.58rem; font-weight:700; letter-spacing:1px; padding:3px 9px; border-radius:20px; margin-bottom:8px; text-transform:uppercase; align-self:center; }
+.flip-back .secret-emoji { font-size:1.3rem; margin-bottom:6px; align-self:center; }
+.flip-back .secret-text { font-size:.78rem; line-height:1.55; color:rgba(245,240,232,.9); }
+.flip-back .flip-close { font-size:.63rem; color:var(--gold-light); margin-top:8px; align-self:center; opacity:.7; }
+.accordion-item { background:#fff; border-radius:12px; border:1px solid rgba(0,0,0,.07); margin-bottom:8px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,.04); }
+.accordion-header { padding:14px 18px; display:flex; align-items:center; gap:12px; cursor:pointer; user-select:none; transition:background .2s; }
+.accordion-header:hover { background:#f8f8f8; }
+.accordion-header .acc-icon { font-size:1.4rem; flex-shrink:0; }
+.accordion-header .acc-title { flex:1; }
+.accordion-header .acc-title strong { display:block; font-size:.9rem; font-weight:600; }
+.accordion-header .acc-title span { font-size:.74rem; color:#888; font-style:italic; }
+.accordion-header .acc-arrow { font-size:.8rem; color:#bbb; transition:transform .3s; }
+.accordion-item.open .acc-arrow { transform:rotate(180deg); }
+.accordion-body { max-height:0; overflow:hidden; transition:max-height .4s ease; }
+.accordion-item.open .accordion-body { max-height:800px; }
+.accordion-content { padding:0 18px 16px; }
+.secret-list { list-style:none; padding:0; }
+.secret-list li { display:flex; gap:10px; padding:9px 0; border-bottom:1px solid rgba(0,0,0,.05); font-size:.82rem; align-items:flex-start; }
+.secret-list li:last-child { border-bottom:none; }
+.secret-list .s-icon { font-size:1.1rem; flex-shrink:0; margin-top:1px; }
+.secret-list .s-text strong { display:block; font-size:.84rem; font-weight:600; margin-bottom:2px; }
+.secret-list .s-text p { font-size:.78rem; color:#666; line-height:1.45; }
+.challenge-box { background:linear-gradient(135deg,var(--disney-purple),#7b1fa2); border-radius:10px; padding:12px 14px; margin-top:10px; color:#fff; }
+.challenge-box .ch-title { font-size:.72rem; font-weight:700; color:#e1bee7; text-transform:uppercase; letter-spacing:1px; margin-bottom:5px; }
+.challenge-box .ch-text { font-size:.79rem; line-height:1.5; }
+/* ── MAPAS ── */
+.base-ops-banner { background:linear-gradient(135deg,#0a1628,#1e3a5f); border-radius:14px; padding:16px 18px; margin-bottom:16px; display:flex; align-items:center; gap:14px; border:2px solid var(--gold); flex-wrap:wrap; }
+.base-ops-banner .base-icon { font-size:2rem; flex-shrink:0; }
+.base-ops-banner .base-info { flex:1; min-width:160px; }
+.base-ops-banner .base-info strong { display:block; font-size:.9rem; color:var(--gold-light); font-family:'Playfair Display',serif; }
+.base-ops-banner .base-info p { font-size:.76rem; color:rgba(245,240,232,.7); margin-top:2px; }
+.base-ops-banner .base-links { display:flex; flex-direction:column; gap:6px; flex-shrink:0; }
+.map-day-card { background:#fff; border-radius:14px; border:1px solid rgba(0,0,0,.07); margin-bottom:12px; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,.05); }
+.map-day-header { padding:13px 18px; display:flex; align-items:center; gap:12px; border-bottom:1px solid rgba(0,0,0,.05); }
+.map-day-badge { width:42px; height:42px; border-radius:10px; display:flex; flex-direction:column; align-items:center; justify-content:center; font-weight:700; flex-shrink:0; }
+.map-day-badge .n { font-size:1.1rem; line-height:1; }
+.map-day-badge .m { font-size:.56rem; text-transform:uppercase; letter-spacing:.5px; }
+.map-day-info h4 { font-family:'Playfair Display',serif; font-size:.98rem; }
+.map-day-info p { font-size:.74rem; color:#888; margin-top:1px; }
+.map-day-body { padding:13px 18px; }
+.map-stop-row { display:flex; align-items:center; gap:8px; padding:5px 0; font-size:.79rem; color:#555; border-bottom:1px solid rgba(0,0,0,.04); }
+.map-stop-row:last-child { border-bottom:none; margin-bottom:10px; }
+.map-stop-num { width:20px; height:20px; border-radius:50%; font-size:.64rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#fff; }
+.map-btn-row { display:flex; gap:8px; flex-wrap:wrap; }
+.map-btn { display:inline-flex; align-items:center; gap:6px; padding:9px 14px; border-radius:10px; font-size:.76rem; font-weight:600; text-decoration:none; transition:transform .15s; border:none; cursor:pointer; font-family:'DM Sans',sans-serif; white-space:nowrap; }
+.map-btn:hover { transform:translateY(-1px); }
+.map-btn-google { background:#4285F4; color:#fff; }
+.map-btn-apple { background:#111; color:#fff; }
+.map-btn-walk { background:var(--green); color:#fff; }
+.apple-tip { background:#f5f0e8; border-radius:10px; padding:10px 13px; margin-top:10px; display:flex; gap:9px; align-items:flex-start; font-size:.75rem; color:#666; }
+/* Dark mode extras */
+body.dark .flip-front { background:#1f2937; border-color:rgba(255,255,255,.08); }
+body.dark .flip-front .monument-name { color:#f5f0e8; }
+body.dark .flip-front .monument-phonetic { color:#6b7280; }
+body.dark .accordion-item { background:#1f2937; border-color:rgba(255,255,255,.08); }
+body.dark .accordion-header:hover { background:#263244; }
+body.dark .accordion-header .acc-title strong { color:#f5f0e8; }
+body.dark .secret-list li { border-color:rgba(255,255,255,.06); }
+body.dark .secret-list .s-text p { color:#9ca3af; }
+body.dark .secret-list .s-text strong { color:#e5e7eb; }
+body.dark .map-day-card { background:#1f2937; border-color:rgba(255,255,255,.08); }
+body.dark .map-day-header { border-color:rgba(255,255,255,.06); }
+body.dark .map-day-info h4 { color:#f5f0e8; }
+body.dark .map-stop-row { color:#9ca3af; border-color:rgba(255,255,255,.06); }
+body.dark .apple-tip { background:#263244; color:#9ca3af; }
+
 body.dark { background:#111827; color:#e5e7eb; }
 body.dark .day-card, body.dark .info-box, body.dark .phrase-card,
 body.dark .food-card, body.dark .rain-card, body.dark .option-card,
@@ -418,12 +502,13 @@ body.presentation .presentation-bar { display:flex; }
   <div class="flag-stripe">
     <div class="stripe s-blue"></div><div class="stripe s-white"></div><div class="stripe s-red"></div>
   </div>
-  <p class="subtitle">Itinerario Familiar · 8 personas</p>
-  <h1>Francia 2026</h1>
+  <p class="subtitle">Itinerario Familiar · 9 personas</p>
+  <h1>Francia <span style="color:var(--gold);">2026</span></h1>
   <div class="dates">29 Agosto — 4 Septiembre</div>
   <div class="group-pills">
     <span class="pill">👴👵 2 Abuelos</span>
     <span class="pill">👨‍👩‍👧 Padres</span>
+    <span class="pill">👩 Tía</span>
     <span class="pill">👧 Niña 11 años</span>
     <span class="pill">👦👦 Gemelos 5 años</span>
   </div>
@@ -505,6 +590,8 @@ body.presentation .presentation-bar { display:flex; }
     <button class="tab-btn" onclick="switchTab('firstaid')">🩹 Primeros Auxilios</button>
     <button class="tab-btn" onclick="switchTab('games')">🎮 Juegos RER</button>
     <button class="tab-btn" onclick="switchTab('photos')">📸 Nuestras Fotos</button>
+    <button class="tab-btn" onclick="switchTab('explorer')">🔍 Guía Explorador</button>
+    <button class="tab-btn" onclick="switchTab('maps')">🧭 Rutas y Mapas</button>
     <button class="tab-btn" onclick="switchTab('install')">📲 Instalar App</button>
   </div>
 </div>
@@ -556,7 +643,7 @@ body.presentation .presentation-bar { display:flex; }
   <div class="week-row" onclick="switchTab('d7')">
     <div class="week-day-num" style="color:var(--red);">4</div>
     <div class="week-dot" style="background:var(--red);"></div>
-    <div class="week-info"><strong>Miércoles 4 sep · Vuelta</strong><span>Check-out 9h · Traslado 10:15h · Vuelo 14:05h ORY→SCQ</span></div>
+    <div class="week-info"><strong>Viernes 4 sep · Vuelta</strong><span>Check-out 9h · Traslado 10:15h · Vuelo 14:05h ORY→SCQ</span></div>
     <div class="week-arrow">›</div>
   </div>
 
@@ -577,7 +664,7 @@ body.presentation .presentation-bar { display:flex; }
       <!-- Foto salón -->
       <div style="border-radius:10px;overflow:hidden;background:#f0f4e8;height:140px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
         <span style="font-size:2rem;">🛋️</span>
-        <span style="font-size:.72rem;color:#666;text-align:center;padding:0 8px;">Salón amplio con mesa<br>para 8 personas</span>
+        <span style="font-size:.72rem;color:#666;text-align:center;padding:0 8px;">Salón amplio con mesa<br>para 9 personas</span>
       </div>
       <!-- Foto cocina -->
       <div style="border-radius:10px;overflow:hidden;background:#f5f0e8;height:140px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;">
@@ -610,7 +697,7 @@ body.presentation .presentation-bar { display:flex; }
 
     <!-- Características clave vistas en las fotos -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;">
-      <div style="background:#e8f4e8;border-radius:8px;padding:8px 10px;font-size:.78rem;">✅ Salón-comedor para 8 personas</div>
+      <div style="background:#e8f4e8;border-radius:8px;padding:8px 10px;font-size:.78rem;">✅ Salón-comedor para 9 personas</div>
       <div style="background:#e8f4e8;border-radius:8px;padding:8px 10px;font-size:.78rem;">✅ Cocina completa con isla</div>
       <div style="background:#e8f4e8;border-radius:8px;padding:8px 10px;font-size:.78rem;">✅ 2 literas para los gemelos</div>
       <div style="background:#e8f4e8;border-radius:8px;padding:8px 10px;font-size:.78rem;">✅ Terraza/jardín con sillas</div>
@@ -644,7 +731,7 @@ body.presentation .presentation-bar { display:flex; }
 
   <div class="info-box">
     <h4>✈️ Vuelo de vuelta</h4>
-    <p style="font-size:.83rem;"><strong>Miércoles 4 sep.</strong><br>🕙 Traslado: <strong>10:15h</strong><br>✈️ Vuelo: <strong>14:05h</strong> ORY → SCQ<br>🛫 Vueling</p>
+    <p style="font-size:.83rem;"><strong>Viernes 4 sep.</strong><br>🕙 Traslado: <strong>10:15h</strong><br>✈️ Vuelo: <strong>14:05h</strong> ORY → SCQ<br>🛫 Vueling</p>
     <div class="alert alert-warn" style="margin-top:8px;margin-bottom:0;">
       <span class="icon">⚠️</span><span>Llegar al aeropuerto mínimo 3h antes con niños</span>
     </div>
@@ -694,7 +781,7 @@ body.presentation .presentation-bar { display:flex; }
         </div>
         <div class="timeline-item">
           <div class="t-time">13:30</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🛒 Gran compra en Auchan · Val d'Europe</strong><p>El Auchan de Val d'Europe es enorme. Primera compra grande para toda la estancia: desayunos, cenas en casa, snacks Disney, agua.</p><div class="tip">🛒 Presupuesto orientativo: 200-260€ para 8 personas (leche, pan, fruta, embutidos, agua×15 litros, snacks, café).</div></div>
+          <div class="t-content"><strong>🛒 Gran compra en Auchan · Val d'Europe</strong><p>El Auchan de Val d'Europe es enorme. Primera compra grande para toda la estancia: desayunos, cenas en casa, snacks Disney, agua.</p><div class="tip">🛒 Presupuesto orientativo: 200-260€ para 9 personas (leche, pan, fruta, embutidos, agua×15 litros, snacks, café).</div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">15:30</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
@@ -749,7 +836,7 @@ body.presentation .presentation-bar { display:flex; }
         </div>
         <div class="timeline-item">
           <div class="t-time">11:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>⛵ → Notre-Dame · Picnic en Île de la Cité</strong><p>Bajar en parada Notre-Dame. Admirar la catedral. Picnic en los jardines — la opción más práctica con 8 personas y gemelos.</p></div>
+          <div class="t-content"><strong>⛵ → Notre-Dame · Picnic en Île de la Cité</strong><p>Bajar en parada Notre-Dame. Admirar la catedral. Picnic en los jardines — la opción más práctica con 9 personas y gemelos.</p></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">13:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
@@ -976,7 +1063,7 @@ body.presentation .presentation-bar { display:flex; }
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#f5e8e8;color:var(--red);">✈️</div>
-    <div><div class="day-label">Miércoles 4 septiembre</div><h2>Vuelta a Casa</h2></div>
+    <div><div class="day-label">Viernes 4 septiembre</div><h2>Vuelta a Casa</h2></div>
   </div>
   <div class="day-card day-departure">
     <div class="day-card-header">
@@ -999,7 +1086,7 @@ body.presentation .presentation-bar { display:flex; }
         </div>
         <div class="timeline-item">
           <div class="t-time">11:05</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🛫 Llegada a Orly · 3h antes</strong><p>Facturación, seguridad, control de pasaportes. Con 8 personas y niños, el margen de 3h es el correcto.</p></div>
+          <div class="t-content"><strong>🛫 Llegada a Orly · 3h antes</strong><p>Facturación, seguridad, control de pasaportes. Con 9 personas y niños, el margen de 3h es el correcto.</p></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">14:05</div><div class="t-dot-col"><div class="t-dot"></div></div>
@@ -1021,7 +1108,7 @@ body.presentation .presentation-bar { display:flex; }
   <div class="info-box">
     <h4>⚙️ Ajusta tu grupo</h4>
     <div style="display:flex;gap:20px;flex-wrap:wrap;margin-bottom:14px;">
-      <label style="font-size:.82rem;">Adultos (≥12): <input type="number" id="numAdults" class="budget-input" value="5" min="0" max="10" oninput="calcBudget()"></label>
+      <label style="font-size:.82rem;">Adultos (≥12): <input type="number" id="numAdults" class="budget-input" value="6" min="0" max="10" oninput="calcBudget()"></label>
       <label style="font-size:.82rem;">Niños 4-11: <input type="number" id="numKids" class="budget-input" value="3" min="0" max="10" oninput="calcBudget()"></label>
       <label style="font-size:.82rem;">Días París: <input type="number" id="numParisDays" class="budget-input" value="2" min="1" max="5" oninput="calcBudget()"></label>
       <label style="font-size:.82rem;">Días Disney: <input type="number" id="numDisneyDays" class="budget-input" value="2" min="1" max="3" oninput="calcBudget()"></label>
@@ -1383,10 +1470,10 @@ body.presentation .presentation-bar { display:flex; }
     <div class="checklist-label">Progreso: <span id="prog-res">0/0</span></div>
     <div class="checklist-progress"><div class="checklist-progress-fill" id="pfill-res" style="width:0%"></div></div>
     <ul class="checklist" id="cl-res">
-      <li onclick="toggleCheck(this,'cl-res')"><div class="check-box"></div><span><strong>Entradas Disney (192€ · pase 2 días)</strong> × 8 personas — comprar ya online</span></li>
+      <li onclick="toggleCheck(this,'cl-res')"><div class="check-box"></div><span><strong>Entradas Disney (192€ · pase 2 días)</strong> × 9 personas — comprar ya online</span></li>
       <li onclick="toggleCheck(this,'cl-res')"><div class="check-box"></div><span><strong>Batobus pase 2 días</strong> × 8 — reservar online para saltar cola</span></li>
       <li onclick="toggleCheck(this,'cl-res')"><div class="check-box"></div><span><strong>Versalles</strong> (si se elige el jueves) — reserva online muy recomendable</span></li>
-      <li onclick="toggleCheck(this,'cl-res')"><div class="check-box"></div><span><strong>Seguro de viaje</strong> con cobertura médica y cancelación para 8 personas</span></li>
+      <li onclick="toggleCheck(this,'cl-res')"><div class="check-box"></div><span><strong>Seguro de viaje</strong> con cobertura médica y cancelación para 9 personas</span></li>
       <li onclick="toggleCheck(this,'cl-res')"><div class="check-box"></div><span>Comprobar <strong>Tarjeta Sanitaria Europea</strong> vigente para todos</span></li>
     </ul>
   </div>
@@ -1411,7 +1498,7 @@ body.presentation .presentation-bar { display:flex; }
     <div class="checklist-label">Progreso: <span id="prog-health">0/0</span></div>
     <div class="checklist-progress"><div class="checklist-progress-fill" id="pfill-health" style="width:0%"></div></div>
     <ul class="checklist" id="cl-health">
-      <li onclick="toggleCheck(this,'cl-health')"><div class="check-box"></div><span>Pasaportes válidos × 8 personas</span></li>
+      <li onclick="toggleCheck(this,'cl-health')"><div class="check-box"></div><span>Pasaportes válidos × 9 personas</span></li>
       <li onclick="toggleCheck(this,'cl-health')"><div class="check-box"></div><span>Fotocopia/foto digital de todos los pasaportes en la nube</span></li>
       <li onclick="toggleCheck(this,'cl-health')"><div class="check-box"></div><span>Medicamentos habituales (tensión, colesterol, etc. — especialmente abuelos)</span></li>
       <li onclick="toggleCheck(this,'cl-health')"><div class="check-box"></div><span>Botiquín: ibuprofeno, paracetamol, tiritas, alcohol, antihistamínico</span></li>
@@ -1613,11 +1700,23 @@ body.presentation .presentation-bar { display:flex; }
         <span style="font-size:.75rem;color:#666;">~140–150 cm</span>
         <div style="margin-top:6px;background:#d4e4f8;border-radius:6px;padding:4px 8px;font-size:.7rem;font-weight:600;color:var(--paris-blue);">Acceso total</div>
       </div>
+      <div style="background:#fff0e8;border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:1.6rem;">👩</div>
+        <strong style="font-size:.85rem;display:block;margin-top:4px;">Tía</strong>
+        <span style="font-size:.75rem;color:#666;">Sin restricción de altura</span>
+        <div style="margin-top:6px;background:#ffd4b0;border-radius:6px;padding:4px 8px;font-size:.7rem;font-weight:600;color:#c0602b;">Acceso total · Cómplice de los gemelos</div>
+      </div>
       <div style="background:#e8f4e8;border-radius:10px;padding:12px;text-align:center;">
         <div style="font-size:1.6rem;">👴👵</div>
         <strong style="font-size:.85rem;display:block;margin-top:4px;">Abuelos</strong>
         <span style="font-size:.75rem;color:#666;">Sin restricción de altura</span>
         <div style="margin-top:6px;background:#d4f0d4;border-radius:6px;padding:4px 8px;font-size:.7rem;font-weight:600;color:var(--green);">Eligen ellos</div>
+      </div>
+      <div style="background:#e8eef5;border-radius:10px;padding:12px;text-align:center;grid-column:span 2;">
+        <div style="font-size:1.6rem;">👨‍👩‍👧 + 👩</div>
+        <strong style="font-size:.85rem;display:block;margin-top:4px;">Padres + Tía · 9 en total</strong>
+        <span style="font-size:.75rem;color:#666;">Adultos sin restricción · Disney completo disponible</span>
+        <div style="margin-top:6px;background:#d4e4f8;border-radius:6px;padding:4px 8px;font-size:.7rem;font-weight:600;color:var(--paris-blue);">Acceso total a todo el parque</div>
       </div>
     </div>
   </div>
@@ -2415,7 +2514,7 @@ body.presentation .presentation-bar { display:flex; }
     </div>
     <div class="aid-card" style="border:none;padding:8px 0;">
       <div class="aid-icon" style="font-size:1.3rem;">✋</div>
-      <div><h5 style="font-size:.85rem;">Piedra, papel, tijera · Torneo</h5><p style="font-size:.78rem;color:#555;">El torneo familiar de los 8. Emparejamientos al azar hasta el campeón. Los abuelos arbitran. Garantizado 5 minutos de risas.</p></div>
+      <div><h5 style="font-size:.85rem;">Piedra, papel, tijera · Torneo</h5><p style="font-size:.78rem;color:#555;">El torneo familiar de los 9. Emparejamientos al azar hasta el campeón. Los abuelos arbitran. Garantizado 5 minutos de risas.</p></div>
     </div>
   </div>
 </div>
@@ -2563,6 +2662,695 @@ body.presentation .presentation-bar { display:flex; }
 </div>
 </div>
 
+<!-- ═══════════ TAB: GUÍA DEL EXPLORADOR ═══════════ -->
+<div id="tab-explorer" class="tab-content">
+<div class="container">
+  <div class="section-header" style="margin-top:20px;">
+    <div class="icon" style="background:#fff0e8;color:#c0602b;">🔍</div>
+    <div><div class="day-label">Para los exploradores de la familia</div><h2>Guía del Explorador · Secretos de París</h2></div>
+  </div>
+
+  <div class="explorer-intro">
+    <h4>🗺️ ¡Sois agentes secretos en misión especial!</h4>
+    <p>Cada monumento esconde un secreto que casi nadie conoce. Pulsad las tarjetas para descubrir la información clasificada. ¿Podréis recordar todos los secretos antes de llegar a París?</p>
+  </div>
+
+  <!-- FLIP CARDS — MONUMENTOS PARÍS -->
+  <div style="font-size:.72rem;color:#888;text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:10px;">🏙️ Monumentos de París · Pulsa cada tarjeta</div>
+
+  <div class="flip-grid">
+
+    <!-- Torre Eiffel -->
+    <div class="flip-card" onclick="flipCard(this)">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="monument-emoji">🗼</div>
+          <div class="monument-name">Torre Eiffel</div>
+          <div class="monument-phonetic">Tour Eiffel [Tur Efél]</div>
+          <div class="flip-hint">👆 Pulsa para descubrir el secreto</div>
+        </div>
+        <div class="flip-back">
+          <div class="secret-badge">🔐 Secreto Nº1</div>
+          <div class="secret-emoji">🌡️</div>
+          <div class="secret-text"><strong>¡La Torre crece con el calor!</strong> En verano, el sol calienta el hierro y la Torre se hace hasta <strong>15 cm más alta</strong>. En invierno encoge. ¡Literalmente respira con el calor! También tiene su propio apartamento secreto en lo más alto donde vivía Gustave Eiffel.</div>
+          <div class="flip-close">👆 Vuelve a pulsar para cerrar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Arco del Triunfo -->
+    <div class="flip-card" onclick="flipCard(this)">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="monument-emoji">🏛️</div>
+          <div class="monument-name">Arco del Triunfo</div>
+          <div class="monument-phonetic">Arc de Triomphe [Arc de Triomf]</div>
+          <div class="flip-hint">👆 Pulsa para descubrir el secreto</div>
+        </div>
+        <div class="flip-back">
+          <div class="secret-badge">🔐 Secreto Nº2</div>
+          <div class="secret-emoji">🔥</div>
+          <div class="secret-text"><strong>La llama que nunca se apaga.</strong> Debajo del Arco hay una llama eterna encendida desde 1921 que <strong>jamás se ha apagado</strong>, ni en guerras ni tormentas. Y si miráis desde arriba, veréis que <strong>12 avenidas</strong> salen del Arco como los rayos de una estrella. ¡Contadlas!</div>
+          <div class="flip-close">👆 Vuelve a pulsar para cerrar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notre-Dame -->
+    <div class="flip-card" onclick="flipCard(this)">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="monument-emoji">⛪</div>
+          <div class="monument-name">Notre-Dame</div>
+          <div class="monument-phonetic">Notre-Dame [Notr Dam]</div>
+          <div class="flip-hint">👆 Pulsa para descubrir el secreto</div>
+        </div>
+        <div class="flip-back">
+          <div class="secret-badge">🔐 Secreto Nº3</div>
+          <div class="secret-emoji">🐉</div>
+          <div class="secret-text"><strong>Las gárgolas son... ¡cañerías!</strong> Esas figuras monstruosas son en realidad <strong>desagües disfrazados</strong> que sacan el agua de lluvia lejos de los muros. Y en el suelo frente a la entrada hay una estrella de bronce: el <strong>Punto Cero</strong>, desde donde se miden todas las distancias de Francia.</div>
+          <div class="flip-close">👆 Vuelve a pulsar para cerrar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Louvre -->
+    <div class="flip-card" onclick="flipCard(this)">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="monument-emoji">🎨</div>
+          <div class="monument-name">El Louvre</div>
+          <div class="monument-phonetic">Le Louvre [Le Luvr]</div>
+          <div class="flip-hint">👆 Pulsa para descubrir el secreto</div>
+        </div>
+        <div class="flip-back">
+          <div class="secret-badge">🔐 Secreto Nº4</div>
+          <div class="secret-emoji">💎</div>
+          <div class="secret-text"><strong>El misterio de los cristales.</strong> La Pirámide de cristal tiene exactamente <strong>673 rombos de cristal</strong> (no 666 como dice la leyenda). El arquitecto Ieoh Ming Pei usó ese número a propósito. Si el Louvre fuese un país, necesitarías <strong>100 días</strong> para ver todas sus obras sin parar.</div>
+          <div class="flip-close">👆 Vuelve a pulsar para cerrar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sena y Batobus -->
+    <div class="flip-card" onclick="flipCard(this)">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="monument-emoji">⛵</div>
+          <div class="monument-name">El Río Sena</div>
+          <div class="monument-phonetic">La Seine [La Sen]</div>
+          <div class="flip-hint">👆 Pulsa para descubrir el secreto</div>
+        </div>
+        <div class="flip-back">
+          <div class="secret-badge">🔐 Secreto Nº5</div>
+          <div class="secret-emoji">🌊</div>
+          <div class="secret-text"><strong>París nació en el Sena.</strong> Hace 2.000 años los primeros parisinos vivían en una isla del Sena. Hoy el río tiene <strong>37 puentes</strong> solo en París. El más famoso, el Pont des Arts, tenía miles de <strong>candados del amor</strong> que pesaban tanto que casi hundia el puente. ¡Tuvieron que quitarlos todos!</div>
+          <div class="flip-close">👆 Vuelve a pulsar para cerrar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Versalles -->
+    <div class="flip-card" onclick="flipCard(this)">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="monument-emoji">🏰</div>
+          <div class="monument-name">Versalles</div>
+          <div class="monument-phonetic">Versailles [Versay]</div>
+          <div class="flip-hint">👆 Pulsa para descubrir el secreto</div>
+        </div>
+        <div class="flip-back">
+          <div class="secret-badge">🔐 Secreto Nº6</div>
+          <div class="secret-emoji">🪞</div>
+          <div class="secret-text"><strong>El palacio más grande y más sucio.</strong> El palacio de Versalles tiene <strong>2.300 habitaciones</strong> pero cuando lo construyeron ¡no tenía ni un solo baño! La gente usaba orinales y los vaciaba por las ventanas. También tiene <strong>357 espejos</strong> en la Galería de los Espejos que iluminan todo con la luz del sol.</div>
+          <div class="flip-close">👆 Vuelve a pulsar para cerrar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- La Baguette -->
+    <div class="flip-card" onclick="flipCard(this)">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="monument-emoji">🥖</div>
+          <div class="monument-name">La Baguette</div>
+          <div class="monument-phonetic">[Ba-guét]</div>
+          <div class="flip-hint">👆 Pulsa para descubrir el secreto</div>
+        </div>
+        <div class="flip-back">
+          <div class="secret-badge">🔐 Secreto Nº7</div>
+          <div class="secret-emoji">⚖️</div>
+          <div class="secret-text"><strong>¡Tiene su propia ley!</strong> En Francia existe una ley que dice exactamente cuánto puede pesar una baguette: <strong>entre 250 y 300 gramos</strong>. Y por ley, las panaderías de París no pueden cerrar todas a la vez en vacaciones — siempre tiene que haber una abierta en cada barrio para que nadie se quede sin pan.</div>
+          <div class="flip-close">👆 Vuelve a pulsar para cerrar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- El Metro de París -->
+    <div class="flip-card" onclick="flipCard(this)">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="monument-emoji">🚇</div>
+          <div class="monument-name">El Metro</div>
+          <div class="monument-phonetic">Le Métro [Le Metró]</div>
+          <div class="flip-hint">👆 Pulsa para descubrir el secreto</div>
+        </div>
+        <div class="flip-back">
+          <div class="secret-badge">🔐 Secreto Nº8</div>
+          <div class="secret-emoji">🌳</div>
+          <div class="secret-text"><strong>Hay una estación fantasma habitada por plantas.</strong> La estación "Arts et Métiers" [Ar e Metié] está decorada como el interior de un submarino de ciencia ficción. Y la estación abandonada "Saint-Martin" lleva cerrada desde 1939 y dentro han crecido <strong>árboles y plantas</strong> sin que nadie las cuide. ¡Una jungla bajo París!</div>
+          <div class="flip-close">👆 Vuelve a pulsar para cerrar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- La Mona Lisa -->
+    <div class="flip-card" onclick="flipCard(this)">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="monument-emoji">🖼️</div>
+          <div class="monument-name">La Mona Lisa</div>
+          <div class="monument-phonetic">La Joconde [La Yocond]</div>
+          <div class="flip-hint">👆 Pulsa para descubrir el secreto</div>
+        </div>
+        <div class="flip-back">
+          <div class="secret-badge">🔐 Secreto Nº9</div>
+          <div class="secret-emoji">👀</div>
+          <div class="secret-text"><strong>Es mucho más pequeña de lo que crees.</strong> La Mona Lisa mide solo <strong>77 × 53 cm</strong> — como una hoja de papel A2. Cuando la robaron en 1911, tardaron <strong>2 años</strong> en encontrarla. Y sus ojos no te siguen de verdad: es un truco del cerebro que ocurre con cualquier retrato de frente. ¡Comprobadlo!</div>
+          <div class="flip-close">👆 Vuelve a pulsar para cerrar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- El RER A -->
+    <div class="flip-card" onclick="flipCard(this)">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="monument-emoji">🚆</div>
+          <div class="monument-name">El RER A</div>
+          <div class="monument-phonetic">[Er-e-Er A]</div>
+          <div class="flip-hint">👆 Pulsa para descubrir el secreto</div>
+        </div>
+        <div class="flip-back">
+          <div class="secret-badge">🔐 Secreto Nº10</div>
+          <div class="secret-emoji">🏆</div>
+          <div class="secret-text"><strong>¡Es el tren más usado de Europa!</strong> El RER A transporta más de <strong>1 millón de personas cada día</strong> — más que cualquier otro tren de Europa. Cuando viajéis en él iréis en el tren subterráneo más concurrido del mundo. Y pasa por debajo del río Sena sin que nadie lo note. ¡Estaréis bajo el agua sin mojaros!</div>
+          <div class="flip-close">👆 Vuelve a pulsar para cerrar</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mickey Mouse -->
+    <div class="flip-card" onclick="flipCard(this)">
+      <div class="flip-inner">
+        <div class="flip-front">
+          <div class="monument-emoji">🐭</div>
+          <div class="monument-name">Mickey Mouse</div>
+          <div class="monument-phonetic">[Miqui Maus]</div>
+          <div class="flip-hint">👆 Pulsa para descubrir el secreto</div>
+        </div>
+        <div class="flip-back">
+          <div class="secret-badge">🔐 Secreto Nº11</div>
+          <div class="secret-emoji">✋</div>
+          <div class="secret-text"><strong>Mickey siempre lleva guantes... pero ¿por qué?</strong> Walt Disney dijo que los guantes hacen que las manos de Mickey se vean mejor en la pantalla. Pero el verdadero secreto: <strong>Mickey tiene 4 dedos</strong> en cada mano, no 5. Y su voz original la puso el propio Walt Disney durante más de 20 años. ¡Él era Mickey!</div>
+          <div class="flip-close">👆 Vuelve a pulsar para cerrar</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DISNEY ACCORDION -->
+  <div style="font-size:.72rem;color:#888;text-transform:uppercase;letter-spacing:1px;font-weight:600;margin:20px 0 10px;">🏰 Disneyland Paris · Secretos de Agente Especial</div>
+
+  <!-- World of Frozen -->
+  <div class="accordion-item">
+    <div class="accordion-header" onclick="toggleAccordion(this)">
+      <span class="acc-icon">❄️</span>
+      <div class="acc-title">
+        <strong>World of Frozen · Arendelle</strong>
+        <span>World of Frozen [World of Frozen] · Disney Adventure World</span>
+      </div>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="accordion-body">
+      <div class="accordion-content">
+        <ul class="secret-list">
+          <li>
+            <span class="s-icon">🦎</span>
+            <div class="s-text">
+              <strong>Misión: Encuentra a Bruni la salamandra</strong>
+              <p>En la zona de Arendelle hay una pequeña salamandra de fuego llamada Bruni escondida entre la decoración. Es naranja y muy pequeña. ¿Podéis encontrarla antes que vuestros padres?</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">👧</span>
+            <div class="s-text">
+              <strong>Las marcas de altura de Anna y Elsa de niñas</strong>
+              <p>En una pared de la aldea de Arendelle están grabadas las marcas de altura de Anna y Elsa cuando eran pequeñas, con sus nombres y edades. ¡Comparad vuestra altura con la de ellas!</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">🏔️</span>
+            <div class="s-text">
+              <strong>El Palacio de Hielo de Elsa mide 36 metros</strong>
+              <p>Es tan alto como un edificio de 12 pisos. Está construido con 45.000 piezas especiales que brillan con luz LED por la noche. Buscad los destellos azules cuando el sol le dé de lado.</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">🎵</span>
+            <div class="s-text">
+              <strong>En el barco suena música en varios idiomas</strong>
+              <p>Durante Frozen Ever After, las canciones suenan en noruego, el idioma en el que están basadas las canciones originales de Frozen. Escuchad atentamente las diferencias.</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">❄️</span>
+            <div class="s-text">
+              <strong>Los copos de nieve son todos diferentes</strong>
+              <p>En toda la decoración de Arendelle, los diseñadores se aseguraron de que ningún copo de nieve sea igual al otro, igual que en la naturaleza real. ¿Encontráis dos iguales?</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">🌡️</span>
+            <div class="s-text">
+              <strong>El barco de Frozen usa agua real del río... ¡calentada!</strong>
+              <p>El barco de Frozen Ever After navega por agua real, pero está calentada para que el viaje sea cómodo incluso en invierno. Los efectos de "nieve" que caen sobre vosotros son burbujas de jabón especiales, no nieve de verdad. ¡Intentad atrapar una!</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">🎶</span>
+            <div class="s-text">
+              <strong>El runo de Arendelle suena real</strong>
+              <p>Los escritos en rúnico que decoran las paredes de la aldea son traducciones reales al nórdico antiguo de frases de la película. Los lingüistas de Disney trabajaron con expertos en lenguas vikingas para que fueran auténticos.</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">👃</span>
+            <div class="s-text">
+              <strong>Arendelle huele a pino y a frío</strong>
+              <p>Disney instala difusores de aroma en toda la zona de World of Frozen que liberan un olor a madera de pino y aire fresco de montaña. Es el mismo truco que usan en Main Street con la vainilla — ¡vuestro cerebro viajará a Noruega sin saberlo!</p>
+            </div>
+          </li>
+        </ul>
+        <div class="challenge-box">
+          <div class="ch-title">⭐ Reto Explorador · World of Frozen</div>
+          <div class="ch-text">Antes de salir de Arendelle, los gemelos tienen que haber encontrado: 1) a Bruni la salamandra, 2) las marcas de altura de Anna y Elsa, 3) dos copos de nieve distintos, 4) atrapar una burbuja de "nieve". El primero en completar los 4 elige el souvenir. La tía es la jueza oficial.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Disneyland Park clásico -->
+  <div class="accordion-item">
+    <div class="accordion-header" onclick="toggleAccordion(this)">
+      <span class="acc-icon">🏰</span>
+      <div class="acc-title">
+        <strong>Castillo de la Bella Durmiente · Secretos del Parque Clásico</strong>
+        <span>Château de la Belle au Bois Dormant [Shatô de la Bel o Bua Dormán]</span>
+      </div>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="accordion-body">
+      <div class="accordion-content">
+        <ul class="secret-list">
+          <li>
+            <span class="s-icon">🐉</span>
+            <div class="s-text">
+              <strong>Hay un dragón durmiendo bajo el castillo</strong>
+              <p>En los sótanos del castillo hay un dragón animatrónico enorme que "duerme" y respira. Es el único castillo Disney del mundo con un dragón debajo. ¡Buscad la entrada a La Tanière du Dragon!</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">🎨</span>
+            <div class="s-text">
+              <strong>El castillo parece más alto de lo que es</strong>
+              <p>Los imagineros Disney usaron un truco llamado "perspectiva forzada": las piedras de arriba son más pequeñas que las de abajo para que el ojo crea que el castillo es gigante. ¡Es una ilusión óptica!</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">🌟</span>
+            <div class="s-text">
+              <strong>Mickey Mouse está escondido por todo el parque</strong>
+              <p>Se llaman "Hidden Mickeys": la silueta de tres círculos (cabeza y dos orejas) está escondida en decoraciones, suelos, ventanas y atracciones. ¿Cuántos podéis encontrar en un día?</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">🍕</span>
+            <div class="s-text">
+              <strong>Main Street USA huele a vainilla y palomitas a propósito</strong>
+              <p>Disney pone máquinas especiales que liberan el olor de vainilla y palomitas en Main Street para que todo el mundo tenga hambre y compre más. ¡Ahora que lo sabéis, intentad resistir!</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">🎭</span>
+            <div class="s-text">
+              <strong>Los personajes no pueden hablar dentro del traje</strong>
+              <p>Mickey, Minnie y los demás personajes con cabezón nunca hablan — solo gesticulan. Los actores dentro ensayan durante meses solo el lenguaje corporal. Si os hacen una foto, fijaos en cómo "actúan" con las manos y la cabeza sin decir ni una palabra.</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">🔫</span>
+            <div class="s-text">
+              <strong>Los pistoleros de Frontierland disparan de verdad... casi</strong>
+              <p>Los actores del Saloon de Frontierland son actores de teatro real formados durante años. Las pistolas usan aire comprimido y destellos de luz. Pero el whisky del bar es de verdad — solo que muy muy diluido.</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">🌙</span>
+            <div class="s-text">
+              <strong>El parque nunca duerme del todo</strong>
+              <p>Cuando cerráis la noche y os vais, un ejército de 1.000 trabajadores entra a limpiar, reparar y repintar el parque para que al día siguiente esté perfecto. Disney tiene una regla: ningún empleado puede señalar con un solo dedo — siempre con dos o con toda la mano, porque señalar con un dedo es de mala educación en muchas culturas.</p>
+            </div>
+          </li>
+        </ul>
+        <div class="challenge-box">
+          <div class="ch-title">⭐ Reto Explorador · Parque Clásico</div>
+          <div class="ch-text">Misión del día: encontrar 5 Hidden Mickeys en distintos lugares del parque. Cada uno que encontréis lo apuntáis en la checklist. ¡El que llegue a 5 primero gana! La tía puede ayudar a los gemelos pero no puede competir.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Avengers Campus -->
+  <div class="accordion-item">
+    <div class="accordion-header" onclick="toggleAccordion(this)">
+      <span class="acc-icon">🕷️</span>
+      <div class="acc-title">
+        <strong>Avengers Campus · Secretos de SHIELD</strong>
+        <span>Disney Adventure World · Para la niña de 11 y los adultos</span>
+      </div>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="accordion-body">
+      <div class="accordion-content">
+        <ul class="secret-list">
+          <li>
+            <span class="s-icon">🕸️</span>
+            <div class="s-text">
+              <strong>Spider-Man os lanzará una telaraña de verdad</strong>
+              <p>En la atracción WEB Adventure, Spider-Man aparece en el edificio de verdad y os lanza telarañas. No es una pantalla — es un acróbata real disfrazado con traje animatrónico que trepa por las paredes de verdad. Buscad el momento en que "trepa" por la fachada.</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">🔬</span>
+            <div class="s-text">
+              <strong>El Quinjet del fondo es el de las películas... casi</strong>
+              <p>El Quinjet (nave de los Avengers) aparcado en Avengers Campus es una réplica a escala real. Mide lo mismo que el de las películas y tiene los mismos detalles que diseñaron para los films del MCU. Los diseñadores de Disney trabajaron directamente con Marvel Studios.</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">🥤</span>
+            <div class="s-text">
+              <strong>Los batidos de Pym cambian de tamaño... de verdad</strong>
+              <p>En el restaurante Pym Test Kitchen, la tecnología "Pym" hace que las cosas cambien de tamaño. Los macarrones son gigantes y los sándwiches son diminutos. Es un truco visual muy elaborado — todo está diseñado para que parezca que la tecnología encogidora de Ant-Man funciona de verdad.</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">🎯</span>
+            <div class="s-text">
+              <strong>Ojo de Halcón entrenó aquí... según la historia</strong>
+              <p>Disney creó una historia completa de por qué los Avengers están en este lugar. Según el "lore" oficial, Tony Stark compró el campus para entrenar a la próxima generación de héroes. Todas las señales, carteles y edificios cuentan esa historia — leedlos todos.</p>
+            </div>
+          </li>
+        </ul>
+        <div class="challenge-box" style="background:linear-gradient(135deg,#c0392b,#8b0000);">
+          <div class="ch-title">⭐ Misión SHIELD · Avengers Campus</div>
+          <div class="ch-text">La tía y la niña de 11 tienen una misión especial: encontrar los 3 escudos del Capitán América escondidos en la decoración del campus. Están en lugares donde no os los esperáis. ¿Podéis localizarlos antes de que acabe el día?</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ratatouille -->
+  <div class="accordion-item">
+    <div class="accordion-header" onclick="toggleAccordion(this)">
+      <span class="acc-icon">🐀</span>
+      <div class="acc-title">
+        <strong>Ratatouille · Los secretos de la rata más famosa</strong>
+        <span>Disney Adventure World · Apta para toda la familia y los abuelos</span>
+      </div>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="accordion-body">
+      <div class="accordion-content">
+        <ul class="secret-list">
+          <li>
+            <span class="s-icon">🏙️</span>
+            <div class="s-text">
+              <strong>La Place de Rémy tiene edificios reales de París... en miniatura</strong>
+              <p>La zona de Ratatouille es una recreación perfecta del París de la película, construida en escala de rata (es decir, muy pequeña para nosotros). Los edificios, las farolas, los adoquines y hasta los letreros son versiones en miniatura de lugares reales de París. ¡Comparad con lo que veréis en la ciudad!</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">👃</span>
+            <div class="s-text">
+              <strong>La atracción usa aromas para meterte en la cocina</strong>
+              <p>Durante Ratatouille: The Adventure, Disney activa diferentes olores según la escena: olor a queso cuando pasáis por la despensa, olor a cocina cuando entráis al restaurante, olor a alcantarilla... No es vuestra imaginación. Son difusores de aromas colocados estratégicamente.</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">🎬</span>
+            <div class="s-text">
+              <strong>Pixar recreó París durante 6 meses para hacer la película</strong>
+              <p>Los animadores de Pixar vivieron en París durante medio año para dibujar cada calle, tejado y ventana con precisión. Por eso la película tiene detalles tan exactos de la ciudad. La atracción usa ese mismo nivel de detalle — buscad los letreros en francés real dentro del restaurante Gusteau.</p>
+            </div>
+          </li>
+          <li>
+            <span class="s-icon">🏆</span>
+            <div class="s-text">
+              <strong>Remy tiene 110.000 pelos modelados individualmente</strong>
+              <p>En la película, el equipo de Pixar modeló cada uno de los 110.000 pelos de Remy a mano digitalmente. Fue tan complicado que tuvieron que inventar un nuevo software solo para eso. En la atracción, el Remy animatrónico de la entrada tiene una réplica del pelo casi igual de detallada.</p>
+            </div>
+          </li>
+        </ul>
+        <div class="challenge-box" style="background:linear-gradient(135deg,#2d6a4f,#1a3d2b);">
+          <div class="ch-title">⭐ Reto Chef · Ratatouille</div>
+          <div class="ch-text">Los abuelos tienen la misión más importante: encontrar en qué parte de La Place de Rémy está escondido el nombre del restaurante Gusteau en letras pequeñas. Pista: buscad en los azulejos cerca de la entrada. ¡Es difícil hasta para los adultos!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <div class="accordion-header" onclick="toggleAccordion(this)">
+      <span class="acc-icon">🧠</span>
+      <div class="acc-title">
+        <strong>Datos locos de Francia · ¿Sabíais que...?</strong>
+        <span>Curiosidades para sorprender a los abuelos</span>
+      </div>
+      <span class="acc-arrow">▼</span>
+    </div>
+    <div class="accordion-body">
+      <div class="accordion-content">
+        <ul class="secret-list">
+          <li><span class="s-icon">🐓</span><div class="s-text"><strong>El animal nacional de Francia es un gallo</strong><p>Se llama "Le Coq Gaulois" [Le Coc Golua]. Los franceses lo pusieron como símbolo porque en latín "gallus" significa tanto "gallo" como "francés". Un chiste de hace 2.000 años.</p></div></li>
+          <li><span class="s-icon">🥖</span><div class="s-text"><strong>Los franceses comen 30 millones de baguettes al día</strong><p>Eso es casi media baguette por persona. Por ley, una baguette tradicional solo puede llevar harina, agua, sal y levadura. Nada más. Si lleva otra cosa, no puede llamarse baguette.</p></div></li>
+          <li><span class="s-icon">🐌</span><div class="s-text"><strong>Francia es el mayor consumidor de caracoles del mundo</strong><p>Se llaman "escargots" [escargó] y se comen con mantequilla y ajo. Los franceses se comen 40.000 toneladas al año. En los restaurantes los podréis ver en el menú — ¡atreveos a probarlos!</p></div></li>
+          <li><span class="s-icon">🎨</span><div class="s-text"><strong>El Louvre es el museo más visitado del mundo</strong><p>Más de 9 millones de personas al año. Si dedicaseis 30 segundos a cada obra, necesitaríais <strong>35 días sin dormir</strong> para verlo todo. Por eso solo vamos a ver la Pirámide por fuera.</p></div></li>
+          <li><span class="s-icon">🌍</span><div class="s-text"><strong>Francia es el país más visitado del mundo</strong><p>Cada año recibe más turistas que habitantes tiene. Y el 80% de los turistas van a París. Eso significa que en agosto, de cada 5 personas en la calle, 4 son turistas como vosotros.</p></div></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════ TAB: RUTAS Y MAPAS ═══════════ -->
+<div id="tab-maps" class="tab-content">
+<div class="container">
+  <div class="section-header" style="margin-top:20px;">
+    <div class="icon" style="background:#e8eef5;color:var(--paris-blue);">🧭</div>
+    <div><div class="day-label">Rutas preparadas · Un toque y navegas</div><h2>Rutas y Mapas · Cada día listo</h2></div>
+  </div>
+
+  <!-- Base de Operaciones -->
+  <div class="base-ops-banner">
+    <div class="base-icon">🏠</div>
+    <div class="base-info">
+      <strong>⚑ Base de Operaciones · Le Victoria Garden</strong>
+      <p>7 Rue Magellan, 77700 Serris · Punto de partida y regreso cada día</p>
+    </div>
+    <div class="base-links">
+      <a class="map-btn map-btn-google" href="https://maps.google.com/?q=7+Rue+Magellan+77700+Serris" target="_blank">🗺️ Google</a>
+      <a class="map-btn map-btn-apple" href="https://maps.apple.com/?q=7+Rue+Magellan,+77700+Serris" target="_blank"> Apple</a>
+    </div>
+  </div>
+
+  <div class="apple-tip" style="margin-bottom:16px;">
+    <span>🍎</span>
+    <span><strong>Usuarios de iPhone:</strong> usad siempre el botón de Apple Maps para mejor integración con vuestro iPhone y Apple Watch. Las indicaciones giro a giro y las alertas de transporte funcionan mucho mejor en iOS con Apple Maps.</span>
+  </div>
+
+  <!-- DÍA 1 -->
+  <div class="map-day-card">
+    <div class="map-day-header">
+      <div class="map-day-badge" style="background:#e8f4e8;color:var(--green);">
+        <span class="n">29</span><span class="m">AGO</span>
+      </div>
+      <div class="map-day-info">
+        <h4>Sábado · Llegada</h4>
+        <p>Aeropuerto → Apartamento → Auchan · Val d'Europe</p>
+      </div>
+    </div>
+    <div class="map-day-body">
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--green);">1</div><span>🛬 Aeropuerto llegada → 🏠 7 Rue Magellan, Serris (traslado privado)</span></div>
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--green);">2</div><span>🏠 Apartamento → 🛒 Auchan Val d'Europe (~5 min andando)</span></div>
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--green);">3</div><span>🐟 Opcional: Sea Life Paris (~450m del apartamento)</span></div>
+      <div class="map-btn-row">
+        <a class="map-btn map-btn-google" href="https://maps.google.com/?q=Auchan+Val+d%27Europe+Serris" target="_blank">🗺️ Google Maps</a>
+        <a class="map-btn map-btn-apple" href="https://maps.apple.com/?q=Auchan+Val+d'Europe+Serris" target="_blank"> Apple Maps</a>
+        <a class="map-btn map-btn-walk" href="https://maps.google.com/?q=Sea+Life+Val+d%27Europe" target="_blank">🐠 Sea Life</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÍA 2 -->
+  <div class="map-day-card">
+    <div class="map-day-header">
+      <div class="map-day-badge" style="background:#e8eef5;color:var(--paris-blue);">
+        <span class="n">30</span><span class="m">AGO</span>
+      </div>
+      <div class="map-day-info">
+        <h4>Domingo · París Día 1</h4>
+        <p>Trocadéro · Batobus · Notre-Dame · Arco del Triunfo</p>
+      </div>
+    </div>
+    <div class="map-day-body">
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--paris-blue);">1</div><span>🚆 RER A Val d'Europe → Châtelet-les-Halles → Metro → Trocadéro</span></div>
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--paris-blue);">2</div><span>📸 Trocadéro → ⛵ Batobus (embarcar en parada Torre Eiffel)</span></div>
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--paris-blue);">3</div><span>⛵ Batobus → ⛪ Notre-Dame (Île de la Cité) · Picnic en jardines</span></div>
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--paris-blue);">4</div><span>⛵ Batobus → Concorde → 🏛️ Arco del Triunfo (15 min a pie)</span></div>
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--paris-blue);">5</div><span>🚆 Metro → Châtelet → RER A → 🏠 Val d'Europe</span></div>
+      <div class="map-btn-row">
+        <a class="map-btn map-btn-google" href="https://www.google.com/maps/dir/Trocadero,+Paris/Tour+Eiffel+Batobus,+Paris/Notre-Dame+de+Paris/Arc+de+Triomphe,+Paris" target="_blank">🗺️ Ruta completa Google</a>
+        <a class="map-btn map-btn-apple" href="https://maps.apple.com/?daddr=Trocadero,Paris" target="_blank"> Apple Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÍA 3 -->
+  <div class="map-day-card">
+    <div class="map-day-header">
+      <div class="map-day-badge" style="background:#e8eef5;color:var(--paris-blue);">
+        <span class="n">31</span><span class="m">AGO</span>
+      </div>
+      <div class="map-day-info">
+        <h4>Lunes · París Día 2</h4>
+        <p>Louvre · Saint-Germain · Le Marais</p>
+      </div>
+    </div>
+    <div class="map-day-body">
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--paris-blue);">1</div><span>🚆 RER A Val d'Europe → Châtelet → 🎨 Louvre + Jardines Tullerías</span></div>
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--paris-blue);">2</div><span>⛵ Batobus → ☕ Saint-Germain-des-Prés</span></div>
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--paris-blue);">3</div><span>⛵ Batobus → 🏘️ Le Marais · Place des Vosges</span></div>
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--paris-blue);">4</div><span>🚆 Metro → Châtelet → RER A → 🏠 Val d'Europe</span></div>
+      <div class="map-btn-row">
+        <a class="map-btn map-btn-google" href="https://www.google.com/maps/dir/Musee+du+Louvre,+Paris/Saint-Germain-des-Pres,+Paris/Le+Marais,+Paris" target="_blank">🗺️ Ruta completa Google</a>
+        <a class="map-btn map-btn-apple" href="https://maps.apple.com/?daddr=Musee+du+Louvre,Paris" target="_blank"> Apple Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÍA 4 -->
+  <div class="map-day-card">
+    <div class="map-day-header">
+      <div class="map-day-badge" style="background:#f0e8f8;color:var(--disney-purple);">
+        <span class="n">1</span><span class="m">SEP</span>
+      </div>
+      <div class="map-day-info">
+        <h4>Martes · Disneyland Park</h4>
+        <p>~10 min andando desde el apartamento</p>
+      </div>
+    </div>
+    <div class="map-day-body">
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--disney-purple);">1</div><span>🏠 7 Rue Magellan → 🏰 Disneyland Park (10 min a pie)</span></div>
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--disney-purple);">2</div><span>Opcional siesta: 🏰 Disney → 🏠 Apartamento → 🏰 Disney (20 min ida y vuelta)</span></div>
+      <div class="map-btn-row">
+        <a class="map-btn map-btn-google" href="https://maps.google.com/?q=Disneyland+Park+Marne-la-Vallee" target="_blank">🗺️ Disneyland Park</a>
+        <a class="map-btn map-btn-apple" href="https://maps.apple.com/?q=Disneyland+Paris" target="_blank"> Apple Maps</a>
+        <a class="map-btn map-btn-walk" href="https://www.google.com/maps/dir/7+Rue+Magellan+Serris/Disneyland+Paris" target="_blank">🚶 Ruta a pie</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÍA 5 -->
+  <div class="map-day-card">
+    <div class="map-day-header">
+      <div class="map-day-badge" style="background:#e8f0f8;color:var(--disney-blue);">
+        <span class="n">2</span><span class="m">SEP</span>
+      </div>
+      <div class="map-day-info">
+        <h4>Miércoles · Disney Adventure World</h4>
+        <p>World of Frozen ❄️ · Mismo acceso caminando</p>
+      </div>
+    </div>
+    <div class="map-day-body">
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--disney-blue);">1</div><span>🏠 7 Rue Magellan → ❄️ Disney Adventure World (10 min a pie)</span></div>
+      <div class="map-btn-row">
+        <a class="map-btn map-btn-google" href="https://maps.google.com/?q=Disney+Adventure+World+Paris" target="_blank">🗺️ Disney Adventure World</a>
+        <a class="map-btn map-btn-apple" href="https://maps.apple.com/?q=Walt+Disney+Studios+Park+Paris" target="_blank"> Apple Maps</a>
+        <a class="map-btn map-btn-walk" href="https://www.google.com/maps/dir/7+Rue+Magellan+Serris/Walt+Disney+Studios+Park" target="_blank">🚶 Ruta a pie</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÍA 6 -->
+  <div class="map-day-card">
+    <div class="map-day-header">
+      <div class="map-day-badge" style="background:#fff0e8;color:#c0602b;">
+        <span class="n">3</span><span class="m">SEP</span>
+      </div>
+      <div class="map-day-info">
+        <h4>Jueves · Día libre</h4>
+        <p>Versalles / La Vallée Village / Descanso</p>
+      </div>
+    </div>
+    <div class="map-day-body">
+      <div class="map-stop-row"><div class="map-stop-num" style="background:#c0602b);">A</div><span>🏰 Opción Versalles: RER A → París → RER C → Versailles Rive Gauche</span></div>
+      <div class="map-stop-row"><div class="map-stop-num" style="background:#c0602b;">B</div><span>🛍️ Opción La Vallée Village: 🏠 Apartamento → 10 min andando</span></div>
+      <div class="map-btn-row">
+        <a class="map-btn map-btn-google" href="https://maps.google.com/?q=Château+de+Versailles" target="_blank">🗺️ Versalles Google</a>
+        <a class="map-btn map-btn-apple" href="https://maps.apple.com/?q=Chateau+de+Versailles" target="_blank"> Versalles Apple</a>
+        <a class="map-btn map-btn-walk" href="https://maps.google.com/?q=La+Vallee+Village+Serris" target="_blank">🛍️ La Vallée Village</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DÍA 7 -->
+  <div class="map-day-card">
+    <div class="map-day-header">
+      <div class="map-day-badge" style="background:#f5e8e8;color:var(--red);">
+        <span class="n">4</span><span class="m">SEP</span>
+      </div>
+      <div class="map-day-info">
+        <h4>Viernes · Vuelta a casa</h4>
+        <p>Serris → Aeropuerto de Orly · Traslado privado 10:15h</p>
+      </div>
+    </div>
+    <div class="map-day-body">
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--red);">1</div><span>🏠 7 Rue Magellan, Serris → ✈️ Aeropuerto de Orly (traslado privado ~45 min)</span></div>
+      <div class="map-stop-row"><div class="map-stop-num" style="background:var(--red);">2</div><span>✈️ Vuelo ORY → SCQ · 14:05h · Vueling</span></div>
+      <div class="map-btn-row">
+        <a class="map-btn map-btn-google" href="https://maps.google.com/?q=Aeroport+Paris+Orly" target="_blank">🗺️ Aeropuerto Orly Google</a>
+        <a class="map-btn map-btn-apple" href="https://maps.apple.com/?q=Aeroport+Paris+Orly" target="_blank"> Orly Apple Maps</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="star-tip" style="margin-top:4px;">
+    <h5>🧭 Trucos de navegación</h5>
+    <ul>
+      <li><strong>Descarga los mapas offline de París en Google Maps</strong> antes de salir — funciona sin datos móviles en el metro</li>
+      <li><strong>iPhone + Apple Watch:</strong> activa las indicaciones giro a giro desde Apple Maps — el reloj vibra cuando hay que girar, sin sacar el móvil</li>
+      <li><strong>App Citymapper Paris:</strong> más clara que Google Maps para el metro y el RER. Descárgala antes del viaje</li>
+      <li><strong>El apartamento siempre como destino de regreso:</strong> "7 Rue Magellan, Serris" guardado como favorito en Google Maps y Apple Maps desde el primer día</li>
+    </ul>
+  </div>
+
+</div>
+</div>
+
 <!-- FOOTER -->
 <div class="footer">
   <p>Itinerario creado para la familia · <strong>Francia 2026</strong></p>
@@ -2581,7 +3369,7 @@ function switchTab(id) {
   document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
   const btns = document.querySelectorAll('.tab-btn');
-  const labels = ['overview','d1','d2','d3','d4','d5','d6','d7','budget','batobus','french','food','checklist','rain','emergency','disney-guide','souvenirs','paris-map','weather','firstaid','games','photos','install'];
+  const labels = ['overview','d1','d2','d3','d4','d5','d6','d7','budget','batobus','french','food','checklist','rain','emergency','disney-guide','souvenirs','paris-map','weather','firstaid','games','photos','explorer','maps','install'];
   const idx = labels.indexOf(id);
   if (idx >= 0) {
     btns[idx].classList.add('active');
@@ -2598,6 +3386,16 @@ function switchTab(id) {
   }
 }
 
+// ─── ACCORDION ───
+function toggleAccordion(el) {
+  const item = el.closest('.accordion-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.accordion-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+// ─── FLIP CARDS ───
+function flipCard(el) { el.classList.toggle('flipped'); }
+
 // ─── DARK MODE ───
 function toggleDark() {
   document.body.classList.toggle('dark');
@@ -2610,8 +3408,8 @@ function toggleDark() {
 })();
 
 // ─── PRESENTATION MODE ───
-const presLabels = ['overview','d1','d2','d3','d4','d5','d6','d7','budget','batobus','french','food','checklist','rain','emergency','disney-guide','souvenirs','paris-map','weather','firstaid','games','photos'];
-const presNames  = ['Resumen','Llegada 29 ago','París Día 1','París Día 2','Disney 1 sep','Disney 2 sep','Día Libre','Vuelta','Presupuesto','Batobus','Francés','Comida','Checklist','Plan lluvia','Emergencias','Guía Disney','Souvenirs','Mapa París','El Tiempo','Primeros Auxilios','Juegos RER','Nuestras Fotos'];
+const presLabels = ['overview','d1','d2','d3','d4','d5','d6','d7','budget','batobus','french','food','checklist','rain','emergency','disney-guide','souvenirs','paris-map','weather','firstaid','games','photos','explorer','maps','install'];
+const presNames  = ['Resumen','Llegada 29 ago','París Día 1','París Día 2','Disney 1 sep','Disney 2 sep','Día Libre','Vuelta','Presupuesto','Batobus','Francés','Comida','Checklist','Plan lluvia','Emergencias','Guía Disney','Souvenirs','Mapa París','El Tiempo','Primeros Auxilios','Juegos RER','Nuestras Fotos','Guía Explorador','Rutas y Mapas','Instalar App'];
 let presIdx = 0;
 function togglePresentation() {
   document.body.classList.toggle('presentation');
@@ -2720,9 +3518,9 @@ function startMemory(){
   const sc=document.getElementById('mem-score'); const grid=document.getElementById('memory-grid');
   if(!grid) return;
   if(sc) sc.textContent='0 parejas';
-  grid.innerHTML=pairs.map((e,i)=>`<div class="mem-card" data-emoji="${e}" onclick="flipCard(this)">\u00a0</div>`).join('');
+  grid.innerHTML=pairs.map((e,i)=>`<div class="mem-card" data-emoji="${e}" onclick="flipMemCard(this)">\u00a0</div>`).join('');
 }
-function flipCard(el){
+function flipMemCard(el){
   if(memLock||el.classList.contains('flipped')||el.classList.contains('matched')) return;
   el.classList.add('flipped'); el.textContent=el.dataset.emoji; memFlipped.push(el);
   if(memFlipped.length===2){
@@ -2901,8 +3699,29 @@ calcBudget();
 // ═══════════════════════════════════════════
 // ─── PWA: SERVICE WORKER REGISTRATION ───
 // ═══════════════════════════════════════════
+const SW_CODE = `
+const CACHE = 'francia2026-v1';
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(['./'])));
+  self.skipWaiting();
+});
+self.addEventListener('activate', e => {
+  e.waitUntil(caches.keys().then(keys =>
+    Promise.all(keys.filter(k => k !== CACHE).map(k => caches.delete(k)))
+  ));
+  self.clients.claim();
+});
+self.addEventListener('fetch', e => {
+  e.respondWith(
+    fetch(e.request).catch(() => caches.match(e.request))
+  );
+});
+`;
+
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').catch(() => {});
+  const blob = new Blob([SW_CODE], { type: 'application/javascript' });
+  const swUrl = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl, { scope: './' }).catch(() => {});
 }
 
 // ─── PWA: INSTALL PROMPT ───
