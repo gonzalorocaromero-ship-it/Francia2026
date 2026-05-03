@@ -85,9 +85,8 @@ body { background:var(--cream); color:var(--navy); font-family:'DM Sans',sans-se
 .tab-btn.active { color:var(--navy); border-bottom-color:var(--gold); }
 .tab-btn:hover { color:var(--navy); }
 
-/* CONTENT */
-.tab-content { display:none; }
-.tab-content.active { display:block; }
+
+
 .container { max-width:860px; margin:0 auto; padding:24px 20px 60px; }
 
 /* SECTION HEADERS */
@@ -498,144 +497,49 @@ body.dark .bottom-nav { background: rgba(17,24,39,.97); border-color: rgba(201,1
 body.dark .quick-btn { background: #1f2937; }
 
 /* Smooth scroll */
-html { scroll-behavior: smooth; }
+/* ══ AUDIO GLOSARIO ══ */
+.phrase-card { position: relative; padding-right: 46px; }
+.speak-btn {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  background: none; border: 1px solid rgba(0,48,135,.2); border-radius: 50%;
+  width: 32px; height: 32px; cursor: pointer; font-size: .9rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s; color: var(--paris-blue); flex-shrink: 0;
+}
+.speak-btn:active { transform: translateY(-50%) scale(.88); }
+.speak-btn.speaking {
+  background: var(--paris-blue); color: #fff;
+  animation: speakPulse .6s infinite alternate;
+}
+@keyframes speakPulse {
+  from { box-shadow: 0 0 0 0 rgba(0,48,135,.4); }
+  to   { box-shadow: 0 0 0 8px rgba(0,48,135,0); }
+}
+body.dark .speak-btn { border-color: rgba(245,240,232,.2); color: var(--gold-light); }
+body.dark .speak-btn.speaking { background: var(--gold); color: #fff; }
 
-/* ══════════════════════════════════════
-   #2 — TEMAS DE COLOR POR DÍA
-══════════════════════════════════════ */
-:root {
-  --day-primary: var(--navy);
-  --day-secondary: #1e3a5f;
-  --day-accent: var(--gold);
-  --day-text: var(--cream);
-}
-/* Día 1 — Llegada: Verde selva */
-body.theme-d1 { --day-primary:#1a4d2e; --day-secondary:#2d6a4f; --day-accent:#7ec8a0; }
-/* Día 2 — París 1: Azul noche parisina */
-body.theme-d2 { --day-primary:#003087; --day-secondary:#1565c0; --day-accent:#90caf9; }
-/* Día 3 — París 2: Azul índigo */
-body.theme-d3 { --day-primary:#1a237e; --day-secondary:#283593; --day-accent:#9fa8da; }
-/* Día 4 — Disney clásico: Púrpura real */
-body.theme-d4 { --day-primary:#4a0072; --day-secondary:#6a1b9a; --day-accent:#ce93d8; }
-/* Día 5 — Disney Frozen: Azul hielo */
-body.theme-d5 { --day-primary:#01579b; --day-secondary:#0288d1; --day-accent:#80deea; }
-/* Día 6 — Día libre: Terracota dorada */
-body.theme-d6 { --day-primary:#7a3500; --day-secondary:#bf360c; --day-accent:#ffcc80; }
-/* Día 7 — Vuelta: Granate despedida */
-body.theme-d7 { --day-primary:#880e4f; --day-secondary:#c2185b; --day-accent:#f48fb1; }
-
-/* Aplicar tema al home hero y bottom nav */
-body[class*="theme-"] .home-hero { background: var(--day-primary); }
-body[class*="theme-"] .home-hero::before { background: var(--day-secondary); opacity:.6; }
-body[class*="theme-"] .bottom-nav { background: rgba(0,0,0,.85); border-top-color: var(--day-accent); }
-body[class*="theme-"] .bn-btn.active { color: var(--day-accent); }
-body[class*="theme-"] .bn-btn.active .bn-icon { filter: drop-shadow(0 0 6px var(--day-accent)); }
-body[class*="theme-"] .ring-box { border-color: rgba(255,255,255,.2); }
-body[class*="theme-"] .today-card { border-color: var(--day-accent); }
-body[class*="theme-"] .tc-label { color: var(--day-accent); }
-body[class*="theme-"] .scroll-progress { background: linear-gradient(90deg, var(--day-accent), #fff); }
-body[class*="theme-"] .sub-btn.active { color: var(--day-primary); border-bottom-color: var(--day-primary); }
-
-/* Theme indicator pill */
-.theme-pill {
-  position: fixed; top: 10px; right: 12px; z-index: 95;
-  background: rgba(0,0,0,.5); color: #fff;
-  font-size: .65rem; padding: 4px 10px; border-radius: 20px;
-  backdrop-filter: blur(8px); pointer-events: none;
-  transition: opacity .5s; opacity: 0;
-}
-.theme-pill.visible { opacity: 1; }
-
-/* ══════════════════════════════════════
-   #3 — SPLASH SCREEN DE ENTRADA
-══════════════════════════════════════ */
-#splash {
-  position: fixed; inset: 0; z-index: 9998;
-  background: var(--navy);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  transition: opacity .6s ease, transform .6s ease;
-}
-#splash.hiding { opacity: 0; transform: scale(1.05); pointer-events: none; }
-#splash.hidden { display: none; }
-.splash-tower {
-  font-size: 5rem; margin-bottom: 8px;
-  animation: splashBounce 1s ease infinite alternate;
-}
-@keyframes splashBounce {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-12px); }
-}
-.splash-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.2rem; font-weight: 700; color: var(--cream);
-  margin-bottom: 4px; opacity: 0;
-  animation: splashFadeIn .6s ease .4s forwards;
-}
-.splash-title span { color: var(--gold); }
-.splash-subtitle {
-  font-size: .82rem; color: rgba(245,240,232,.5);
-  letter-spacing: 2px; text-transform: uppercase;
-  opacity: 0; animation: splashFadeIn .5s ease .7s forwards;
-  margin-bottom: 28px;
-}
-.splash-names {
-  display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
-  max-width: 280px; opacity: 0;
-  animation: splashFadeIn .5s ease 1s forwards;
-}
-.splash-name {
-  background: rgba(255,255,255,.08); border: 1px solid rgba(201,168,76,.3);
-  border-radius: 20px; padding: 5px 12px;
-  font-size: .75rem; color: var(--gold-light);
-  animation: splashNamePop .3s ease backwards;
-}
-@keyframes splashNamePop {
-  from { transform: scale(0); opacity: 0; }
-  to   { transform: scale(1); opacity: 1; }
-}
-.splash-progress {
-  width: 200px; height: 3px; background: rgba(255,255,255,.1);
-  border-radius: 10px; overflow: hidden; margin-top: 28px;
-  opacity: 0; animation: splashFadeIn .4s ease 1.2s forwards;
-}
-.splash-progress-fill {
-  height: 100%; background: linear-gradient(90deg, var(--gold), #fff);
-  border-radius: 10px; width: 0%;
-  animation: splashLoad 1.8s ease 1.2s forwards;
-}
-@keyframes splashFadeIn { to { opacity: 1; } }
-@keyframes splashLoad { to { width: 100%; } }
-
-/* ══════════════════════════════════════
-   #1 — MODO SOLO HOY
-══════════════════════════════════════ */
+/* ══ MODO SOLO HOY ══ */
 .modo-hoy-btn {
   display: inline-flex; align-items: center; gap: 6px;
   background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
-  color: var(--cream); border-radius: 20px; padding: 7px 16px;
-  font-size: .78rem; font-weight: 600; cursor: pointer;
-  font-family: 'DM Sans', sans-serif; margin-top: 8px;
-  transition: background .2s, transform .15s;
-  -webkit-tap-highlight-color: transparent;
+  color: var(--cream); border-radius: 20px; padding: 8px 18px;
+  font-size: .8rem; font-weight: 600; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; margin-top: 10px;
+  transition: background .2s; -webkit-tap-highlight-color: transparent;
 }
-.modo-hoy-btn:active { transform: scale(.95); }
-.modo-hoy-btn.active { background: var(--gold); border-color: var(--gold); color: #fff; }
-
-/* Modo Solo Hoy overlay */
+.modo-hoy-btn:active { background: rgba(255,255,255,.2); }
+.modo-hoy-btn.active { background: var(--gold); border-color: var(--gold); }
 #modo-hoy-overlay {
   display: none; position: fixed; inset: 0; z-index: 800;
-  flex-direction: column;
-  background: var(--day-primary, var(--navy));
-  overflow-y: auto;
+  flex-direction: column; overflow-y: auto;
   padding-bottom: calc(70px + env(safe-area-inset-bottom));
+  background: var(--navy);
 }
 #modo-hoy-overlay.visible { display: flex; }
 .mh-header {
   background: rgba(0,0,0,.3); padding: 16px 20px 14px;
   display: flex; align-items: center; gap: 12px;
-  position: sticky; top: 0; z-index: 10;
-  backdrop-filter: blur(12px);
+  position: sticky; top: 0; z-index: 10; backdrop-filter: blur(12px);
 }
 .mh-close {
   background: rgba(255,255,255,.15); border: none; color: #fff;
@@ -643,83 +547,81 @@ body[class*="theme-"] .sub-btn.active { color: var(--day-primary); border-bottom
   cursor: pointer; display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.mh-title { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.1rem; font-weight: 700; flex: 1; }
-.mh-date { font-size: .72rem; color: rgba(255,255,255,.6); }
-.mh-body { padding: 20px; flex: 1; }
-.mh-section { margin-bottom: 20px; }
+.mh-title { font-family: 'Playfair Display', serif; color: #fff; font-size: 1.1rem; font-weight: 700; }
+.mh-date  { font-size: .72rem; color: rgba(255,255,255,.6); }
+.mh-body  { padding: 20px; flex: 1; }
 .mh-section-label { font-size: .65rem; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,.5); font-weight: 600; margin-bottom: 10px; }
 .mh-event {
-  background: rgba(255,255,255,.1); border-radius: 12px; padding: 14px 16px;
-  margin-bottom: 8px; border-left: 4px solid rgba(255,255,255,.3);
-  display: flex; gap: 12px; align-items: flex-start;
+  background: rgba(255,255,255,.08); border-radius: 12px; padding: 12px 14px;
+  margin-bottom: 8px; border-left: 4px solid rgba(255,255,255,.2);
+  display: flex; gap: 10px;
 }
-.mh-event.highlight { border-left-color: var(--gold); background: rgba(201,168,76,.15); }
-.mh-time { font-size: .75rem; color: rgba(255,255,255,.5); min-width: 42px; font-weight: 600; margin-top: 2px; }
-.mh-event-content strong { display: block; font-size: .88rem; color: #fff; margin-bottom: 2px; }
-.mh-event-content p { font-size: .78rem; color: rgba(255,255,255,.65); line-height: 1.4; }
-.mh-tip { background: rgba(201,168,76,.2); border-radius: 10px; padding: 12px 14px; margin-top: 4px; }
-.mh-tip p { font-size: .78rem; color: var(--gold-light); line-height: 1.5; }
+.mh-event.highlight { border-left-color: var(--gold); background: rgba(201,168,76,.12); }
+.mh-time { font-size: .72rem; color: rgba(255,255,255,.5); min-width: 40px; font-weight: 600; margin-top: 2px; flex-shrink: 0; }
+.mh-event-content strong { display: block; font-size: .86rem; color: #fff; margin-bottom: 2px; }
+.mh-event-content p { font-size: .76rem; color: rgba(255,255,255,.65); line-height: 1.4; margin: 0; }
+.mh-tip { background: rgba(201,168,76,.15); border-radius: 10px; padding: 12px 14px; margin-top: 8px; }
+.mh-tip p { font-size: .78rem; color: var(--gold-light); line-height: 1.5; margin: 0; }
 
-/* ══════════════════════════════════════
-   #22 — AUDIO GLOSARIO
-══════════════════════════════════════ */
-.phrase-card { position: relative; }
-.speak-btn {
-  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-  background: none; border: 1px solid rgba(0,48,135,.2); border-radius: 50%;
-  width: 32px; height: 32px; cursor: pointer; font-size: .9rem;
-  display: flex; align-items: center; justify-content: center;
-  transition: background .2s, transform .15s; color: var(--paris-blue);
-  flex-shrink: 0;
-}
-.speak-btn:active { transform: translateY(-50%) scale(.88); }
-.speak-btn.speaking { background: var(--paris-blue); color: #fff; animation: speakPulse .6s infinite alternate; }
-@keyframes speakPulse { from { box-shadow: 0 0 0 0 rgba(0,48,135,.4); } to { box-shadow: 0 0 0 8px rgba(0,48,135,0); } }
-body.dark .speak-btn { border-color: rgba(245,240,232,.2); color: var(--gold-light); }
-body.dark .speak-btn.speaking { background: var(--gold); color: #fff; }
+html { scroll-behavior: smooth; }
 
-/* ══════════════════════════════════════
-   #11 — BOTÓN "LLEVADME AQUÍ"
-══════════════════════════════════════ */
-.nav-here-btn {
-  display: inline-flex; align-items: center; gap: 5px;
-  background: var(--green); color: #fff;
-  border: none; border-radius: 8px; padding: 6px 12px;
-  font-size: .72rem; font-weight: 700; cursor: pointer;
-  font-family: 'DM Sans', sans-serif; text-decoration: none;
-  transition: transform .15s, box-shadow .15s;
-  -webkit-tap-highlight-color: transparent;
-}
-.nav-here-btn:active { transform: scale(.94); }
-.nav-here-btn::before { content: '🧭'; font-size: .75rem; }
+/* ══ SISTEMA OPERATIVO ══ */
+.op-decision { background:var(--navy); color:var(--cream); border-radius:12px; padding:12px 16px; margin-bottom:12px; border-left:4px solid var(--gold); }
+.op-decision .od-label { font-size:.62rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold); font-weight:700; margin-bottom:4px; }
+.op-decision .od-text { font-size:.84rem; font-weight:600; line-height:1.4; }
+.op-escape { background:#1a0a0a; border-radius:12px; padding:12px 16px; margin-bottom:12px; border-left:4px solid #e74c3c; }
+.op-escape .oe-label { font-size:.62rem; text-transform:uppercase; letter-spacing:1.5px; color:#e74c3c; font-weight:700; margin-bottom:6px; }
+.op-escape .oe-row { display:flex; gap:8px; font-size:.79rem; color:rgba(245,240,232,.85); padding:4px 0; border-bottom:1px solid rgba(255,255,255,.06); }
+.op-escape .oe-row:last-child { border-bottom:none; }
+.op-escape .oe-from { color:rgba(245,240,232,.45); min-width:80px; font-size:.72rem; flex-shrink:0; }
+.op-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+.op-tag { font-size:.65rem; font-weight:700; padding:2px 8px; border-radius:10px; }
+.op-tag-core { background:#e8f5e9; color:#2e7d32; }
+.op-tag-optional { background:#f5f5f5; color:#757575; }
+.op-tag-cut { background:#fff3e0; color:#e65100; }
 
-/* ══════════════════════════════════════
-   #23 — SEMÁFORO DISNEY
-══════════════════════════════════════ */
-.semaforo-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; }
-.semaforo-table { border-collapse: collapse; min-width: 500px; width: 100%; }
-.semaforo-table th {
-  padding: 8px 10px; font-size: .68rem; text-transform: uppercase;
-  letter-spacing: .8px; font-weight: 700; color: #888;
-  border-bottom: 2px solid rgba(0,0,0,.07); text-align: center;
+/* Contingency toggle buttons */
+.op-cont-toggle {
+  display:inline-flex; align-items:center; gap:4px;
+  background:none; border:1px solid rgba(0,0,0,.15);
+  border-radius:20px; padding:3px 10px 3px 8px;
+  font-size:.68rem; font-weight:600; cursor:pointer;
+  color:#888; font-family:'DM Sans',sans-serif;
+  transition:all .15s; margin:3px 3px 0 0;
+  -webkit-tap-highlight-color:transparent;
+  max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
 }
-.semaforo-table th:first-child { text-align: left; }
-.semaforo-table td {
-  padding: 9px 10px; border-bottom: 1px solid rgba(0,0,0,.05);
-  font-size: .8rem; vertical-align: middle;
-}
-.semaforo-table tr:last-child td { border-bottom: none; }
-.semaforo-table .attr-name { font-weight: 600; font-size: .82rem; }
-.semaforo-table .attr-sub { font-size: .7rem; color: #999; display: block; }
-.sf { width: 32px; height: 28px; border-radius: 6px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: .72rem; font-weight: 700; cursor: help; }
-.sf-green  { background: #e8f5e9; color: #2e7d32; }
-.sf-yellow { background: #fff8e1; color: #f57f17; }
-.sf-red    { background: #fce4ec; color: #c62828; }
-.sf-na     { background: #f5f5f5; color: #bbb; font-size: .65rem; }
-.semaforo-legend { display: flex; gap: 14px; margin-top: 10px; flex-wrap: wrap; font-size: .72rem; color: #666; align-items: center; }
-.sl-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
-.best-time-badge { display: inline-block; background: var(--green); color: #fff; font-size: .65rem; font-weight: 700; padding: 2px 7px; border-radius: 10px; margin-left: 6px; }
+.op-cont-toggle.rain-btn   { border-color:#1565c0; color:#1565c0; }
+.op-cont-toggle.tired-btn  { border-color:#c62828; color:#c62828; }
+.op-cont-toggle.ops-btn    { border-color:#e65100; color:#e65100; }
+.op-cont-toggle.active     { background:rgba(0,0,0,.05); }
+body.dark .op-cont-toggle  { border-color:rgba(255,255,255,.2); color:#6b7280; }
 
+/* Contingency content — hidden by default */
+.op-contingency-wrap { margin-top:5px; }
+.op-contingency {
+  display:none; border-radius:8px; padding:8px 12px; margin-top:5px;
+  font-size:.78rem; gap:8px; align-items:flex-start; line-height:1.4;
+  box-sizing:border-box; max-width:100%; overflow:hidden; word-wrap:break-word;
+  animation:contIn .2s ease;
+}
+.op-contingency.open { display:flex; }
+@keyframes contIn { from{opacity:0;transform:translateY(-4px)} to{opacity:1;transform:translateY(0)} }
+.op-contingency .oc-icon { flex-shrink:0; font-size:.85rem; margin-top:1px; }
+.op-contingency .oc-text { flex:1; min-width:0; overflow:hidden; word-wrap:break-word; }
+.op-contingency .oc-text strong { display:block; font-size:.7rem; text-transform:uppercase; letter-spacing:.5px; margin-bottom:2px; font-weight:700; }
+.op-c-rain  { background:#e3f2fd; border-left:3px solid #1565c0; }
+.op-c-tired { background:#fce4ec; border-left:3px solid #c62828; }
+.op-c-ops   { background:#fff8e1; border-left:3px solid #f57f17; }
+.op-c-rain  .oc-text strong { color:#1565c0; }
+.op-c-tired .oc-text strong { color:#c62828; }
+.op-c-ops   .oc-text strong { color:#e65100; }
+body.dark .op-c-rain  { background:#0d2137; }
+body.dark .op-c-tired { background:#2d0a0f; }
+body.dark .op-c-ops   { background:#2d1f00; }
+body.dark .op-c-rain .oc-text,
+body.dark .op-c-tired .oc-text,
+body.dark .op-c-ops .oc-text { color:rgba(245,240,232,.85); }
 
 /* ── ALWAYS-VISIBLE BOTTOM NAV ── */
 .bottom-nav { transform: translateY(0) !important; }
@@ -932,7 +834,7 @@ body.presentation .cover { padding:80px 40px 60px; }
 body.presentation .cover h1 { font-size:4rem; }
 body.presentation .tabs-wrapper { display:none; }
 body.presentation .countdown-bar { display:none; }
-body.presentation .tab-content { display:block !important; page-break-after:always; }
+
 body.presentation .container { max-width:1100px; padding:40px; }
 body.presentation .day-card, body.presentation .info-box { font-size:1.1rem; }
 body.presentation .section-header h2 { font-size:2rem; }
@@ -1023,7 +925,7 @@ body.presentation .presentation-bar { display:flex; }
 
 @media print {
   .tabs-wrapper,.countdown-bar { display:none !important; }
-  .tab-content { display:block !important; }
+  
   body { font-size:11px; }
   .cover { padding:24px; }
   .cover h1 { font-size:1.8rem; }
@@ -1047,38 +949,6 @@ body.presentation .presentation-bar { display:flex; }
 </style>
 </head>
 <body>
-
-<!-- ═══ SPLASH SCREEN #3 ═══ -->
-<div id="splash">
-  <div class="splash-tower">🗼</div>
-  <div class="splash-title">Francia <span>2026</span></div>
-  <div class="splash-subtitle">29 Ago · 4 Sep · 8 Exploradores</div>
-  <div class="splash-names">
-    <span class="splash-name" style="animation-delay:.9s">👴 Abuelo</span>
-    <span class="splash-name" style="animation-delay:1.0s">👵 Abuela</span>
-    <span class="splash-name" style="animation-delay:1.1s">👨 Papá</span>
-    <span class="splash-name" style="animation-delay:1.2s">👩 Mamá</span>
-    <span class="splash-name" style="animation-delay:1.3s">👩 Tía</span>
-    <span class="splash-name" style="animation-delay:1.4s">👧 Niña</span>
-    <span class="splash-name" style="animation-delay:1.5s">👦 Gemelo 1</span>
-    <span class="splash-name" style="animation-delay:1.6s">👦 Gemelo 2</span>
-  </div>
-  <div class="splash-progress"><div class="splash-progress-fill"></div></div>
-</div>
-
-<!-- ═══ MODO SOLO HOY OVERLAY #1 ═══ -->
-<div id="modo-hoy-overlay">
-  <div class="mh-header">
-    <button class="mh-close" onclick="toggleModoHoy()">✕</button>
-    <div>
-      <div class="mh-title" id="mh-title">Hoy: Llegada</div>
-      <div class="mh-date" id="mh-date">Sábado 29 de agosto</div>
-    </div>
-  </div>
-  <div class="mh-body" id="mh-body">
-    <!-- Populated by JS -->
-  </div>
-</div>
 
 <!-- SCROLL PROGRESS -->
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -1168,11 +1038,12 @@ body.presentation .presentation-bar { display:flex; }
       <div class="tc-arrow">→</div>
     </div>
 
-    <!-- MODO SOLO HOY -->
     <button class="modo-hoy-btn" id="modoHoyBtn" onclick="toggleModoHoy()">
-      👁️ Modo Solo Hoy
+      👁️ Ver resumen del día
     </button>
   </div>
+
+
 
   <!-- ACCESOS RÁPIDOS -->
   <div style="padding:20px 20px 4px;">
@@ -1508,37 +1379,26 @@ body.presentation .presentation-bar { display:flex; }
     <div class="icon" style="background:#e8f4e8;color:var(--green);">✈️</div>
     <div><div class="day-label">Sábado 29 agosto</div><h2>Llegada a Francia</h2></div>
   </div>
-  <div class="day-card day-arrival">
-    <div class="day-card-header">
-      <div class="day-badge"><span class="num">29</span><span class="month">AGO</span></div>
-      <div class="info"><h3>Llegada · Instalación · Primer reconocimiento</h3><div class="tagline">Aterrizar suave después de un vuelo largo</div></div>
-    </div>
+  <div class="op-decision"><div class="od-label">🧠 Decisión clave del día</div><div class="od-text">¿Todos con energía? → Auchan completo. ¿Alguien agotado? → compra mínima y directo al check-in. Hoy no hay nada que perder.</div></div>
+  <div class="op-escape"><div class="oe-label">🚨 Vuelta rápida al apartamento</div><div class="oe-row"><span class="oe-from">Desde cualquier punto</span><span>Google Maps → "7 Rue Magellan, Serris" → a pie.</span></div><div class="oe-row"><span class="oe-from">Desde Auchan</span><span>5 min andando. Salir puerta principal, girar izquierda.</span></div></div>
+  <div class="day-card">
     <div class="day-card-body">
+      
       <div class="timeline">
         <div class="timeline-item">
-          <div class="t-time">11:25</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>✈️ Llegada al aeropuerto</strong><p>Traslado privado ya reservado. Directo al apartamento Le Victoria Garden, Serris.</p></div>
+          <div class="t-time">11:25</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>✈️ Llegada · Traslado privado</strong><p>El traslado espera en llegadas. Directo al apartamento.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c93700')">⏱️ Retraso o no aparece el traslado</button><div class="op-contingency op-c-ops " id="c93700"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Retraso o no aparece el traslado</strong>Llamar al número del traslado. Tienen el localizador del vuelo. Esperar en zona de llegadas.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">13:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🧳 Dejar maletas en el apartamento</strong><p>Guardan el equipaje hasta el check-in. Salís con mochila de día.</p>
-          <div class="tip">📍 Dirección: <strong>7 Rue Magellan, 77700 Serris</strong> — guardar en el móvil. El Sea Life Paris (acuario) está a solo 450m andando: si los gemelos tienen energía y queda tiempo antes del check-in, puede ser una opción para entretenerlos.</div></div>
+          <div class="t-time">13:30</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🛒 Auchan · Compra semanal</strong><p>Dividir: unos con carrito (agua, desayunos, cenas), otros con los gemelos.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span><span class="op-tag op-tag-cut">✂️ Cortar aquí si alguien cae</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c57335')">😵 Gemelos o abuelos agotados</button><div class="op-contingency op-c-tired " id="c57335"><span class="oc-icon">😵</span><div class="oc-text"><strong>Gemelos o abuelos agotados</strong>Cafetería del Auchan planta baja. Los demás compran. 20 min máximo.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c31472')">⏱️ Colas largas en caja</button><div class="op-contingency op-c-ops " id="c31472"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Colas largas en caja</strong>Usar autoservicio — siempre menos espera.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">13:30</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🛒 Gran compra en Auchan · Val d'Europe</strong><p>El Auchan de Val d'Europe es enorme. Primera compra grande para toda la estancia: desayunos, cenas en casa, snacks Disney, agua.</p><div class="tip">🛒 Presupuesto orientativo: 200-260€ para 8 personas (leche, pan, fruta, embutidos, agua×15 litros, snacks, café).</div></div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">15:30</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🏪 Explorar Val d'Europe</strong><p>Gran centro comercial con cines, moda, restaurantes y el Auchan. Son dos sitios distintos: <strong>Val d'Europe</strong> es el centro comercial de uso diario; <strong>La Vallée Village</strong> es el outlet de lujo independiente, a unos minutos andando desde aquí. Perfecto para aclimatarse sin agotarse.</p></div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">16:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🏠 Check-in Le Victoria Garden</strong><p>Instalación, asignar habitaciones, los gemelos necesitan descansar.</p></div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">19:30</div><div class="t-dot-col"><div class="t-dot"></div></div>
-          <div class="t-content"><strong>🍽️ Cena en casa</strong><p>Primera noche: cena sencilla con lo comprado. Todos a dormir pronto — mañana París.</p></div>
+          <div class="t-time">16:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div></div>
+          <div class="t-content"><strong>🏠 Check-in · Cena en casa</strong><p>Cena con lo comprado. Dormir pronto — mañana París.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c47405')">😵 Alguien muy cansado o mal</button><div class="op-contingency op-c-tired " id="c47405"><span class="oc-icon">😵</span><div class="oc-text"><strong>Alguien muy cansado o mal</strong>Cena y cama. Nada de explorar. No se pierde nada.</div></div></div></div>
         </div>
       </div>
     </div>
@@ -1551,51 +1411,46 @@ body.presentation .presentation-bar { display:flex; }
     <div class="icon" style="background:#e8eef5;color:var(--paris-blue);">🗼</div>
     <div><div class="day-label">Domingo 30 agosto</div><h2>París · Día 1</h2></div>
   </div>
-  <div class="day-card day-paris">
-    <div class="day-card-header">
-      <div class="day-badge"><span class="num">30</span><span class="month">AGO</span></div>
-      <div class="info"><h3>Trocadéro · Batobus · Notre-Dame · Arco del Triunfo</h3><div class="tagline">El corazón monumental de París</div></div>
-    </div>
+  <div class="op-decision"><div class="od-label">🧠 Decisión clave del día</div><div class="od-text">¿Salís antes de las 8:30h? → el día funciona. ¿Salís tarde? → Trocadéro lleno y RER saturado.</div></div>
+  <div class="op-escape"><div class="oe-label">🚨 Vuelta rápida al apartamento</div><div class="oe-row"><span class="oe-from">Desde Trocadéro</span><span>Metro L6 → Châtelet → RER A → Val d'Europe. 50 min.</span></div><div class="oe-row"><span class="oe-from">Desde Notre-Dame</span><span>Metro L4 → Châtelet → RER A. 50 min.</span></div><div class="oe-row"><span class="oe-from">Desde Arco del Triunfo</span><span>Metro L1 → Châtelet → RER A. 55 min.</span></div><div class="oe-row"><span class="oe-from">Desde cualquier punto</span><span>Citymapper → "Val d'Europe" → opción RER A.</span></div></div>
+  <div class="day-card">
     <div class="day-card-body">
-      <div class="alert alert-warn">
-        <span class="icon">⚠️</span><span><strong>Domingo en agosto:</strong> máxima afluencia. Salir antes de las 8:30h. El RER los domingos puede ir muy lleno — dejar espacio para el cochecito.</span>
-      </div>
+      <div class="alert alert-warn"><span class="icon">⚠️</span><span><strong>Domingo en agosto:</strong> máxima afluencia. Salir antes de las 8:30h.</span></div>
       <div class="timeline">
         <div class="timeline-item">
-          <div class="t-time">07:30</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🥐 Desayuno en casa</strong><p>Rápido y nutritivo. Mochila lista la noche anterior con agua, bocadillos, frutas para los gemelos.</p></div>
+          <div class="t-time">07:30</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🥐 Desayuno rápido en casa</strong><p>Mochila preparada la noche anterior.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">08:15</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🚆 RER A → Châtelet les Halles</strong><p>Val d'Europe → Châtelet les Halles (≈40 min). Metro línea 1 o 6 hasta Trocadéro.</p><div class="tip">💡 Dirección Cergy o Saint-Germain-en-Laye. No todos los trenes paran igual — revisar destino en el panel del andén.</div></div>
+          <div class="t-time">08:15</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🚆 RER A → Trocadéro</strong><p>Dirección Cergy. Revisar destino en panel del andén.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c98230')">⏱️ RER cancelado o retrasado</button><div class="op-contingency op-c-ops " id="c98230"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>RER cancelado o retrasado</strong>Esperar el siguiente (cada 15 min). Si >20 min: taxi ~45€ (Uber/Heetch).</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c36183')">😵 Gemelos difíciles en el metro</button><div class="op-contingency op-c-tired " id="c36183"><span class="oc-icon">😵</span><div class="oc-text"><strong>Gemelos difíciles en el metro</strong>Subir por la puerta trasera del vagón — más espacio.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">09:15</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>📸 Trocadéro · Vistas Torre Eiffel</strong><p>Las mejores fotos familiares. A esta hora la luz es dorada y hay poca gente. Jardines del Trocadéro — los gemelos pueden correr.</p><div class="tip">⭐ Esta foto con la Torre de fondo es LA foto del viaje. No la perdáis.</div></div>
+          <div class="t-time">09:15</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>📸 Trocadéro · LA foto del viaje</strong><p>Luz dorada. Los gemelos pueden correr en los jardines.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core — no saltarse</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c82018')">🌧️ Lluvia intensa</button><div class="op-contingency op-c-rain " id="c82018"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia intensa</strong>Foto rápida con paraguas — sigue mereciendo la pena. Si diluvio: ir directamente al Batobus, que es cubierto.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">10:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>⛵ Batobus · Activar pase 2 días</strong><p>Embarcar en parada Torre Eiffel. Los abuelos y gemelos descansan sentados mientras cruzan el Sena con vistas a todos los monumentos.</p><div class="tip">💡 Pase 2 días adultos ≈27€, niños 4-11 años ≈13€. Comprar online con antelación para no hacer cola.</div></div>
+          <div class="t-time">10:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>⛵ Batobus · Activar pase 2 días</strong><p>Embarcar en Torre Eiffel. Abuelos y gemelos descansan sentados.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c16102')">🌧️ Lluvia</button><div class="op-contingency op-c-rain " id="c16102"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia</strong>El Batobus es cubierto. Mejor opción con lluvia. Continuar el plan.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c73890')">⏱️ Cola larga en el muelle</button><div class="op-contingency op-c-ops " id="c73890"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Cola larga en el muelle</strong>Esperar máximo 20 min. Si pasa de 30 min: Metro L4 hasta Cité (Notre-Dame directa).</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">11:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>⛵ → Notre-Dame · Picnic en Île de la Cité</strong><p>Bajar en parada Notre-Dame. Admirar la catedral. Picnic en los jardines — la opción más práctica con 8 personas y gemelos.</p></div>
+          <div class="t-time">11:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>⛪ Notre-Dame · Picnic en Île de la Cité</strong><p>Bajar del Batobus. Picnic en los jardines.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span><span class="op-tag op-tag-cut">✂️ Punto de corte — volver desde aquí si es necesario</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c63697')">🌧️ Lluvia en el picnic</button><div class="op-contingency op-c-rain " id="c63697"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia en el picnic</strong>Brasserie más cercana: Le Caveau du Palais (Place Dauphine, 5 min).</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c52621')">😵 Grupo saturado</button><div class="op-contingency op-c-tired " id="c52621"><span class="oc-icon">😵</span><div class="oc-text"><strong>Grupo saturado</strong>Comer aquí y volver a Serris. Ya ha sido un éxito: Trocadéro + Batobus + Notre-Dame.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">13:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🥖 Almuerzo</strong><p>Picnic propio o brasserie cercana (25-35€/adulto). Los gemelos suelen preferir algo sencillo — llevar opciones de casa.</p></div>
+          <div class="t-time">14:30</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>⛵ Batobus → Concorde · Arco del Triunfo</strong><p>Bajar en Concorde. 20 min a pie por los Champs-Élysées.</p><div class="op-tags"><span class="op-tag op-tag-optional">Opcional</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c11351')">😵 Abuelos o gemelos sin energía</button><div class="op-contingency op-c-tired " id="c11351"><span class="oc-icon">😵</span><div class="oc-text"><strong>Abuelos o gemelos sin energía</strong>Saltar esta parte. Volver a Serris directamente.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c34151')">⏱️ Son más de las 16:30h</button><div class="op-contingency op-c-ops " id="c34151"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Son más de las 16:30h</strong>Ir directo a Châtelet → RER A para evitar hora punta.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">14:30</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>⛵ Batobus → Concorde / Champs-Élysées</strong><p>Bajar en Concorde y pasear por la avenida de los Campos Elíseos hacia el Arco del Triunfo (20 min a pie).</p></div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">15:30</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🏛️ Arco del Triunfo</strong><p>Paseo hasta el Arco, fotos desde la rotonda y desde los Champs-Élysées. Es impresionante ya desde abajo — la perspectiva con las 12 avenidas irradiando desde él es única. Los gemelos pueden ir en cochecito por la avenida.</p><div class="tip">💡 Para ver París desde las alturas con niños pequeños hay opciones más adecuadas (como el Sacré-Cœur de Montmartre, con vistas panorámicas y sin escaleras de pago). El Arco desde abajo ya merece la pena.</div></div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">17:00</div><div class="t-dot-col"><div class="t-dot"></div></div>
-          <div class="t-content"><strong>🚆 Vuelta a Serris</strong><p>Antes de la hora punta (17:30-19:30h). Metro → Châtelet les Halles → RER A → Val d'Europe. Cena en casa.</p></div>
+          <div class="t-time">17:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div></div>
+          <div class="t-content"><strong>🚆 Vuelta a Serris · Cena en casa</strong><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c35983')">⏱️ RER colapsado en hora punta</button><div class="op-contingency op-c-ops " id="c35983"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>RER colapsado en hora punta</strong>Cenar en París antes de volver. Esperar a las 20h — mucho más vacío.</div></div></div></div>
         </div>
       </div>
     </div>
@@ -1608,39 +1463,36 @@ body.presentation .presentation-bar { display:flex; }
     <div class="icon" style="background:#e8eef5;color:var(--paris-blue);">🎨</div>
     <div><div class="day-label">Lunes 31 agosto</div><h2>París · Día 2</h2></div>
   </div>
-  <div class="day-card day-paris">
-    <div class="day-card-header">
-      <div class="day-badge"><span class="num">31</span><span class="month">AGO</span></div>
-      <div class="info"><h3>Batobus · Louvre · Saint-Germain · Marais</h3><div class="tagline">Orilla izquierda y derecha · El París de barrio</div></div>
-    </div>
+  <div class="op-decision"><div class="od-label">🧠 Decisión clave del día</div><div class="od-text">¿El pase Batobus sigue activo (48h desde ayer)? → usarlo al máximo. Si los gemelos están agotados: ritmo más tranquilo, menos monumentos.</div></div>
+  <div class="op-escape"><div class="oe-label">🚨 Vuelta rápida al apartamento</div><div class="oe-row"><span class="oe-from">Desde Louvre</span><span>Metro L1 → Châtelet → RER A. 45 min.</span></div><div class="oe-row"><span class="oe-from">Desde Saint-Germain</span><span>Metro L4 → Châtelet → RER A. 50 min.</span></div><div class="oe-row"><span class="oe-from">Desde Marais</span><span>Metro L1 desde Hôtel de Ville → Châtelet → RER A. 45 min.</span></div></div>
+  <div class="day-card">
     <div class="day-card-body">
-      <div class="alert alert-success">
-        <span class="icon">✅</span><span>El pase de 2 días del Batobus sigue activo hoy. Aprovecharlo al máximo.</span>
-      </div>
+      
       <div class="timeline">
         <div class="timeline-item">
-          <div class="t-time">08:30</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🚆 RER A → Châtelet les Halles</strong><p>Destino: parada Batobus del Louvre (o caminar desde Châtelet).</p></div>
+          <div class="t-time">08:30</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🚆 RER A → Louvre</strong><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c98660')">🌧️ Lluvia fuerte</button><div class="op-contingency op-c-rain " id="c98660"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia fuerte</strong>Entrar al Louvre: ala egipcia (momias) — 45 min máximo con los gemelos.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">09:30</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🎨 Louvre · Pirámide y Jardines de las Tullerías</strong><p>Con gemelos de 5 años, el interior es agotador. Los jardines de las Tullerías tienen <strong>columpios y fuentes</strong> — los gemelos juegan mientras los abuelos descansan en un banco.</p><div class="tip">⭐ Los jardines son gratis. La pirámide de cristal desde fuera ya es espectacular para la foto.</div></div>
+          <div class="t-time">09:30</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🎨 Louvre · Jardines de las Tullerías</strong><p>Columpios para los gemelos, bancos para los abuelos.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">11:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>⛵ Batobus → Saint-Germain-des-Prés</strong><p>Barrio histórico, librerías antiguas, cafés centenarios (Café de Flore, Les Deux Magots). Paseo tranquilo por calles adoquinadas. Los abuelos adorarán este ritmo.</p></div>
+          <div class="t-time">11:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>⛵ Batobus → Saint-Germain-des-Prés</strong><p>Cafés históricos. Ritmo tranquilo.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c19416')">😵 Abuelos sin ganas de caminar</button><div class="op-contingency op-c-tired " id="c19416"><span class="oc-icon">😵</span><div class="oc-text"><strong>Abuelos sin ganas de caminar</strong>Sentarse en Café de Flore. El grupo que quiera sigue y vuelve en 30 min.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">13:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🧀 Almuerzo en brasserie francesa</strong><p>Croque-monsieur, quiche lorraine, steak-frites. Los niños piden <em>frites</em> invariablemente. 20-30€/adulto.</p></div>
+          <div class="t-time">13:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🧀 Almuerzo en brasserie</strong><p>Pedir carafe d'eau (gratis). Comer a las 13h — antes del pico.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span><span class="op-tag op-tag-cut">✂️ Volver a Serris tras el almuerzo si el grupo está al límite</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c59690')">⏱️ Restaurante lleno</button><div class="op-contingency op-c-ops " id="c59690"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Restaurante lleno</strong>Caminar 2 min en cualquier dirección — hay brasseries en cada esquina.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">15:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>⛵ Batobus → Hôtel de Ville · Marais</strong><p>El Marais es perfecto con cochecito: calles anchas, Place des Vosges, tiendas curiosas, heladerías. Barrio judío con tiendas de falafel.</p></div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">16:30</div><div class="t-dot-col"><div class="t-dot"></div></div>
-          <div class="t-content"><strong>🚆 Vuelta a Serris · Descanso</strong><p>Vuelta tranquila. Mañana empieza Disney — los niños necesitan dormir bien esta noche.</p></div>
+          <div class="t-time">15:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div></div>
+          <div class="t-content"><strong>🏘️ Le Marais · Place des Vosges</strong><p>Heladerías y calles peatonales. Berthillon a 10 min.</p><div class="op-tags"><span class="op-tag op-tag-optional">Opcional</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c80481')">😵 Sin más energía</button><div class="op-contingency op-c-tired " id="c80481"><span class="oc-icon">😵</span><div class="oc-text"><strong>Sin más energía</strong>Saltar el Marais. Vuelta directa — el día ya ha sido completo.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c78879')">🌧️ Lluvia por la tarde</button><div class="op-contingency op-c-rain " id="c78879"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia por la tarde</strong>El Marais tiene galerías y tiendas cubiertas. Seguir con paraguas.</div></div></div></div>
         </div>
       </div>
     </div>
@@ -1651,45 +1503,43 @@ body.presentation .presentation-bar { display:flex; }
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#f0e8f8;color:var(--disney-purple);">🏰</div>
-    <div><div class="day-label">Martes 1 septiembre</div><h2>Disneyland Park · Parque Clásico</h2></div>
+    <div><div class="day-label">Martes 1 septiembre</div><h2>Disneyland Park</h2></div>
   </div>
-  <div class="day-card day-disney">
-    <div class="day-card-header">
-      <div class="day-badge"><span class="num">1</span><span class="month">SEP</span></div>
-      <div class="info"><h3>Castillo de la Bella Durmiente · Fantasyland · Shows</h3><div class="tagline">El parque original · Magia Disney clásica</div></div>
-    </div>
+  <div class="op-decision"><div class="od-label">🧠 Decisión clave del día</div><div class="od-text">¿Llegáis antes de las 9h? → el día funciona. La siesta de las 13:30h es la válvula de seguridad.</div></div>
+  <div class="op-escape"><div class="oe-label">🚨 Vuelta rápida al apartamento</div><div class="oe-row"><span class="oe-from">Desde cualquier zona</span><span>Salir por la entrada principal → 10 min andando → 7 Rue Magellan.</span></div><div class="oe-row"><span class="oe-from">Emergencia médica</span><span>Baby Care Center en Main Street, junto a Plaza Gardens.</span></div></div>
+  <div class="day-card">
     <div class="day-card-body">
-      <div class="alert alert-success">
-        <span class="icon">📍</span><span>El parque está a <strong>10 minutos andando</strong> desde Val d'Europe. ¡Nada de RER este día! Desayunar con calma.</span>
-      </div>
+      <div class="alert alert-success"><span class="icon">📍</span><span><strong>10 minutos andando</strong> desde el apartamento. Podéis volver a comer o dormir.</span></div>
       <div class="timeline">
         <div class="timeline-item">
-          <div class="t-time">08:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🥐 Desayuno tranquilo</strong><p>Sin carreras. Cremas solares, mochilas, snacks. Revisar la app de Disneyland Paris antes de salir.</p></div>
+          <div class="t-time">08:45</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🚶 Caminar al parque</strong><p>Llegar antes de la apertura oficial.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core — no negociable</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c9676')">⏱️ Cola larga en entrada</button><div class="op-contingency op-c-ops " id="c9676"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Cola larga en entrada</strong>App Disney → Lightning Lane. Si no: esperar — se mueve rápido al abrir.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">08:45</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🚶 Caminar al parque</strong><p>Llegar 15-20 min antes de la apertura oficial. Ser de los primeros es CLAVE para ahorrarse horas de cola.</p></div>
+          <div class="t-time">09:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🏰 DIRECTO a Fantasyland · Peter Pan primero</strong><p>Sin parar en Main Street. Peter Pan antes de las 10h = cola mínima.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c36299')">⏱️ Cola Peter Pan ya larga</button><div class="op-contingency op-c-ops " id="c36299"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Cola Peter Pan ya larga</strong>Ir a Dumbo o Small World (siempre cortas). Volver a Peter Pan a las 17h.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c12176')">🌧️ Lluvia</button><div class="op-contingency op-c-rain " id="c12176"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia</strong>Atracciones interior de Fantasyland no se ven afectadas. Colas más cortas.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">09:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🏰 Main Street → DIRECTO a Fantasyland</strong><p>Peter Pan's Flight, Pinocho, Dumbo el elefante volador, tiovivos, Haunted Mansion. Con gemelos de 5, estas son las atracciones perfectas.</p><div class="tip">⭐ ESTRATEGIA: Peter Pan tiene 60-90 min de cola después de las 10h. ¡Primero Peter Pan!</div></div>
+          <div class="t-time">12:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🍔 Almuerzo a las 12h · Antes del pico</strong><p>Walt's Restaurant o Plaza Gardens.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c91957')">⏱️ Restaurante lleno a las 12h</button><div class="op-contingency op-c-ops " id="c91957"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Restaurante lleno a las 12h</strong>Snacks de la mochila en un banco. Restaurante a las 14:30h cuando baja el pico.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">12:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🍔 Almuerzo a las 12h (antes del pico)</strong><p>Comer a las 12h evita colas de restaurante a las 13h. Opciones: Walt's Restaurant (Main Street), Plaza Gardens. Llevar snacks del apartamento.</p></div>
+          <div class="t-time">13:30</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>😴 Siesta opcional en casa · Volver a las 16h</strong><p>20 min andando. Los gemelos recargan.</p><div class="op-tags"><span class="op-tag op-tag-optional">Opcional — muy recomendado</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c58769')">😵 Gemelos o abuelos al límite</button><div class="op-contingency op-c-tired " id="c58769"><span class="oc-icon">😵</span><div class="oc-text"><strong>Gemelos o abuelos al límite</strong>Hacer la siesta. Abuelos pueden quedarse en casa. El resto vuelve a las 16h.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">13:30</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>😴 Opción: siesta en casa</strong><p>Si los gemelos están al límite: 20 min andando a casa, siesta y vuelta a las 16h. Las tardes en Disney son más tranquilas.</p><div class="tip">💡 Este truco funciona gracias a la ubicación del apartamento. ¡Usadlo!</div></div>
+          <div class="t-time">16:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🎭 Desfile Disney · Main Street</strong><p>Ver horario exacto en la app. Situarse 15 min antes.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c51922')">🌧️ Desfile cancelado por lluvia</button><div class="op-contingency op-c-rain " id="c51922"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Desfile cancelado por lluvia</strong>App Disney avisa. Si cancela: Phantom Manor o Pirates — sin cola cuando llueve.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">16:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🎭 Desfile Disney</strong><p>El Disney Parade pasa por Main Street con todos los personajes. Los gemelos quedarán con la boca abierta. Ver horario exacto en la app ese mismo día.</p></div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">21:00</div><div class="t-dot-col"><div class="t-dot"></div></div>
-          <div class="t-content"><strong>✨ Disney Illuminations · Vuelta a casa</strong><p>Espectáculo de luz y fuegos frente al Castillo. 10 min andando de vuelta. Los gemelos caerán dormidos en brazos.</p></div>
+          <div class="t-time">21:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div></div>
+          <div class="t-content"><strong>✨ Disney Illuminations · 10 min a casa</strong><div class="op-tags"><span class="op-tag op-tag-optional">Opcional</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c97718')">😵 Gemelos dormidos</button><div class="op-contingency op-c-tired " id="c97718"><span class="oc-icon">😵</span><div class="oc-text"><strong>Gemelos dormidos</strong>Algunos adultos se quedan. Los demás llevan a los niños. 10 min andando.</div></div></div></div>
         </div>
       </div>
     </div>
@@ -1700,49 +1550,38 @@ body.presentation .presentation-bar { display:flex; }
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#e8f0f8;color:var(--disney-blue);">❄️</div>
-    <div><div class="day-label">Miércoles 2 septiembre</div><h2>Disney Adventure World · World of Frozen</h2></div>
+    <div><div class="day-label">Miércoles 2 septiembre</div><h2>Disney Adventure World</h2></div>
   </div>
-  <div class="day-card day-disney2">
-    <div class="day-card-header">
-      <div class="day-badge"><span class="num">2</span><span class="month">SEP</span></div>
-      <div class="info"><h3>World of Frozen ❄️ · Avengers · Pixar · Cascade of Lights</h3><div class="tagline">El nuevo parque · Abierto desde marzo 2026</div></div>
-    </div>
+  <div class="op-decision"><div class="od-label">🧠 Decisión clave del día</div><div class="od-text">¿Activasteis la cola virtual de Anna y Elsa a las 8:00h exactas? → momento estelar garantizado. Si no: Frozen Ever After antes de las 9:30h.</div></div>
+  <div class="op-escape"><div class="oe-label">🚨 Vuelta rápida al apartamento</div><div class="oe-row"><span class="oe-from">Desde Disney Adventure</span><span>Misma salida que Disneyland Park → 10 min andando.</span></div><div class="oe-row"><span class="oe-from">Emergencia</span><span>Decir a cualquier Cast Member: "First Aid please".</span></div></div>
+  <div class="day-card">
     <div class="day-card-body">
-      <div class="alert alert-info">
-        <span class="icon">❄️</span><span><strong>World of Frozen</strong> abrió el 29 marzo 2026. Incluye: barco Frozen Ever After por Arendelle, Palacio de Hielo de Elsa (36m), encuentro real con Anna y Elsa, aldea de Arendelle completa y el espectáculo nocturno en el lago.</span>
-      </div>
+      
       <div class="timeline">
         <div class="timeline-item">
-          <div class="t-time">08:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>📱 Cola virtual Anna y Elsa</strong><p>Abrir la app de Disneyland Paris a las 8:00h exactas desde casa y apuntarse a la cola virtual para conocer a Anna y Elsa. Si no lo haces antes de entrar, no podrás.</p><div class="tip">⚠️ CRÍTICO: Esta cola virtual desaparece en minutos. Que una persona esté pendiente del móvil a las 7:55h.</div></div>
+          <div class="t-time">08:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>📱 Cola virtual Anna y Elsa · DESDE CASA</strong><p>App Disneyland Paris → World of Frozen → Cola Virtual. Exactamente a las 8:00h.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core — crítico</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c30701')">⏱️ Cola virtual agotada</button><div class="op-contingency op-c-ops " id="c30701"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Cola virtual agotada</strong>No pasa nada — ir directamente a Frozen Ever After antes de las 9:30h.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">08:30</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🚶 Caminar al parque · Disney Adventure World</strong><p>Mismo acceso caminando desde Val d'Europe. Junto a Disneyland Park.</p></div>
+          <div class="t-time">09:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>❄️ DIRECTO a Frozen Ever After</strong><p>Sin parar. Antes de las 9:30h = menos de 15 min. Después puede superar 90 min.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core — primera prioridad</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c8470')">🌧️ Lluvia</button><div class="op-contingency op-c-rain " id="c8470"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia</strong>World of Frozen es completamente cubierto. Colas más cortas. Continuar.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c60942')">⏱️ Cola ya larga al llegar</button><div class="op-contingency op-c-ops " id="c60942"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Cola ya larga al llegar</strong>Lightning Lane si disponible. Esta atracción no tiene sustituto.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">09:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>❄️ DIRECTO a World of Frozen</strong><p><strong>Frozen Ever After</strong> — barco musical por Arendelle. Apta para todas las edades. Los gemelos lo pedirán montarse 3 veces. Antes de las 10h las colas son mínimas.</p></div>
+          <div class="t-time">10:30</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🕷️ Avengers Campus</strong><p>Spider-Man W.E.B., Avengers Assemble con Lightning Lane.</p><div class="op-tags"><span class="op-tag op-tag-optional">Opcional · Solo adultos y niña</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c70697')">😵 Gemelos o abuelos cansados</button><div class="op-contingency op-c-tired " id="c70697"><span class="oc-icon">😵</span><div class="oc-text"><strong>Gemelos o abuelos cansados</strong>Abuelos + gemelos en Adventure Bay. Adultos y niña a Avengers. Reunión en 45 min.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">10:30</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🕷️ Avengers Campus</strong><p>Spider-Man, Iron Man, Doctor Strange. La niña de 11 años y los adultos disfrutarán más. Activar Lightning Lane en la app para Avengers Assemble.</p></div>
+          <div class="t-time">14:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🐀 Ratatouille · Toda la familia</strong><p>Sin restricción. Abuelos incluidos.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core — apta para todos</span><span class="op-tag op-tag-cut">✂️ Volver a casa tras Ratatouille si el grupo está al límite</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c5413')">⏱️ Cola Ratatouille >45 min</button><div class="op-contingency op-c-ops " id="c5413"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Cola Ratatouille >45 min</strong>Ir a Cars Road Trip o Slinky Dog (siempre cortas). Volver a Ratatouille a las 17h.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">12:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🍽️ Almuerzo · Adventure Way</strong><p>14 nuevas opciones en Adventure Way. Café Luminosity (hot dogs), La Terrasse Panoramique (bread bowls). Vistas al lago Adventure Bay.</p></div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">14:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🎡 Worlds of Pixar · Ratatouille</strong><p>Ratatouille: The Adventure — apta para todas las edades incluyendo abuelos. TOGETHER: A Pixar Musical para descansar sentados.</p></div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">17:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>❄️ Volver a World of Frozen (tarde)</strong><p>Colas bajísimas. Pasear por la aldea de Arendelle, fotos con el Palacio de Hielo, compras de recuerdos Frozen.</p></div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">21:30</div><div class="t-dot-col"><div class="t-dot"></div></div>
-          <div class="t-content"><strong>🌊 Disney Cascade of Lights</strong><p>Espectáculo único en el mundo: drones acuáticos + aéreos sobre el lago Adventure Bay. Ver horario en la app. El cierre perfecto de los 2 días Disney.</p></div>
+          <div class="t-time">21:30</div>
+          <div class="t-dot-col"><div class="t-dot"></div></div>
+          <div class="t-content"><strong>🌊 Disney Cascade of Lights</strong><div class="op-tags"><span class="op-tag op-tag-optional">Opcional</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c29814')">🌧️ Espectáculo cancelado por lluvia</button><div class="op-contingency op-c-rain " id="c29814"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Espectáculo cancelado por lluvia</strong>App avisa. Si cancela: vuelta a casa — el día ya fue completo.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c79218')">😵 Gemelos dormidos</button><div class="op-contingency op-c-tired " id="c79218"><span class="oc-icon">😵</span><div class="oc-text"><strong>Gemelos dormidos</strong>Algunos adultos se quedan. Los demás llevan a los niños. 10 min andando.</div></div></div></div>
         </div>
       </div>
     </div>
@@ -1753,42 +1592,31 @@ body.presentation .presentation-bar { display:flex; }
 <div class="container">
   <div class="section-header" style="margin-top:20px;">
     <div class="icon" style="background:#fff0e8;color:#c0602b;">☀️</div>
-    <div><div class="day-label">Jueves 3 septiembre</div><h2>Día Libre · 3 Opciones</h2></div>
+    <div><div class="day-label">Jueves 3 septiembre</div><h2>Día Libre</h2></div>
   </div>
-  <div class="sticky"><strong>📋 Contexto de decisión</strong>Último día completo. El grupo lleva 4 días intensos. Los abuelos y gemelos estarán cansados. Este día debe ser placentero y sin estrés logístico.</div>
-  <div class="grid-2" style="margin-bottom:12px;">
-    <div class="option-card option-recommended">
-      <h5>🏰 Versalles · Jardines y Palacio</h5>
-      <p>RER C desde París (35 min). Jardines monumentales gratuitos y aptos para cochecito. Septiembre = sin masas de agosto.</p>
-      <div class="pros-cons">
-        <p class="pros">✅ Icónico · Gratis jardines · Gemelos corren libremente</p>
-        <p class="cons">❌ Hay que ir a París primero (RER A → C)</p>
+  <div class="op-decision"><div class="od-label">🧠 Decisión clave del día</div><div class="od-text">Leer el estado del grupo esta mañana. Si hay energía → Versalles. Si hay cansancio → La Vallée Village o descanso. No forzar: mañana hay vuelo.</div></div>
+  <div class="op-escape"><div class="oe-label">🚨 Vuelta rápida al apartamento</div><div class="oe-row"><span class="oe-from">Desde Versalles</span><span>RER C → Invalides → RER A Châtelet → Val d'Europe. 70 min.</span></div><div class="oe-row"><span class="oe-from">Desde La Vallée Village</span><span>10 min andando.</span></div><div class="oe-row"><span class="oe-from">Emergencia</span><span>Taxi → "7 Rue Magellan Serris" (~25-40€).</span></div></div>
+  <div class="day-card">
+    <div class="day-card-body">
+      
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="t-time">Mañana</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🏰 Opción A: Versalles</strong><p>RER A → París → RER C → Versailles Rive Gauche. Jardines gratuitos.</p><div class="op-tags"><span class="op-tag op-tag-optional">Opcional · Si hay energía</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c55964')">🌧️ Lluvia en Versalles</button><div class="op-contingency op-c-rain " id="c55964"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia en Versalles</strong>Cambiar a interior del Palacio (20€/adulto) o cambiar al plan B.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c48386')">😵 Grupo sin energía</button><div class="op-contingency op-c-tired " id="c48386"><span class="oc-icon">😵</span><div class="oc-text"><strong>Grupo sin energía</strong>Cancelar sin drama. Ir a La Vallée Village o quedarse en casa.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c7955')">⏱️ Llegaríais tarde (>11h)</button><div class="op-contingency op-c-ops " id="c7955"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Llegaríais tarde (>11h)</strong>Cambiar al plan B. No merece la pena medio día en Versalles.</div></div></div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-time">Mañana</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🛍️ Opción B: La Vallée Village</strong><p>10 min andando. Outlet de lujo. Sin transporte, sin estrés.</p><div class="op-tags"><span class="op-tag op-tag-optional">Opcional · Fácil</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c55964')">🌧️ Lluvia</button><div class="op-contingency op-c-rain " id="c55964"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia</strong>La Vallée Village es completamente cubierto. Mejor opción con mal tiempo.</div></div></div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-time">Tarde</div>
+          <div class="t-dot-col"><div class="t-dot"></div></div>
+          <div class="t-content"><strong>🧳 Preparar maletas · Esta tarde sin falta</strong><p>Vuelo mañana 14:05h. Traslado a las 10:15h. Todo listo antes de dormir.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core — no opcional</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c35459')">⏱️ Maleta que no cierra / sobrepeso</button><div class="op-contingency op-c-ops " id="c35459"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Maleta que no cierra / sobrepeso</strong>Auchan vende bolsas de equipaje. Redistribuir entre maletas del grupo.</div></div></div></div>
+        </div>
       </div>
-      <span class="tag">RER C</span><span class="tag">Jardines gratis</span><span class="tag">Palacio 20€/adulto</span>
     </div>
-    <div class="option-card">
-      <h5>🛍️ La Vallée Village · Outlet de lujo</h5>
-      <p>A unos minutos andando desde el apartamento. Outlet independiente del centro comercial Val d'Europe, con más de 110 boutiques de marcas premium con descuentos del 30-70%. Sin transporte, sin estrés.</p>
-      <div class="pros-cons">
-        <p class="pros">✅ Sin transporte · Muy cómodo · Café para abuelos</p>
-        <p class="cons">❌ Puede salir caro · Menos cultural</p>
-      </div>
-      <span class="tag">Sin transporte</span><span class="tag">Fácil</span><span class="tag">Marcas premium</span>
-    </div>
-    <div class="option-card" style="grid-column:span 2;">
-      <h5>🏡 Descanso + Paseo local + Preparar maletas</h5>
-      <p>Mañana libre, mercado local (jueves hay mercado en varios pueblos de Marne-la-Vallée), paseo por el lago, comer bien en restaurante de Val d'Europe, maletas preparadas sin agobios.</p>
-      <div class="pros-cons">
-        <p class="pros">✅ Cero estrés · Abuelos descansan · Gemelos sin presión · Maletas listas</p>
-        <p class="cons">❌ Menos aprovechado turísticamente</p>
-      </div>
-      <span class="tag">Sin transporte</span><span class="tag">Cero estrés</span>
-    </div>
-  </div>
-  <div class="star-tip">
-    <h5>⭐ Mi recomendación para este grupo</h5>
-    <p>Si los abuelos tienen energía → <strong>Versalles</strong>: los jardines son grandiosos y los gemelos pueden correr sin peligro. Es el complemento cultural perfecto a París.</p>
-    <p style="margin-top:6px;">Si el grupo está agotado → <strong>Opción híbrida</strong>: mañana en La Vallée Village (cerca, fácil), almuerzo tranquilo, tarde preparando maletas y dando un paseo. El viaje acaba mañana — vale más llegar descansados al vuelo.</p>
   </div>
 </div>
 </div>
@@ -1798,32 +1626,31 @@ body.presentation .presentation-bar { display:flex; }
     <div class="icon" style="background:#f5e8e8;color:var(--red);">✈️</div>
     <div><div class="day-label">Viernes 4 septiembre</div><h2>Vuelta a Casa</h2></div>
   </div>
-  <div class="day-card day-departure">
-    <div class="day-card-header">
-      <div class="day-badge"><span class="num">4</span><span class="month">SEP</span></div>
-      <div class="info"><h3>Check-out · Traslado a Orly · Vuelo 14:05h</h3><div class="tagline">Vueling ORY → SCQ · ¡Au revoir France!</div></div>
-    </div>
+  <div class="op-decision"><div class="od-label">🧠 Decisión clave del día</div><div class="od-text">¿Las maletas están listas de anoche? → el día fluye. El margen de 3h en Orly absorbe casi cualquier imprevisto.</div></div>
+  <div class="op-escape"><div class="oe-label">🚨 Vuelta rápida al apartamento</div><div class="oe-row"><span class="oe-from">Vuelo retrasado</span><span>Vueling os reubica. Conservad los boarding passes.</span></div><div class="oe-row"><span class="oe-from">Vuelo cancelado</span><span>Mostrador Vueling en Orly T4. Derecho a alternativa o reembolso.</span></div><div class="oe-row"><span class="oe-from">Emergencia médica</span><span>Decirlo al traslado — conocen el hospital de Marne-la-Vallée (10 min).</span></div></div>
+  <div class="day-card">
     <div class="day-card-body">
+      
       <div class="timeline">
         <div class="timeline-item">
-          <div class="t-time">07:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>⏰ Despertador</strong><p>Maletas preparadas la noche anterior. Desayuno rápido con lo que quede en casa — no comprar más de lo necesario los últimos días.</p></div>
+          <div class="t-time">07:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>⏰ Despertador · Desayuno rápido</strong><p>Usar lo que quede en casa.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c50776')">⏱️ Alguien se queda dormido</button><div class="op-contingency op-c-ops " id="c50776"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Alguien se queda dormido</strong>Llamar a la puerta. Saltarse el desayuno si hace falta. El traslado tiene un límite.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">09:00</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🏠 Check-out</strong><p>Dejar el apartamento impecable. Verificar que no queda nada olvidado.</p><div class="tip">💡 Lista mental: cargadores, documentos, medicamentos, objetos de valor, ropa interior de los gemelos en el baño.</div></div>
+          <div class="t-time">09:00</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🏠 Check-out · Revisión final</strong><p>Lista: cargadores, pasaportes, medicamentos abuelos, juguetes gemelos del baño.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c85691')">⏱️ Se olvida algo tras salir</button><div class="op-contingency op-c-ops " id="c85691"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Se olvida algo tras salir</strong>Llamar al apartamento inmediatamente. No volver si el traslado ya espera.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">10:15</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🚐 Traslado privado → Orly</strong><p>≈40-50 min. Traslado ya reservado. Relajaos, el trabajo duro está hecho.</p></div>
+          <div class="t-time">10:15</div>
+          <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
+          <div class="t-content"><strong>🚐 Traslado privado → Orly · ~45 min</strong><p>Ya está reservado. Sentarse y relajarse.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c49608')">⏱️ Traslado no aparece a las 10:15h</button><div class="op-contingency op-c-ops " id="c49608"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Traslado no aparece a las 10:15h</strong>Llamar inmediatamente. Si no responde en 5 min: Uber/taxi. Vuelo a las 14:05h — hay margen.</div></div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="t-time">11:05</div><div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🛫 Llegada a Orly · 3h antes</strong><p>Facturación, seguridad, control de pasaportes. Con 8 personas y niños, el margen de 3h es el correcto.</p></div>
-        </div>
-        <div class="timeline-item">
-          <div class="t-time">14:05</div><div class="t-dot-col"><div class="t-dot"></div></div>
-          <div class="t-content"><strong>✈️ Vuelo ORY → SCQ · Vueling</strong><p>¡Au revoir, France! Con maletas llenas de recuerdos y corazones llenos de magia ❤️</p></div>
+          <div class="t-time">11:05</div>
+          <div class="t-dot-col"><div class="t-dot"></div></div>
+          <div class="t-content"><strong>🛫 Orly · Facturación y seguridad</strong><p>Terminal Vueling en Orly. 3h de margen — suficiente con niños.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c55317')">⏱️ Cola de seguridad muy larga</button><div class="op-contingency op-c-ops " id="c55317"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Cola de seguridad muy larga</strong>Pedir al personal "familia con niños" — suelen dar acceso a cola rápida.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c80165')">😵 Gemelos difíciles en el aeropuerto</button><div class="op-contingency op-c-tired " id="c80165"><span class="oc-icon">😵</span><div class="oc-text"><strong>Gemelos difíciles en el aeropuerto</strong>Snacks inmediatamente. Contenido descargado en el móvil.</div></div></div></div>
         </div>
       </div>
     </div>
@@ -1850,7 +1677,6 @@ body.presentation .presentation-bar { display:flex; }
   <button class="sub-btn" onclick="switchSub('guides','french')">🇫🇷 Francés</button>
   <button class="sub-btn" onclick="switchSub('guides','food')">🧀 Comida</button>
   <button class="sub-btn" onclick="switchSub('guides','disney-guide')">🎢 Disney</button>
-  <button class="sub-btn" onclick="switchSub('guides','semaforo')">🚦 Colas</button>
 </div>
 <div id="sub-batobus" class="sub-panel">
 <div class="container">
@@ -2811,7 +2637,7 @@ body.presentation .presentation-bar { display:flex; }
         <div style="width:22px;height:22px;background:var(--gold);border-radius:50%;color:#fff;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;">7</div>
         <strong style="font-size:.85rem;">Le Marais</strong>
       </div>
-      <p style="font-size:.76rem;color:#666;">Barrio judío · Place des Vosges · Calles accesibles con cochecito · Heladerías</p>
+      <p style="font-size:.76rem;color:#666;">Barrio judío · Place des Vosges · Heladerías · Calles peatonales</p>
       <a href="https://maps.google.com/?q=Le+Marais+Paris" target="_blank" style="font-size:.7rem;color:var(--gold);text-decoration:none;">📍 Ver en Google Maps →</a>
     </div>
     <div style="background:#fff;border-radius:10px;border:2px solid var(--gold);padding:11px 13px;">
@@ -2943,9 +2769,9 @@ body.presentation .presentation-bar { display:flex; }
 
   <div class="phrase-card"><div style="min-width:190px;"><div class="phrase-fr">Mon enfant s'est perdu</div><div class="phrase-pron">[mon an-FAN se per-DU]</div><div style="font-size:.76rem;color:#c0602b;font-weight:600;margin-top:2px;">→ mon an-FAN sé per-DÚ</div></div><div><div class="phrase-es">Mi hijo/a se ha perdido 🚨</div></div></div>
 
-  <div class="phrase-card"><div style="min-width:190px;"><div class="phrase-fr">Il y a une poussette</div><div class="phrase-pron">[il-ya-un pu-SET]</div><div style="font-size:.76rem;color:#c0602b;font-weight:600;margin-top:2px;">→ il-ia-un pu-SÉT</div></div><div><div class="phrase-es">Tenemos un cochecito (para pedir acceso o ascensor)</div></div></div>
+  
 
-  <div class="phrase-card"><div style="min-width:190px;"><div class="phrase-fr">Y a-t-il un ascenseur ?</div><div class="phrase-pron">[ya-til un a-san-SÖR]</div><div style="font-size:.76rem;color:#c0602b;font-weight:600;margin-top:2px;">→ ia-til un a-san-SOER</div></div><div><div class="phrase-es">¿Hay un ascensor?</div><p style="font-size:.72rem;color:#aaa;">Útil con cochecito y abuelos en el metro</p></div></div>
+  <div class="phrase-card"><div style="min-width:190px;"><div class="phrase-fr">Y a-t-il un ascenseur ?</div><div class="phrase-pron">[ya-til un a-san-SÖR]</div><div style="font-size:.76rem;color:#c0602b;font-weight:600;margin-top:2px;">→ ia-til un a-san-SOER</div></div><div><div class="phrase-es">¿Hay un ascensor?</div><p style="font-size:.72rem;color:#aaa;">Útil para los abuelos en el metro</p></div></div>
 
   <div class="phrase-card"><div style="min-width:190px;"><div class="phrase-fr">Il a de la fièvre</div><div class="phrase-pron">[il a de la FYEVR]</div><div style="font-size:.76rem;color:#c0602b;font-weight:600;margin-top:2px;">→ il a de la FIEVR</div></div><div><div class="phrase-es">Tiene fiebre (el niño)</div></div></div>
 
@@ -3098,7 +2924,7 @@ body.presentation .presentation-bar { display:flex; }
       </div>
       <div style="background:#e8eef5;border-radius:10px;padding:12px;text-align:center;grid-column:span 2;">
         <div style="font-size:1.6rem;">👨‍👩‍👧 + 👩</div>
-        <strong style="font-size:.85rem;display:block;margin-top:4px;">Padres + Tía · 9 en total</strong>
+        <strong style="font-size:.85rem;display:block;margin-top:4px;">Padres + Tía · 8 en total</strong>
         <span style="font-size:.75rem;color:#666;">Adultos sin restricción · Disney completo disponible</span>
         <div style="margin-top:6px;background:#d4e4f8;border-radius:6px;padding:4px 8px;font-size:.7rem;font-weight:600;color:var(--paris-blue);">Acceso total a todo el parque</div>
       </div>
@@ -4112,218 +3938,6 @@ body.presentation .presentation-bar { display:flex; }
 </div><!-- /area-more -->
 
 
-<!-- ═══ SUB-PANEL: SEMÁFORO DISNEY #23 ═══ -->
-<div id="sub-semaforo" class="sub-panel">
-<div class="container">
-  <div class="section-header" style="margin-top:20px;">
-    <div class="icon" style="background:#f0e8f8;color:var(--disney-purple);">🚦</div>
-    <div><div class="day-label">Basado en datos históricos de septiembre</div><h2>Semáforo de Colas Disney</h2></div>
-  </div>
-
-  <div class="alert alert-info">
-    <span class="icon">💡</span>
-    <span><strong>Cómo leerlo:</strong> 🟢 menos de 20 min · 🟡 20-45 min · 🔴 más de 45 min · En septiembre las colas son menores que en agosto — buena época para ir.</span>
-  </div>
-
-  <!-- DISNEYLAND PARK -->
-  <div class="info-box" style="padding:0;overflow:hidden;">
-    <div style="padding:14px 18px;background:linear-gradient(135deg,#4b0082,#7b1fa2);color:#fff;">
-      <div style="font-size:.72rem;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:2px;">Disneyland Park · Martes 1 septiembre</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;">🏰 Parque Clásico · Tiempos por franja horaria</div>
-    </div>
-    <div style="padding:12px 16px 4px;">
-      <div class="semaforo-legend">
-        <span style="display:flex;align-items:center;gap:5px;"><span class="sl-dot" style="background:#e8f5e9;border:1px solid #2e7d32;"></span>🟢 &lt;20 min</span>
-        <span style="display:flex;align-items:center;gap:5px;"><span class="sl-dot" style="background:#fff8e1;border:1px solid #f57f17;"></span>🟡 20-45 min</span>
-        <span style="display:flex;align-items:center;gap:5px;"><span class="sl-dot" style="background:#fce4ec;border:1px solid #c62828;"></span>🔴 +45 min</span>
-      </div>
-    </div>
-    <div style="padding:0 12px 12px;">
-      <div class="semaforo-wrap">
-        <table class="semaforo-table">
-          <thead>
-            <tr>
-              <th style="min-width:160px;">Atracción</th>
-              <th>9-10h<br><small style="color:#2e7d32;font-weight:700;">★ Mejor</small></th>
-              <th>10-12h</th>
-              <th>12-14h</th>
-              <th>14-16h</th>
-              <th>16-18h</th>
-              <th>18-21h</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><span class="attr-name">🚀 Peter Pan's Flight</span><span class="attr-sub">Sin restricción altura</span></td>
-              <td><div class="sf sf-green" title="~10 min">🟢</div></td>
-              <td><div class="sf sf-red" title="~60 min">🔴</div></td>
-              <td><div class="sf sf-red" title="~75 min">🔴</div></td>
-              <td><div class="sf sf-red" title="~60 min">🔴</div></td>
-              <td><div class="sf sf-yellow" title="~35 min">🟡</div></td>
-              <td><div class="sf sf-green" title="~15 min">🟢</div></td>
-            </tr>
-            <tr>
-              <td><span class="attr-name">🐘 Dumbo</span><span class="attr-sub">Sin restricción · Gemelos ⭐</span></td>
-              <td><div class="sf sf-green" title="~5 min">🟢</div></td>
-              <td><div class="sf sf-yellow" title="~25 min">🟡</div></td>
-              <td><div class="sf sf-red" title="~45 min">🔴</div></td>
-              <td><div class="sf sf-yellow" title="~30 min">🟡</div></td>
-              <td><div class="sf sf-yellow" title="~20 min">🟡</div></td>
-              <td><div class="sf sf-green" title="~10 min">🟢</div></td>
-            </tr>
-            <tr>
-              <td><span class="attr-name">⛏️ Big Thunder Mtn</span><span class="attr-sub">Mín 102cm · Gemelos verificar</span></td>
-              <td><div class="sf sf-green" title="~12 min">🟢</div></td>
-              <td><div class="sf sf-yellow" title="~35 min">🟡</div></td>
-              <td><div class="sf sf-red" title="~55 min">🔴</div></td>
-              <td><div class="sf sf-yellow" title="~40 min">🟡</div></td>
-              <td><div class="sf sf-yellow" title="~30 min">🟡</div></td>
-              <td><div class="sf sf-green" title="~15 min">🟢</div></td>
-            </tr>
-            <tr>
-              <td><span class="attr-name">🏴‍☠️ Pirates Caribbean</span><span class="attr-sub">Sin restricción · Toda la familia</span></td>
-              <td><div class="sf sf-green" title="~8 min">🟢</div></td>
-              <td><div class="sf sf-green" title="~15 min">🟢</div></td>
-              <td><div class="sf sf-yellow" title="~30 min">🟡</div></td>
-              <td><div class="sf sf-yellow" title="~25 min">🟡</div></td>
-              <td><div class="sf sf-green" title="~15 min">🟢</div></td>
-              <td><div class="sf sf-green" title="~10 min">🟢</div></td>
-            </tr>
-            <tr>
-              <td><span class="attr-name">🌍 It's a Small World</span><span class="attr-sub">Sin restricción · Abuelos ⭐</span></td>
-              <td><div class="sf sf-green" title="~5 min">🟢</div></td>
-              <td><div class="sf sf-green" title="~10 min">🟢</div></td>
-              <td><div class="sf sf-yellow" title="~20 min">🟡</div></td>
-              <td><div class="sf sf-green" title="~15 min">🟢</div></td>
-              <td><div class="sf sf-green" title="~10 min">🟢</div></td>
-              <td><div class="sf sf-green" title="~5 min">🟢</div></td>
-            </tr>
-            <tr>
-              <td><span class="attr-name">👻 Phantom Manor</span><span class="attr-sub">Sin restricción · Toda la familia</span></td>
-              <td><div class="sf sf-green" title="~8 min">🟢</div></td>
-              <td><div class="sf sf-yellow" title="~20 min">🟡</div></td>
-              <td><div class="sf sf-yellow" title="~30 min">🟡</div></td>
-              <td><div class="sf sf-yellow" title="~25 min">🟡</div></td>
-              <td><div class="sf sf-green" title="~15 min">🟢</div></td>
-              <td><div class="sf sf-green" title="~10 min">🟢</div></td>
-            </tr>
-            <tr>
-              <td><span class="attr-name">🚀 Hyperspace Mountain</span><span class="attr-sub">Mín 120cm · Solo adultos/niña</span></td>
-              <td><div class="sf sf-green" title="~15 min">🟢</div></td>
-              <td><div class="sf sf-red" title="~50 min">🔴</div></td>
-              <td><div class="sf sf-red" title="~70 min">🔴</div></td>
-              <td><div class="sf sf-red" title="~60 min">🔴</div></td>
-              <td><div class="sf sf-yellow" title="~40 min">🟡</div></td>
-              <td><div class="sf sf-yellow" title="~30 min">🟡</div></td>
-            </tr>
-            <tr>
-              <td><span class="attr-name">🤖 Buzz Lightyear</span><span class="attr-sub">Sin restricción · Gemelos ⭐</span></td>
-              <td><div class="sf sf-green" title="~8 min">🟢</div></td>
-              <td><div class="sf sf-yellow" title="~25 min">🟡</div></td>
-              <td><div class="sf sf-yellow" title="~35 min">🟡</div></td>
-              <td><div class="sf sf-yellow" title="~20 min">🟡</div></td>
-              <td><div class="sf sf-green" title="~15 min">🟢</div></td>
-              <td><div class="sf sf-green" title="~10 min">🟢</div></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <!-- DISNEY ADVENTURE WORLD -->
-  <div class="info-box" style="padding:0;overflow:hidden;margin-top:14px;">
-    <div style="padding:14px 18px;background:linear-gradient(135deg,#01579b,#0288d1);color:#fff;">
-      <div style="font-size:.72rem;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:2px;">Disney Adventure World · Miércoles 2 septiembre</div>
-      <div style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;">❄️ Nuevo Parque · Colas en septiembre</div>
-    </div>
-    <div style="padding:12px 16px 12px;">
-      <div class="semaforo-wrap">
-        <table class="semaforo-table">
-          <thead>
-            <tr>
-              <th style="min-width:160px;">Atracción</th>
-              <th>9-10h<br><small style="color:#2e7d32;font-weight:700;">★ Mejor</small></th>
-              <th>10-12h</th>
-              <th>12-14h</th>
-              <th>14-16h</th>
-              <th>16-18h</th>
-              <th>18-21h</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><span class="attr-name">❄️ Frozen Ever After</span><span class="attr-sub">Sin restricción · PRIORIDAD ⭐⭐⭐</span></td>
-              <td><div class="sf sf-green" title="~10 min">🟢</div></td>
-              <td><div class="sf sf-red" title="~70 min">🔴</div></td>
-              <td><div class="sf sf-red" title="~90 min">🔴</div></td>
-              <td><div class="sf sf-red" title="~75 min">🔴</div></td>
-              <td><div class="sf sf-yellow" title="~40 min">🟡</div></td>
-              <td><div class="sf sf-green" title="~20 min">🟢</div></td>
-            </tr>
-            <tr>
-              <td><span class="attr-name">🐀 Ratatouille</span><span class="attr-sub">Sin restricción · Toda la familia ⭐</span></td>
-              <td><div class="sf sf-green" title="~10 min">🟢</div></td>
-              <td><div class="sf sf-red" title="~55 min">🔴</div></td>
-              <td><div class="sf sf-red" title="~60 min">🔴</div></td>
-              <td><div class="sf sf-yellow" title="~40 min">🟡</div></td>
-              <td><div class="sf sf-yellow" title="~30 min">🟡</div></td>
-              <td><div class="sf sf-green" title="~15 min">🟢</div></td>
-            </tr>
-            <tr>
-              <td><span class="attr-name">🕷️ Spider-Man W.E.B.</span><span class="attr-sub">Sin restricción · Niña y tía ⭐</span></td>
-              <td><div class="sf sf-green" title="~12 min">🟢</div></td>
-              <td><div class="sf sf-yellow" title="~35 min">🟡</div></td>
-              <td><div class="sf sf-yellow" title="~45 min">🟡</div></td>
-              <td><div class="sf sf-yellow" title="~35 min">🟡</div></td>
-              <td><div class="sf sf-yellow" title="~25 min">🟡</div></td>
-              <td><div class="sf sf-green" title="~15 min">🟢</div></td>
-            </tr>
-            <tr>
-              <td><span class="attr-name">⚡ Avengers Assemble</span><span class="attr-sub">Mín 120cm · Solo adultos/niña</span></td>
-              <td><div class="sf sf-yellow" title="~25 min">🟡</div></td>
-              <td><div class="sf sf-red" title="~65 min">🔴</div></td>
-              <td><div class="sf sf-red" title="~80 min">🔴</div></td>
-              <td><div class="sf sf-red" title="~70 min">🔴</div></td>
-              <td><div class="sf sf-yellow" title="~45 min">🟡</div></td>
-              <td><div class="sf sf-yellow" title="~30 min">🟡</div></td>
-            </tr>
-            <tr>
-              <td><span class="attr-name">🐢 Crush's Coaster</span><span class="attr-sub">Mín 107cm · Niña y adultos</span></td>
-              <td><div class="sf sf-yellow" title="~20 min">🟡</div></td>
-              <td><div class="sf sf-red" title="~75 min">🔴</div></td>
-              <td><div class="sf sf-red" title="~90 min">🔴</div></td>
-              <td><div class="sf sf-red" title="~80 min">🔴</div></td>
-              <td><div class="sf sf-red" title="~60 min">🔴</div></td>
-              <td><div class="sf sf-yellow" title="~35 min">🟡</div></td>
-            </tr>
-            <tr>
-              <td><span class="attr-name">🧸 Slinky Dog Zigzag</span><span class="attr-sub">Sin restricción · Gemelos ⭐</span></td>
-              <td><div class="sf sf-green" title="~8 min">🟢</div></td>
-              <td><div class="sf sf-yellow" title="~25 min">🟡</div></td>
-              <td><div class="sf sf-yellow" title="~30 min">🟡</div></td>
-              <td><div class="sf sf-yellow" title="~20 min">🟡</div></td>
-              <td><div class="sf sf-green" title="~15 min">🟢</div></td>
-              <td><div class="sf sf-green" title="~10 min">🟢</div></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </div>
-
-  <div class="star-tip" style="margin-top:4px;">
-    <h5>⏱️ Estrategia óptima para vuestros 2 días</h5>
-    <ul>
-      <li><strong>Día 1 (Disneyland Park):</strong> Llegar a las 8:45h → Peter Pan's Flight y Dumbo antes de las 10h → resto de Fantasyland → siesta en casa 13-16h → volver para el desfile y fuegos</li>
-      <li><strong>Día 2 (Adventure World):</strong> Activar cola virtual Anna&amp;Elsa a las 8:00h desde casa → Frozen Ever After a las 9:00h → Ratatouille antes de las 10h → Avengers con Lightning Lane → tarde tranquila en Frozen</li>
-      <li><strong>Lluvia = colas a la mitad.</strong> Si llueve por la mañana, ese es el mejor momento para las atracciones más populares</li>
-      <li>Los datos se basan en medias históricas de <strong>principios de septiembre</strong> en Disneyland Paris. Pueden variar ±15 min</li>
-    </ul>
-  </div>
-</div>
-</div>
-
 <!-- FOOTER -->
 <div class="footer">
   <p>Itinerario creado para la familia · <strong>Francia 2026</strong></p>
@@ -4353,8 +3967,7 @@ const SUB_NAMES = {
   firstaid:'Primeros Auxilios', rain:'Plan B Lluvia', emergency:'Emergencias', souvenirs:'Souvenirs',
   batobus:'Batobus', french:'Francés', food:'Comida',
   'disney-guide':'Guía Disney', 'paris-map':'Mapa París', explorer:'Guía Explorador', maps:'Rutas y Mapas',
-  games:'Juegos RER', photos:'Nuestras Fotos', install:'Instalar App',
-  semaforo:'🚦 Semáforo Colas'
+  games:'Juegos RER', photos:'Nuestras Fotos', install:'Instalar App'
 };
 const AREA_ICONS = { home:'🏠', trip:'📅', guides:'🗺️', tools:'🛠️', more:'⋯' };
 
@@ -4478,7 +4091,173 @@ function showToast(msg) {
   toastTimer = setTimeout(() => toast.classList.remove('visible'), 1600);
 }
 
+// ─── WHATSAPP SHARE ───
+function shareWhatsApp() {
+  const msg = encodeURIComponent('Francia 2026 - Guia de Viaje familiar. 29 Ago - 4 Sep. Le Victoria Garden, Serris. Disneyland Paris + Paris. Ver: ' + window.location.href);
+  window.open('https://wa.me/?text=' + msg, '_blank');
+}
 
+// ─── NAVEGACIÓN DIRECTA ───
+function navigateTo(lat, lng, name) {
+  haptic('medium');
+  const enc = encodeURIComponent(name);
+  const url = /iphone|ipad|ipod/i.test(navigator.userAgent)
+    ? 'maps://maps.apple.com/?daddr=' + lat + ',' + lng + '&q=' + enc
+    : 'https://www.google.com/maps/dir/?api=1&destination=' + lat + ',' + lng + '&travelmode=walking';
+  window.open(url, '_blank');
+}
+
+// ─── AUDIO GLOSARIO FRANCÉS ───
+let _speaking = null;
+function speakFrench(text, btn) {
+  if (!('speechSynthesis' in window)) { showToast('Usa Chrome o Safari para audio'); return; }
+  if (_speaking === text) {
+    window.speechSynthesis.cancel(); _speaking = null;
+    document.querySelectorAll('.speak-btn.speaking').forEach(b => b.classList.remove('speaking'));
+    return;
+  }
+  window.speechSynthesis.cancel();
+  document.querySelectorAll('.speak-btn.speaking').forEach(b => b.classList.remove('speaking'));
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'fr-FR'; u.rate = 0.82; u.pitch = 0.85;
+  const voices = window.speechSynthesis.getVoices();
+  const male = voices.find(v => v.lang.startsWith('fr') && /thomas|pierre|nicolas|male/i.test(v.name))
+             || voices.find(v => v.lang.startsWith('fr'));
+  if (male) u.voice = male;
+  u.onstart = () => { _speaking = text; if (btn) btn.classList.add('speaking'); haptic('light'); };
+  u.onend   = () => { _speaking = null; if (btn) btn.classList.remove('speaking'); };
+  u.onerror = () => { _speaking = null; if (btn) btn.classList.remove('speaking'); };
+  window.speechSynthesis.speak(u);
+}
+function addSpeakButtons() {
+  document.querySelectorAll('.phrase-card').forEach(card => {
+    if (card.querySelector('.speak-btn')) return;
+    const frEl = card.querySelector('.phrase-fr');
+    if (!frEl) return;
+    const text = frEl.textContent.trim().replace(/[!?]/g, '');
+    const btn = document.createElement('button');
+    btn.className = 'speak-btn';
+    btn.innerHTML = '🔊';
+    btn.title = 'Escuchar en francés';
+    btn.onclick = e => { e.stopPropagation(); speakFrench(text, btn); };
+    card.appendChild(btn);
+  });
+}
+
+// ─── MODO SOLO HOY ───
+const MH = {
+  d1:{title:'Llegada a Francia',date:'Sab 29 ago',color:'#1a4d2e',events:[
+    {time:'11:25',h:1,icon:'✈️',t:'Llegada · Traslado privado',d:'El traslado espera en llegadas. Directo al apartamento.'},
+    {time:'13:30',h:0,icon:'🛒',t:'Auchan · Compra semanal',d:'Dividir el grupo. Agua, desayunos, cenas para toda la semana.'},
+    {time:'16:00',h:1,icon:'🏠',t:'Check-in Le Victoria Garden',d:'¡Ya estáis en Francia! Cena sencilla y a dormir.'},
+  ],tip:'💡 Comprad agua para toda la semana hoy. Auchan a 5 min andando.'},
+  d2:{title:'Paris · Dia 1',date:'Dom 30 ago',color:'#003087',events:[
+    {time:'07:30',h:0,icon:'🥐',t:'Desayuno y salida temprana',d:'Mochila lista la noche anterior.'},
+    {time:'08:15',h:1,icon:'🚆',t:'RER A → Trocadero',d:'Dirección Cergy. 40 min hasta Châtelet.'},
+    {time:'09:15',h:1,icon:'📸',t:'Trocadero · LA foto del viaje',d:'Luz dorada. No saltarse.'},
+    {time:'10:00',h:0,icon:'⛵',t:'Batobus · Activar pase 2 dias',d:'Embarcar Torre Eiffel → Notre-Dame.'},
+    {time:'11:00',h:0,icon:'⛪',t:'Notre-Dame · Picnic',d:'Jardines Ile de la Cite.'},
+    {time:'17:00',h:0,icon:'🚆',t:'Vuelta antes de hora punta',d:'Metro → Châtelet → RER A → Val d\'Europe.'},
+  ],tip:'⚠️ Domingo en agosto = mucha gente. Salir antes de las 8:30h.'},
+  d3:{title:'Paris · Dia 2',date:'Lun 31 ago',color:'#1a237e',events:[
+    {time:'08:30',h:0,icon:'🚆',t:'RER A → Louvre',d:'Châtelet → Louvre.'},
+    {time:'09:30',h:0,icon:'🎨',t:'Louvre · Jardines Tuileries',d:'Exterior + pirámide. Columpios gemelos.'},
+    {time:'11:00',h:1,icon:'⛵',t:'Batobus → Saint-Germain',d:'Ritmo tranquilo. Abuelos lo adorarán.'},
+    {time:'13:00',h:0,icon:'🧀',t:'Almuerzo brasserie',d:'Carafe d\'eau gratis. Comer a las 13h.'},
+    {time:'15:00',h:0,icon:'🏘️',t:'Le Marais · Place des Vosges',d:'Heladerías y calles peatonales.'},
+  ],tip:'⭐ Batobus pase 2 días sigue activo. Aprovecharlo al máximo.'},
+  d4:{title:'Disneyland Park',date:'Mar 1 sep',color:'#4a0072',events:[
+    {time:'08:45',h:1,icon:'🚶',t:'Caminar al parque',d:'10 min. Llegar antes de apertura.'},
+    {time:'09:00',h:1,icon:'🏰',t:'DIRECTO a Fantasyland',d:'Peter Pan primero. Cola mínima antes de las 10h.'},
+    {time:'12:00',h:0,icon:'🍔',t:'Almuerzo a las 12h',d:'Walt\'s Restaurant. Antes del pico.'},
+    {time:'13:30',h:0,icon:'😴',t:'Siesta opcional en casa',d:'20 min andando. Muy recomendado.'},
+    {time:'16:00',h:1,icon:'🎭',t:'Desfile Disney',d:'Ver horario en la app ese dia.'},
+    {time:'21:00',h:0,icon:'✨',t:'Disney Illuminations',d:'10 min andando de vuelta a casa.'},
+  ],tip:'🔑 Lightning Lane en la app de Disney. Usarlo todo el dia.'},
+  d5:{title:'Disney Adventure World',date:'Mie 2 sep',color:'#01579b',events:[
+    {time:'08:00',h:1,icon:'📱',t:'Cola virtual Anna y Elsa · DESDE CASA',d:'App Disney a las 8:00h EXACTAS.'},
+    {time:'09:00',h:1,icon:'❄️',t:'DIRECTO a Frozen Ever After',d:'Sin parar. Prioridad absoluta.'},
+    {time:'10:30',h:0,icon:'🕷️',t:'Avengers Campus',d:'Spider-Man. Lightning Lane Assemble.'},
+    {time:'14:00',h:0,icon:'🐀',t:'Ratatouille · Toda la familia',d:'Sin restricción. Abuelos incluidos.'},
+    {time:'21:30',h:0,icon:'🌊',t:'Disney Cascade of Lights',d:'Solo si los gemelos aguantan.'},
+  ],tip:'⚠️ Cola virtual 8:00h CRITICA. Se agota en minutos.'},
+  d6:{title:'Dia Libre',date:'Jue 3 sep',color:'#7a3500',events:[
+    {time:'Mañana',h:0,icon:'🏰',t:'Opcion A: Versalles',d:'RER A → Paris → RER C. Jardines gratuitos.'},
+    {time:'Mañana',h:0,icon:'🛍️',t:'Opcion B: La Vallee Village',d:'10 min andando. Outlet de lujo.'},
+    {time:'Mañana',h:0,icon:'🏠',t:'Opcion C: Descanso',d:'Paseo, cena especial, relax.'},
+    {time:'Tarde',h:1,icon:'🧳',t:'Preparar maletas · Sin falta',d:'Vuelo mañana 14:05h. Todo listo hoy.'},
+  ],tip:'💡 Despertador a las 7:00h mañana. Traslado a las 10:15h.'},
+  d7:{title:'Vuelta a Casa',date:'Vie 4 sep',color:'#880e4f',events:[
+    {time:'07:00',h:0,icon:'⏰',t:'Despertador · Desayuno rapido',d:'Maletas listas de anoche.'},
+    {time:'09:00',h:0,icon:'🏠',t:'Check-out · Revision final',d:'Cargadores, pasaportes, medicamentos abuelos.'},
+    {time:'10:15',h:1,icon:'🚐',t:'Traslado privado → Orly',d:'~45 min. Sentarse y relajarse.'},
+    {time:'14:05',h:1,icon:'✈️',t:'VUELO ORY → SCQ · Vueling',d:'¡Au revoir, France!'},
+  ],tip:'⚠️ Medicamentos abuelos, pasaportes y cargadores antes de salir.'},
+};
+
+const TRIP_DATE_TO_DAY_MH = {
+  '2026-08-29':'d1','2026-08-30':'d2','2026-08-31':'d3',
+  '2026-09-01':'d4','2026-09-02':'d5','2026-09-03':'d6','2026-09-04':'d7'
+};
+
+function toggleModoHoy() {
+  const overlay = document.getElementById('modo-hoy-overlay');
+  const btn = document.getElementById('modoHoyBtn');
+  if (!overlay) return;
+  const isOpen = overlay.classList.contains('visible');
+  if (!isOpen) {
+    const dayId = TRIP_DATE_TO_DAY_MH[new Date().toISOString().slice(0,10)] || 'd1';
+    renderModoHoy(dayId);
+    overlay.classList.add('visible');
+    if (btn) btn.classList.add('active');
+    haptic('medium');
+  } else {
+    overlay.classList.remove('visible');
+    if (btn) btn.classList.remove('active');
+  }
+}
+
+function renderModoHoy(dayId) {
+  const data = MH[dayId]; if (!data) return;
+  const overlay = document.getElementById('modo-hoy-overlay');
+  const tEl = document.getElementById('mh-title');
+  const dEl = document.getElementById('mh-date');
+  const body = document.getElementById('mh-body');
+  if (tEl) tEl.textContent = data.title;
+  if (dEl) dEl.textContent = data.date;
+  if (overlay) overlay.style.background = data.color;
+  if (body) {
+    const events = data.events.map(e =>
+      '<div class="mh-event' + (e.h ? ' highlight' : '') + '">' +
+      '<div class="mh-time">' + e.time + '</div>' +
+      '<div class="mh-event-content"><strong>' + e.icon + ' ' + e.t + '</strong>' +
+      (e.d ? '<p>' + e.d + '</p>' : '') + '</div></div>'
+    ).join('');
+    body.innerHTML = '<div class="mh-section-label">Plan del dia</div>' + events +
+      '<div class="mh-tip"><p>' + data.tip + '</p></div>';
+  }
+}
+
+// ─── CONTINGENCY TOGGLE ───
+function toggleCont(uid) {
+  const el = document.getElementById(uid);
+  if (!el) return;
+  const btn = el.previousElementSibling;
+  el.classList.toggle('open');
+  if (btn) btn.classList.toggle('active');
+  haptic('light');
+}
+
+// ─── ACCORDION ───
+function toggleAccordion(el) {
+  const item = el.closest('.accordion-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.accordion-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ─── FLIP CARDS ───
+function flipCard(el) { el.classList.toggle('flipped'); haptic('light'); }
 
 // ─── DARK MODE ───
 function toggleDark() {
@@ -4544,18 +4323,17 @@ function initParticles() {
 }
 
 // ─── COUNTDOWN & HOME LOGIC ───
-let todayTabId = null;
-
-// Day data for the today card
 const TRIP_DAYS = [
-  {date:'2026-08-29', tab:'d1', label:'¡Hoy llegáis a Francia! 🛬', sub:'Aeropuerto → Apartamento → Auchan · Check-in 16h'},
-  {date:'2026-08-30', tab:'d2', label:'¡Hoy es París Día 1! 🗼',    sub:'Trocadéro · Batobus · Notre-Dame · Arco del Triunfo'},
-  {date:'2026-08-31', tab:'d3', label:'¡Hoy es París Día 2! 🎨',    sub:'Louvre · Saint-Germain · Le Marais'},
-  {date:'2026-09-01', tab:'d4', label:'¡Hoy es Disneyland Park! 🏰', sub:'Fantasyland · Parade · Disney Illuminations'},
-  {date:'2026-09-02', tab:'d5', label:'¡Hoy es Disney Adventure! ❄️',sub:'World of Frozen · Avengers · Ratatouille'},
-  {date:'2026-09-03', tab:'d6', label:'¡Hoy es el día libre! ☀️',    sub:'Versalles · La Vallée Village · Descanso'},
-  {date:'2026-09-04', tab:'d7', label:'¡Hoy voláis a casa! ✈️',      sub:'Check-out 9h · Traslado 10:15h · Vueling 14:05h'},
+  {date:'2026-08-29', tab:'d1', label:'¡Hoy llegáis! 🛬', sub:'Apartamento · Auchan · Instalación'},
+  {date:'2026-08-30', tab:'d2', label:'¡Hoy es París Día 1! 🗼', sub:'Trocadéro · Batobus · Notre-Dame'},
+  {date:'2026-08-31', tab:'d3', label:'¡Hoy es París Día 2! 🎨', sub:'Louvre · Saint-Germain · Le Marais'},
+  {date:'2026-09-01', tab:'d4', label:'¡Hoy es Disneyland Park! 🏰', sub:'Fantasyland · Parade · Fuegos'},
+  {date:'2026-09-02', tab:'d5', label:'¡Hoy es Disney Adventure World! ❄️', sub:'World of Frozen · Avengers · Pixar'},
+  {date:'2026-09-03', tab:'d6', label:'¡Hoy es el día libre! ☀️', sub:'Versalles · La Vallée Village'},
+  {date:'2026-09-04', tab:'d7', label:'¡Hoy voláis a casa! ✈️', sub:'Check-out 9h · Orly 10:15h · Vueling 14:05h'},
 ];
+
+let todayTabId = null;
 
 function updateHomeCountdown() {
   const target = new Date('2026-08-29T00:00:00');
@@ -4609,16 +4387,8 @@ function updateHomeCountdown() {
 }
 
 function goToToday() {
-  if (todayTabId) {
-    // During the trip — go to today's day
-    switchArea('trip');
-    setTimeout(() => switchSub('trip', todayTabId), 60);
-    showToast('📅 Yendo al día de hoy...');
-  } else {
-    // Before or after the trip — go to overview of all days
-    switchArea('trip');
-    showToast('📅 El viaje empieza el 29 de agosto');
-  }
+  if (todayTabId) { switchArea('trip'); setTimeout(() => switchSub('trip', todayTabId), 60); }
+  else { switchArea('trip'); }
 }
 
 // ─── SCROLL PROGRESS ───
@@ -4985,129 +4755,7 @@ function calcBudget() {
 }
 calcBudget();
 
-
-// ════ #2 THEMES ════
-const DAY_THEMES={d1:{name:'🛬 Llegada · Verde selva',cls:'theme-d1'},d2:{name:'🗼 París Día 1 · Azul noche',cls:'theme-d2'},d3:{name:'🎨 París Día 2 · Índigo',cls:'theme-d3'},d4:{name:'🏰 Disneyland · Púrpura real',cls:'theme-d4'},d5:{name:'❄️ Disney Adventure · Azul hielo',cls:'theme-d5'},d6:{name:'☀️ Día Libre · Terracota',cls:'theme-d6'},d7:{name:'✈️ Vuelta · Granate',cls:'theme-d7'}};
-const TRIP_DATE_TO_DAY={'2026-08-29':'d1','2026-08-30':'d2','2026-08-31':'d3','2026-09-01':'d4','2026-09-02':'d5','2026-09-03':'d6','2026-09-04':'d7'};
-function applyDayTheme(d){Object.values(DAY_THEMES).forEach(t=>document.body.classList.remove(t.cls));if(d&&DAY_THEMES[d]){document.body.classList.add(DAY_THEMES[d].cls);let p=document.getElementById('themePill');if(!p){p=document.createElement('div');p.id='themePill';p.className='theme-pill';document.body.appendChild(p);}p.textContent=DAY_THEMES[d].name;p.classList.add('visible');setTimeout(()=>p.classList.remove('visible'),2500);}}
-function applyTodayTheme(){const d=TRIP_DATE_TO_DAY[new Date().toISOString().slice(0,10)];if(d)applyDayTheme(d);}
-// ════ #22 AUDIO ════
-let currentSpeaking=null;
-function speakFrench(text,btn){if(!('speechSynthesis'in window)){showToast('Usa Chrome o Safari para audio');return;}if(currentSpeaking===text){window.speechSynthesis.cancel();currentSpeaking=null;document.querySelectorAll('.speak-btn.speaking').forEach(b=>b.classList.remove('speaking'));return;}window.speechSynthesis.cancel();document.querySelectorAll('.speak-btn.speaking').forEach(b=>b.classList.remove('speaking'));const u=new SpeechSynthesisUtterance(text);u.lang='fr-FR';u.rate=0.82;u.pitch=0.85;const vs=window.speechSynthesis.getVoices();const fm=vs.find(v=>v.lang.startsWith('fr')&&/thomas|pierre|nicolas|male/i.test(v.name))||vs.find(v=>v.lang.startsWith('fr'));if(fm)u.voice=fm;u.onstart=()=>{currentSpeaking=text;if(btn)btn.classList.add('speaking');haptic('light');};u.onend=()=>{currentSpeaking=null;if(btn)btn.classList.remove('speaking');};u.onerror=()=>{currentSpeaking=null;if(btn)btn.classList.remove('speaking');};window.speechSynthesis.speak(u);}
-function addSpeakButtons(){document.querySelectorAll('.phrase-card').forEach(card=>{if(card.querySelector('.speak-btn'))return;const frEl=card.querySelector('.phrase-fr');if(!frEl)return;const txt=frEl.textContent.trim().replace(/[!?]/g,'');const btn=document.createElement('button');btn.className='speak-btn';btn.innerHTML='🔊';btn.title='Escuchar en francés';btn.onclick=(e)=>{e.stopPropagation();speakFrench(txt,btn);};card.style.paddingRight='48px';card.appendChild(btn);});}
-// ════ #11 NAVEGACIÓN ════
-function navigateTo(lat,lng,name){haptic('medium');const enc=encodeURIComponent(name);const url=/iphone|ipad|ipod/i.test(navigator.userAgent)?'maps://maps.apple.com/?daddr='+lat+','+lng+'&q='+enc:'https://www.google.com/maps/dir/?api=1&destination='+lat+','+lng+'&travelmode=walking';window.open(url,'_blank');}
-
-// ─── ACCORDION + FLIP + SHARE ───
-function toggleAccordion(el) {
-  const item = el.closest('.accordion-item');
-  const isOpen = item.classList.contains('open');
-  document.querySelectorAll('.accordion-item.open').forEach(i => i.classList.remove('open'));
-  if (!isOpen) item.classList.add('open');
-}
-function flipCard(el) { el.classList.toggle('flipped'); haptic('light'); }
-function shareWhatsApp() {
-  const msg = encodeURIComponent('🇫🇷 *Guía de Viaje · Francia 2026*\n\n📅 29 Agosto – 4 Septiembre\n🏠 Le Victoria Garden · Serris\n🏰 Disneyland Paris (2 días)\n🗼 París (2 días)\n\n👉 ' + window.location.href);
-  window.open('https://wa.me/?text=' + msg, '_blank');
-}
-
 // ─── INIT ───
-// #3 — SPLASH
-function initSplash() {
-  const s = document.getElementById('splash');
-  if (!s) return;
-  if (sessionStorage.getItem('splashShown')) { s.classList.add('hidden'); return; }
-  setTimeout(() => {
-    s.classList.add('hiding');
-    setTimeout(() => { s.classList.add('hidden'); sessionStorage.setItem('splashShown','1'); }, 650);
-  }, 3200);
-}
-// #1 — MODO HOY
-// #1 — MODO HOY
-const MH = {
-  d1:{title:'Llegada 🛬',date:'Sáb 29 ago',color:'#1a4d2e',events:[
-    {time:'11:25',h:1,icon:'✈️',t:'Llegada al aeropuerto',d:'Traslado privado. Directo al apartamento.'},
-    {time:'13:00',h:0,icon:'🧳',t:'Dejar maletas · 7 Rue Magellan',d:'Guardan hasta las 16h.'},
-    {time:'13:30',h:0,icon:'🛒',t:'Auchan Val d\'Europe',d:'Compra grande: desayunos, cenas, snacks, agua.'},
-    {time:'16:00',h:1,icon:'🏠',t:'Check-in',d:'¡Ya estáis en Francia!'},
-    {time:'19:30',h:0,icon:'🍽️',t:'Cena en casa',d:'Mañana París.'},
-  ],tip:'💡 Comprad agua para toda la semana hoy en el Auchan (5 min andando).'},
-  d2:{title:'París Día 1 🗼',date:'Dom 30 ago',color:'#003087',events:[
-    {time:'07:30',h:0,icon:'🥐',t:'Desayuno en casa',d:'Salida temprana. Mochila preparada.'},
-    {time:'08:15',h:1,icon:'🚆',t:'RER A → Trocadéro',d:'40 min. Metro → Trocadéro.'},
-    {time:'09:15',h:0,icon:'📸',t:'Trocadéro · La foto del viaje',d:'Luz dorada, poca gente.'},
-    {time:'10:00',h:1,icon:'⛵',t:'Batobus · Activar pase 2 días',d:'Embarcar Torre Eiffel → Notre-Dame.'},
-    {time:'11:00',h:0,icon:'⛪',t:'Notre-Dame · Picnic',d:'Jardines de Île de la Cité.'},
-    {time:'15:30',h:0,icon:'🏛️',t:'Arco del Triunfo',d:'Fotos, 12 avenidas, Champs-Élysées.'},
-    {time:'17:00',h:0,icon:'🚆',t:'Vuelta a Serris',d:'Antes de hora punta.'},
-  ],tip:'⚠️ Domingo en agosto = mucha gente. Salir antes de las 8:30h.'},
-  d3:{title:'París Día 2 🎨',date:'Lun 31 ago',color:'#1a237e',events:[
-    {time:'08:30',h:0,icon:'🚆',t:'RER A → Louvre',d:'Val d\'Europe → Châtelet.'},
-    {time:'09:30',h:0,icon:'🎨',t:'Louvre · Jardines Tullerías',d:'Exterior + pirámide. Columpios gemelos.'},
-    {time:'11:00',h:1,icon:'⛵',t:'Batobus → Saint-Germain',d:'Cafés históricos. Ritmo tranquilo.'},
-    {time:'13:00',h:0,icon:'🧀',t:'Almuerzo brasserie',d:'Croque-monsieur. Carafe d\'eau gratis.'},
-    {time:'15:00',h:0,icon:'🏘️',t:'Le Marais',d:'Place des Vosges. Heladerías.'},
-    {time:'16:30',h:0,icon:'🚆',t:'Vuelta · Mañana Disney',d:'Dormir bien esta noche.'},
-  ],tip:'⭐ Batobus pase 2 días sigue activo. Aprovecharlo al máximo.'},
-  d4:{title:'Disneyland Park 🏰',date:'Mar 1 sep',color:'#4a0072',events:[
-    {time:'08:45',h:1,icon:'🚶',t:'Caminar al parque',d:'10 min a pie. Llegar antes de apertura.'},
-    {time:'09:00',h:1,icon:'🏰',t:'DIRECTO a Fantasyland',d:'Peter Pan primero. Cola mínima.'},
-    {time:'12:00',h:0,icon:'🍔',t:'Almuerzo a las 12h',d:'Antes del pico. Walt\'s o Plaza Gardens.'},
-    {time:'13:30',h:0,icon:'😴',t:'Siesta opcional',d:'20 min a pie. Gemelos recargan.'},
-    {time:'16:00',h:1,icon:'🎭',t:'Desfile Disney',d:'Main Street. Ver horario en la app.'},
-    {time:'21:00',h:0,icon:'✨',t:'Disney Illuminations',d:'Espectáculo frente al castillo.'},
-  ],tip:'🔑 Lightning Lane en la app de Disney. Usarlo todo el día.'},
-  d5:{title:'Disney Adventure ❄️',date:'Mié 2 sep',color:'#01579b',events:[
-    {time:'08:00',h:1,icon:'📱',t:'¡Cola virtual Anna y Elsa!',d:'App Disney a las 8:00h EXACTAS desde casa.'},
-    {time:'09:00',h:1,icon:'❄️',t:'DIRECTO a Frozen Ever After',d:'Prioridad absoluta. Cola mínima.'},
-    {time:'10:30',h:0,icon:'🕷️',t:'Avengers Campus',d:'Spider-Man. Lightning Lane para Assemble.'},
-    {time:'12:00',h:0,icon:'🍽️',t:'Almuerzo · Adventure Way',d:'14 restaurantes. Vistas al lago.'},
-    {time:'14:00',h:0,icon:'🐀',t:'Ratatouille',d:'Sin restricción. Toda la familia.'},
-    {time:'21:30',h:1,icon:'🌊',t:'Disney Cascade of Lights',d:'Espectáculo único de drones.'},
-  ],tip:'⚠️ Cola virtual 8:00h CRÍTICA. Se agota en minutos.'},
-  d6:{title:'Día Libre ☀️',date:'Jue 3 sep',color:'#7a3500',events:[
-    {time:'Mañana',h:0,icon:'🏰',t:'Opción A: Versalles',d:'RER A→París→RER C. Jardines gratuitos.'},
-    {time:'Mañana',h:0,icon:'🛍️',t:'Opción B: La Vallée Village',d:'10 min andando. Outlet de lujo.'},
-    {time:'Mañana',h:0,icon:'🏠',t:'Opción C: Descanso',d:'Maletas, paseo, cena especial.'},
-    {time:'Tarde',h:1,icon:'🧳',t:'Preparar maletas',d:'Vuelo mañana 14:05h. Todo listo hoy.'},
-  ],tip:'💡 Poned el despertador a las 7:00h. Traslado a las 10:15h.'},
-  d7:{title:'Vuelta a Casa ✈️',date:'Vie 4 sep',color:'#880e4f',events:[
-    {time:'07:00',h:0,icon:'⏰',t:'Despertador',d:'Maletas listas. Desayuno rápido.'},
-    {time:'09:00',h:0,icon:'🏠',t:'Check-out',d:'Revisar: cargadores, documentos, medicamentos.'},
-    {time:'10:15',h:1,icon:'🚐',t:'Traslado → Orly',d:'~45 min hasta el aeropuerto.'},
-    {time:'14:05',h:1,icon:'✈️',t:'VUELO ORY→SCQ · Vueling',d:'¡Au revoir, France! 🇫🇷'},
-  ],tip:'⚠️ Medicamentos abuelos, pasaportes y cargadores. Revisar antes de salir.'},
-};
-
-function toggleModoHoy() {
-  const overlay = document.getElementById('modo-hoy-overlay');
-  const btn = document.getElementById('modoHoyBtn');
-  if (!overlay) return;
-  const isActive = overlay.classList.contains('visible');
-  if (!isActive) {
-    const dayId = TRIP_DATE_TO_DAY[new Date().toISOString().slice(0,10)] || 'd1';
-    renderModoHoy(dayId);
-    overlay.classList.add('visible');
-    if (btn) btn.classList.add('active');
-    haptic('medium');
-  } else {
-    overlay.classList.remove('visible');
-    if (btn) btn.classList.remove('active');
-  }
-}
-function renderModoHoy(dayId) {
-  const data = MH[dayId]; if (!data) return;
-  const overlay = document.getElementById('modo-hoy-overlay');
-  const tEl = document.getElementById('mh-title');
-  const dEl = document.getElementById('mh-date');
-  const body = document.getElementById('mh-body');
-  if (tEl) tEl.textContent = data.title;
-  if (dEl) dEl.textContent = data.date;
-  if (overlay) overlay.style.background = data.color;
-  if (body) body.innerHTML = '<div class="mh-section"><div class="mh-section-label">Plan del día</div>' +
-    data.events.map(e => '<div class="mh-event' + (e.h ? ' highlight' : '') + '"><div class="mh-time">' + e.time + '</div><div class="mh-event-content"><strong>' + e.icon + ' ' + e.t + '</strong><p>' + e.d + '</p></div></div>').join('') +
-    '</div><div class="mh-tip"><p>' + data.tip + '</p></div>';
-}
 window.addEventListener('load', () => {
   initParticles();
   updateHomeCountdown();
@@ -5121,9 +4769,6 @@ window.addEventListener('load', () => {
   switchSub('guides', 'explorer');
   switchSub('tools', 'budget');
   switchSub('more', 'games');
-  // New features init
-  initSplash();
-  applyTodayTheme();
   addSpeakButtons();
 });
 
@@ -5132,5 +4777,18 @@ window.addEventListener('load', () => {
 // ─── PWA: SERVICE WORKER REGISTRATION ───
 // ═══════════════════════════════════════════
 </script>
+
+<!-- MODO SOLO HOY OVERLAY (position:fixed, body level) -->
+<div id="modo-hoy-overlay">
+  <div class="mh-header">
+    <button class="mh-close" onclick="toggleModoHoy()">✕</button>
+    <div>
+      <div class="mh-title" id="mh-title">Hoy</div>
+      <div class="mh-date" id="mh-date"></div>
+    </div>
+  </div>
+  <div class="mh-body" id="mh-body"></div>
+</div>
+
 </body>
 </html>
