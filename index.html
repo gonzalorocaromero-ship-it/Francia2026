@@ -4544,17 +4544,18 @@ function initParticles() {
 }
 
 // ─── COUNTDOWN & HOME LOGIC ───
-const TRIP_DAYS = [
-  {date:'2026-08-29', tab:'d1', label:'¡Hoy llegáis! 🛬', sub:'Apartamento · Auchan · Instalación'},
-  {date:'2026-08-30', tab:'d2', label:'¡Hoy es París Día 1! 🗼', sub:'Trocadéro · Batobus · Notre-Dame'},
-  {date:'2026-08-31', tab:'d3', label:'¡Hoy es París Día 2! 🎨', sub:'Louvre · Saint-Germain · Le Marais'},
-  {date:'2026-09-01', tab:'d4', label:'¡Hoy es Disneyland Park! 🏰', sub:'Fantasyland · Parade · Fuegos'},
-  {date:'2026-09-02', tab:'d5', label:'¡Hoy es Disney Adventure World! ❄️', sub:'World of Frozen · Avengers · Pixar'},
-  {date:'2026-09-03', tab:'d6', label:'¡Hoy es el día libre! ☀️', sub:'Versalles · La Vallée Village'},
-  {date:'2026-09-04', tab:'d7', label:'¡Hoy voláis a casa! ✈️', sub:'Check-out 9h · Orly 10:15h · Vueling 14:05h'},
-];
-
 let todayTabId = null;
+
+// Day data for the today card
+const TRIP_DAYS = [
+  {date:'2026-08-29', tab:'d1', label:'¡Hoy llegáis a Francia! 🛬', sub:'Aeropuerto → Apartamento → Auchan · Check-in 16h'},
+  {date:'2026-08-30', tab:'d2', label:'¡Hoy es París Día 1! 🗼',    sub:'Trocadéro · Batobus · Notre-Dame · Arco del Triunfo'},
+  {date:'2026-08-31', tab:'d3', label:'¡Hoy es París Día 2! 🎨',    sub:'Louvre · Saint-Germain · Le Marais'},
+  {date:'2026-09-01', tab:'d4', label:'¡Hoy es Disneyland Park! 🏰', sub:'Fantasyland · Parade · Disney Illuminations'},
+  {date:'2026-09-02', tab:'d5', label:'¡Hoy es Disney Adventure! ❄️',sub:'World of Frozen · Avengers · Ratatouille'},
+  {date:'2026-09-03', tab:'d6', label:'¡Hoy es el día libre! ☀️',    sub:'Versalles · La Vallée Village · Descanso'},
+  {date:'2026-09-04', tab:'d7', label:'¡Hoy voláis a casa! ✈️',      sub:'Check-out 9h · Traslado 10:15h · Vueling 14:05h'},
+];
 
 function updateHomeCountdown() {
   const target = new Date('2026-08-29T00:00:00');
@@ -4608,8 +4609,16 @@ function updateHomeCountdown() {
 }
 
 function goToToday() {
-  if (todayTabId) { switchArea('trip'); setTimeout(() => switchSub('trip', todayTabId), 60); }
-  else { switchArea('trip'); }
+  if (todayTabId) {
+    // During the trip — go to today's day
+    switchArea('trip');
+    setTimeout(() => switchSub('trip', todayTabId), 60);
+    showToast('📅 Yendo al día de hoy...');
+  } else {
+    // Before or after the trip — go to overview of all days
+    switchArea('trip');
+    showToast('📅 El viaje empieza el 29 de agosto');
+  }
 }
 
 // ─── SCROLL PROGRESS ───
@@ -5014,6 +5023,62 @@ function initSplash() {
   }, 3200);
 }
 // #1 — MODO HOY
+// #1 — MODO HOY
+const MH = {
+  d1:{title:'Llegada 🛬',date:'Sáb 29 ago',color:'#1a4d2e',events:[
+    {time:'11:25',h:1,icon:'✈️',t:'Llegada al aeropuerto',d:'Traslado privado. Directo al apartamento.'},
+    {time:'13:00',h:0,icon:'🧳',t:'Dejar maletas · 7 Rue Magellan',d:'Guardan hasta las 16h.'},
+    {time:'13:30',h:0,icon:'🛒',t:'Auchan Val d\'Europe',d:'Compra grande: desayunos, cenas, snacks, agua.'},
+    {time:'16:00',h:1,icon:'🏠',t:'Check-in',d:'¡Ya estáis en Francia!'},
+    {time:'19:30',h:0,icon:'🍽️',t:'Cena en casa',d:'Mañana París.'},
+  ],tip:'💡 Comprad agua para toda la semana hoy en el Auchan (5 min andando).'},
+  d2:{title:'París Día 1 🗼',date:'Dom 30 ago',color:'#003087',events:[
+    {time:'07:30',h:0,icon:'🥐',t:'Desayuno en casa',d:'Salida temprana. Mochila preparada.'},
+    {time:'08:15',h:1,icon:'🚆',t:'RER A → Trocadéro',d:'40 min. Metro → Trocadéro.'},
+    {time:'09:15',h:0,icon:'📸',t:'Trocadéro · La foto del viaje',d:'Luz dorada, poca gente.'},
+    {time:'10:00',h:1,icon:'⛵',t:'Batobus · Activar pase 2 días',d:'Embarcar Torre Eiffel → Notre-Dame.'},
+    {time:'11:00',h:0,icon:'⛪',t:'Notre-Dame · Picnic',d:'Jardines de Île de la Cité.'},
+    {time:'15:30',h:0,icon:'🏛️',t:'Arco del Triunfo',d:'Fotos, 12 avenidas, Champs-Élysées.'},
+    {time:'17:00',h:0,icon:'🚆',t:'Vuelta a Serris',d:'Antes de hora punta.'},
+  ],tip:'⚠️ Domingo en agosto = mucha gente. Salir antes de las 8:30h.'},
+  d3:{title:'París Día 2 🎨',date:'Lun 31 ago',color:'#1a237e',events:[
+    {time:'08:30',h:0,icon:'🚆',t:'RER A → Louvre',d:'Val d\'Europe → Châtelet.'},
+    {time:'09:30',h:0,icon:'🎨',t:'Louvre · Jardines Tullerías',d:'Exterior + pirámide. Columpios gemelos.'},
+    {time:'11:00',h:1,icon:'⛵',t:'Batobus → Saint-Germain',d:'Cafés históricos. Ritmo tranquilo.'},
+    {time:'13:00',h:0,icon:'🧀',t:'Almuerzo brasserie',d:'Croque-monsieur. Carafe d\'eau gratis.'},
+    {time:'15:00',h:0,icon:'🏘️',t:'Le Marais',d:'Place des Vosges. Heladerías.'},
+    {time:'16:30',h:0,icon:'🚆',t:'Vuelta · Mañana Disney',d:'Dormir bien esta noche.'},
+  ],tip:'⭐ Batobus pase 2 días sigue activo. Aprovecharlo al máximo.'},
+  d4:{title:'Disneyland Park 🏰',date:'Mar 1 sep',color:'#4a0072',events:[
+    {time:'08:45',h:1,icon:'🚶',t:'Caminar al parque',d:'10 min a pie. Llegar antes de apertura.'},
+    {time:'09:00',h:1,icon:'🏰',t:'DIRECTO a Fantasyland',d:'Peter Pan primero. Cola mínima.'},
+    {time:'12:00',h:0,icon:'🍔',t:'Almuerzo a las 12h',d:'Antes del pico. Walt\'s o Plaza Gardens.'},
+    {time:'13:30',h:0,icon:'😴',t:'Siesta opcional',d:'20 min a pie. Gemelos recargan.'},
+    {time:'16:00',h:1,icon:'🎭',t:'Desfile Disney',d:'Main Street. Ver horario en la app.'},
+    {time:'21:00',h:0,icon:'✨',t:'Disney Illuminations',d:'Espectáculo frente al castillo.'},
+  ],tip:'🔑 Lightning Lane en la app de Disney. Usarlo todo el día.'},
+  d5:{title:'Disney Adventure ❄️',date:'Mié 2 sep',color:'#01579b',events:[
+    {time:'08:00',h:1,icon:'📱',t:'¡Cola virtual Anna y Elsa!',d:'App Disney a las 8:00h EXACTAS desde casa.'},
+    {time:'09:00',h:1,icon:'❄️',t:'DIRECTO a Frozen Ever After',d:'Prioridad absoluta. Cola mínima.'},
+    {time:'10:30',h:0,icon:'🕷️',t:'Avengers Campus',d:'Spider-Man. Lightning Lane para Assemble.'},
+    {time:'12:00',h:0,icon:'🍽️',t:'Almuerzo · Adventure Way',d:'14 restaurantes. Vistas al lago.'},
+    {time:'14:00',h:0,icon:'🐀',t:'Ratatouille',d:'Sin restricción. Toda la familia.'},
+    {time:'21:30',h:1,icon:'🌊',t:'Disney Cascade of Lights',d:'Espectáculo único de drones.'},
+  ],tip:'⚠️ Cola virtual 8:00h CRÍTICA. Se agota en minutos.'},
+  d6:{title:'Día Libre ☀️',date:'Jue 3 sep',color:'#7a3500',events:[
+    {time:'Mañana',h:0,icon:'🏰',t:'Opción A: Versalles',d:'RER A→París→RER C. Jardines gratuitos.'},
+    {time:'Mañana',h:0,icon:'🛍️',t:'Opción B: La Vallée Village',d:'10 min andando. Outlet de lujo.'},
+    {time:'Mañana',h:0,icon:'🏠',t:'Opción C: Descanso',d:'Maletas, paseo, cena especial.'},
+    {time:'Tarde',h:1,icon:'🧳',t:'Preparar maletas',d:'Vuelo mañana 14:05h. Todo listo hoy.'},
+  ],tip:'💡 Poned el despertador a las 7:00h. Traslado a las 10:15h.'},
+  d7:{title:'Vuelta a Casa ✈️',date:'Vie 4 sep',color:'#880e4f',events:[
+    {time:'07:00',h:0,icon:'⏰',t:'Despertador',d:'Maletas listas. Desayuno rápido.'},
+    {time:'09:00',h:0,icon:'🏠',t:'Check-out',d:'Revisar: cargadores, documentos, medicamentos.'},
+    {time:'10:15',h:1,icon:'🚐',t:'Traslado → Orly',d:'~45 min hasta el aeropuerto.'},
+    {time:'14:05',h:1,icon:'✈️',t:'VUELO ORY→SCQ · Vueling',d:'¡Au revoir, France! 🇫🇷'},
+  ],tip:'⚠️ Medicamentos abuelos, pasaportes y cargadores. Revisar antes de salir.'},
+};
+
 function toggleModoHoy() {
   const overlay = document.getElementById('modo-hoy-overlay');
   const btn = document.getElementById('modoHoyBtn');
