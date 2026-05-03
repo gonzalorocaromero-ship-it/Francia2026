@@ -497,6 +497,41 @@ body.dark .bottom-nav { background: rgba(17,24,39,.97); border-color: rgba(201,1
 body.dark .quick-btn { background: #1f2937; }
 
 /* Smooth scroll */
+/* ══ MINIATURAS DE FOTOS ══ */
+.place-thumb {
+  width: 72px; height: 52px; border-radius: 8px;
+  object-fit: cover; flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+  display: block;
+}
+.place-thumb-sm {
+  width: 52px; height: 38px; border-radius: 6px;
+  object-fit: cover; flex-shrink: 0;
+  box-shadow: 0 1px 6px rgba(0,0,0,.12);
+}
+/* Day card 3D with photo strip */
+.dc3-photo {
+  position: absolute; right: 0; top: 0; bottom: 0;
+  width: 90px; overflow: hidden; border-radius: 0 18px 18px 0;
+  opacity: .45;
+}
+.dc3-photo img {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block;
+}
+/* Explorer flip card photo */
+.flip-front-photo {
+  width: 100%; height: 80px; border-radius: 8px 8px 0 0;
+  object-fit: cover; margin-bottom: 8px; display: block;
+}
+/* Timeline photo */
+.t-content-photo {
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.t-content-photo .place-thumb-sm {
+  margin-top: 2px;
+}
+
 /* ══ AUDIO GLOSARIO ══ */
 .phrase-card { position: relative; padding-right: 46px; }
 .speak-btn {
@@ -1087,7 +1122,7 @@ body.presentation .presentation-bar { display:flex; }
 
     <div class="day-card-3d" onclick="switchArea('trip');switchSub('trip','d1')" id="dc-d1"
       style="--dc-color1:#1a4d2e;--dc-color2:#2d6a4f;">
-      <div class="dc3-bg" style="background:linear-gradient(135deg,#1a4d2e,#2d6a4f);"></div>
+      <div class="dc3-bg" style="background:linear-gradient(135deg,#1a4d2e,#2d6a4f);"></div><div class="dc3-photo"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=180&h=120&fit=crop&q=75" alt="" loading="lazy"></div>
       <div class="dc3-emoji">🛬</div>
       <div class="dc3-content">
         <div class="dc3-day">Sábado 29 agosto</div>
@@ -1103,7 +1138,7 @@ body.presentation .presentation-bar { display:flex; }
 
     <div class="day-card-3d" onclick="switchArea('trip');switchSub('trip','d2')" id="dc-d2"
       style="">
-      <div class="dc3-bg" style="background:linear-gradient(135deg,#003087,#1565c0);"></div>
+      <div class="dc3-bg" style="background:linear-gradient(135deg,#003087,#1565c0);"></div><div class="dc3-photo"><img src="https://images.unsplash.com/photo-1549144511-f099e773c147?w=180&h=120&fit=crop&q=75" alt="" loading="lazy"></div>
       <div class="dc3-emoji">🗼</div>
       <div class="dc3-content">
         <div class="dc3-day">Domingo 30 agosto</div>
@@ -1119,7 +1154,7 @@ body.presentation .presentation-bar { display:flex; }
     </div>
 
     <div class="day-card-3d" onclick="switchArea('trip');switchSub('trip','d3')" id="dc-d3">
-      <div class="dc3-bg" style="background:linear-gradient(135deg,#003087,#0d47a1);"></div>
+      <div class="dc3-bg" style="background:linear-gradient(135deg,#003087,#0d47a1);"></div><div class="dc3-photo"><img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=180&h=120&fit=crop&q=75" alt="" loading="lazy"></div>
       <div class="dc3-emoji">🎨</div>
       <div class="dc3-content">
         <div class="dc3-day">Lunes 31 agosto</div>
@@ -1134,7 +1169,7 @@ body.presentation .presentation-bar { display:flex; }
     </div>
 
     <div class="day-card-3d" onclick="switchArea('trip');switchSub('trip','d4')" id="dc-d4">
-      <div class="dc3-bg" style="background:linear-gradient(135deg,#4b0082,#7b1fa2);"></div>
+      <div class="dc3-bg" style="background:linear-gradient(135deg,#4b0082,#7b1fa2);"></div><div class="dc3-photo"><img src="https://images.unsplash.com/photo-1626285861696-9f0bf5a49c6d?w=180&h=120&fit=crop&q=75" alt="" loading="lazy"></div>
       <div class="dc3-emoji">🏰</div>
       <div class="dc3-content">
         <div class="dc3-day">Martes 1 septiembre</div>
@@ -1149,7 +1184,7 @@ body.presentation .presentation-bar { display:flex; }
     </div>
 
     <div class="day-card-3d" onclick="switchArea('trip');switchSub('trip','d5')" id="dc-d5">
-      <div class="dc3-bg" style="background:linear-gradient(135deg,#0d47a1,#1976d2);"></div>
+      <div class="dc3-bg" style="background:linear-gradient(135deg,#0d47a1,#1976d2);"></div><div class="dc3-photo"><img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=180&h=120&fit=crop&q=75" alt="" loading="lazy"></div>
       <div class="dc3-emoji">❄️</div>
       <div class="dc3-content">
         <div class="dc3-day">Miércoles 2 septiembre</div>
@@ -1164,7 +1199,7 @@ body.presentation .presentation-bar { display:flex; }
     </div>
 
     <div class="day-card-3d" onclick="switchArea('trip');switchSub('trip','d6')" id="dc-d6">
-      <div class="dc3-bg" style="background:linear-gradient(135deg,#7a3500,#c0602b);"></div>
+      <div class="dc3-bg" style="background:linear-gradient(135deg,#7a3500,#c0602b);"></div><div class="dc3-photo"><img src="https://images.unsplash.com/photo-1575996272701-4f1a83c8c3fe?w=180&h=120&fit=crop&q=75" alt="" loading="lazy"></div>
       <div class="dc3-emoji">☀️</div>
       <div class="dc3-content">
         <div class="dc3-day">Jueves 3 septiembre</div>
@@ -1178,7 +1213,7 @@ body.presentation .presentation-bar { display:flex; }
     </div>
 
     <div class="day-card-3d" onclick="switchArea('trip');switchSub('trip','d7')" id="dc-d7">
-      <div class="dc3-bg" style="background:linear-gradient(135deg,#7a0000,#c0392b);"></div>
+      <div class="dc3-bg" style="background:linear-gradient(135deg,#7a0000,#c0392b);"></div><div class="dc3-photo"><img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=180&h=120&fit=crop&q=75" alt="" loading="lazy"></div>
       <div class="dc3-emoji">✈️</div>
       <div class="dc3-content">
         <div class="dc3-day">Viernes 4 septiembre</div>
@@ -1393,7 +1428,7 @@ body.presentation .presentation-bar { display:flex; }
         <div class="timeline-item">
           <div class="t-time">13:30</div>
           <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🛒 Auchan · Compra semanal</strong><p>Dividir: unos con carrito (agua, desayunos, cenas), otros con los gemelos.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span><span class="op-tag op-tag-cut">✂️ Cortar aquí si alguien cae</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c57335')">😵 Gemelos o abuelos agotados</button><div class="op-contingency op-c-tired " id="c57335"><span class="oc-icon">😵</span><div class="oc-text"><strong>Gemelos o abuelos agotados</strong>Cafetería del Auchan planta baja. Los demás compran. 20 min máximo.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c31472')">⏱️ Colas largas en caja</button><div class="op-contingency op-c-ops " id="c31472"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Colas largas en caja</strong>Usar autoservicio — siempre menos espera.</div></div></div></div>
+          <div class="t-content"><img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?w=104&h=76&fit=crop&q=75" class="place-thumb-sm" alt="Auchan" loading="lazy" style="float:right;margin:0 0 6px 10px;border-radius:6px;"><strong>🛒 Auchan · Compra semanal</strong><p>Dividir: unos con carrito (agua, desayunos, cenas), otros con los gemelos.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span><span class="op-tag op-tag-cut">✂️ Cortar aquí si alguien cae</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c57335')">😵 Gemelos o abuelos agotados</button><div class="op-contingency op-c-tired " id="c57335"><span class="oc-icon">😵</span><div class="oc-text"><strong>Gemelos o abuelos agotados</strong>Cafetería del Auchan planta baja. Los demás compran. 20 min máximo.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c31472')">⏱️ Colas largas en caja</button><div class="op-contingency op-c-ops " id="c31472"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Colas largas en caja</strong>Usar autoservicio — siempre menos espera.</div></div></div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">16:00</div>
@@ -1425,7 +1460,7 @@ body.presentation .presentation-bar { display:flex; }
         <div class="timeline-item">
           <div class="t-time">08:15</div>
           <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🚆 RER A → Trocadéro</strong><p>Dirección Cergy. Revisar destino en panel del andén.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c98230')">⏱️ RER cancelado o retrasado</button><div class="op-contingency op-c-ops " id="c98230"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>RER cancelado o retrasado</strong>Esperar el siguiente (cada 15 min). Si >20 min: taxi ~45€ (Uber/Heetch).</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c36183')">😵 Gemelos difíciles en el metro</button><div class="op-contingency op-c-tired " id="c36183"><span class="oc-icon">😵</span><div class="oc-text"><strong>Gemelos difíciles en el metro</strong>Subir por la puerta trasera del vagón — más espacio.</div></div></div></div>
+          <div class="t-content"><img src="https://images.unsplash.com/photo-1431274172761-fcdab704a114?w=104&h=76&fit=crop&q=75" class="place-thumb-sm" alt="Trocadéro" loading="lazy" style="float:right;margin:0 0 6px 10px;border-radius:6px;"><strong>🚆 RER A → Trocadéro</strong><p>Dirección Cergy. Revisar destino en panel del andén.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c98230')">⏱️ RER cancelado o retrasado</button><div class="op-contingency op-c-ops " id="c98230"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>RER cancelado o retrasado</strong>Esperar el siguiente (cada 15 min). Si >20 min: taxi ~45€ (Uber/Heetch).</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c36183')">😵 Gemelos difíciles en el metro</button><div class="op-contingency op-c-tired " id="c36183"><span class="oc-icon">😵</span><div class="oc-text"><strong>Gemelos difíciles en el metro</strong>Subir por la puerta trasera del vagón — más espacio.</div></div></div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">09:15</div>
@@ -1435,17 +1470,17 @@ body.presentation .presentation-bar { display:flex; }
         <div class="timeline-item">
           <div class="t-time">10:00</div>
           <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>⛵ Batobus · Activar pase 2 días</strong><p>Embarcar en Torre Eiffel. Abuelos y gemelos descansan sentados.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c16102')">🌧️ Lluvia</button><div class="op-contingency op-c-rain " id="c16102"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia</strong>El Batobus es cubierto. Mejor opción con lluvia. Continuar el plan.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c73890')">⏱️ Cola larga en el muelle</button><div class="op-contingency op-c-ops " id="c73890"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Cola larga en el muelle</strong>Esperar máximo 20 min. Si pasa de 30 min: Metro L4 hasta Cité (Notre-Dame directa).</div></div></div></div>
+          <div class="t-content"><img src="https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=104&h=76&fit=crop&q=75" class="place-thumb-sm" alt="Batobus" loading="lazy" style="float:right;margin:0 0 6px 10px;border-radius:6px;"><strong>⛵ Batobus · Activar pase 2 días</strong><p>Embarcar en Torre Eiffel. Abuelos y gemelos descansan sentados.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c16102')">🌧️ Lluvia</button><div class="op-contingency op-c-rain " id="c16102"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia</strong>El Batobus es cubierto. Mejor opción con lluvia. Continuar el plan.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c73890')">⏱️ Cola larga en el muelle</button><div class="op-contingency op-c-ops " id="c73890"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Cola larga en el muelle</strong>Esperar máximo 20 min. Si pasa de 30 min: Metro L4 hasta Cité (Notre-Dame directa).</div></div></div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">11:00</div>
           <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>⛪ Notre-Dame · Picnic en Île de la Cité</strong><p>Bajar del Batobus. Picnic en los jardines.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span><span class="op-tag op-tag-cut">✂️ Punto de corte — volver desde aquí si es necesario</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c63697')">🌧️ Lluvia en el picnic</button><div class="op-contingency op-c-rain " id="c63697"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia en el picnic</strong>Brasserie más cercana: Le Caveau du Palais (Place Dauphine, 5 min).</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c52621')">😵 Grupo saturado</button><div class="op-contingency op-c-tired " id="c52621"><span class="oc-icon">😵</span><div class="oc-text"><strong>Grupo saturado</strong>Comer aquí y volver a Serris. Ya ha sido un éxito: Trocadéro + Batobus + Notre-Dame.</div></div></div></div>
+          <div class="t-content"><img src="https://images.unsplash.com/photo-1468413253814-1aa97f7c2b79?w=104&h=76&fit=crop&q=75" class="place-thumb-sm" alt="Notre-Dame" loading="lazy" style="float:right;margin:0 0 6px 10px;border-radius:6px;"><strong>⛪ Notre-Dame · Picnic en Île de la Cité</strong><p>Bajar del Batobus. Picnic en los jardines.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span><span class="op-tag op-tag-cut">✂️ Punto de corte — volver desde aquí si es necesario</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c63697')">🌧️ Lluvia en el picnic</button><div class="op-contingency op-c-rain " id="c63697"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia en el picnic</strong>Brasserie más cercana: Le Caveau du Palais (Place Dauphine, 5 min).</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c52621')">😵 Grupo saturado</button><div class="op-contingency op-c-tired " id="c52621"><span class="oc-icon">😵</span><div class="oc-text"><strong>Grupo saturado</strong>Comer aquí y volver a Serris. Ya ha sido un éxito: Trocadéro + Batobus + Notre-Dame.</div></div></div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">14:30</div>
           <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>⛵ Batobus → Concorde · Arco del Triunfo</strong><p>Bajar en Concorde. 20 min a pie por los Champs-Élysées.</p><div class="op-tags"><span class="op-tag op-tag-optional">Opcional</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c11351')">😵 Abuelos o gemelos sin energía</button><div class="op-contingency op-c-tired " id="c11351"><span class="oc-icon">😵</span><div class="oc-text"><strong>Abuelos o gemelos sin energía</strong>Saltar esta parte. Volver a Serris directamente.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c34151')">⏱️ Son más de las 16:30h</button><div class="op-contingency op-c-ops " id="c34151"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Son más de las 16:30h</strong>Ir directo a Châtelet → RER A para evitar hora punta.</div></div></div></div>
+          <div class="t-content"><img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=104&h=76&fit=crop&q=75" class="place-thumb-sm" alt="Arco del Triunfo" loading="lazy" style="float:right;margin:0 0 6px 10px;border-radius:6px;"><strong>⛵ Batobus → Concorde · Arco del Triunfo</strong><p>Bajar en Concorde. 20 min a pie por los Champs-Élysées.</p><div class="op-tags"><span class="op-tag op-tag-optional">Opcional</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c11351')">😵 Abuelos o gemelos sin energía</button><div class="op-contingency op-c-tired " id="c11351"><span class="oc-icon">😵</span><div class="oc-text"><strong>Abuelos o gemelos sin energía</strong>Saltar esta parte. Volver a Serris directamente.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c34151')">⏱️ Son más de las 16:30h</button><div class="op-contingency op-c-ops " id="c34151"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Son más de las 16:30h</strong>Ir directo a Châtelet → RER A para evitar hora punta.</div></div></div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">17:00</div>
@@ -1472,17 +1507,17 @@ body.presentation .presentation-bar { display:flex; }
         <div class="timeline-item">
           <div class="t-time">08:30</div>
           <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🚆 RER A → Louvre</strong><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c98660')">🌧️ Lluvia fuerte</button><div class="op-contingency op-c-rain " id="c98660"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia fuerte</strong>Entrar al Louvre: ala egipcia (momias) — 45 min máximo con los gemelos.</div></div></div></div>
+          <div class="t-content"><img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=104&h=76&fit=crop&q=75" class="place-thumb-sm" alt="Louvre" loading="lazy" style="float:right;margin:0 0 6px 10px;border-radius:6px;"><strong>🚆 RER A → Louvre</strong><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c98660')">🌧️ Lluvia fuerte</button><div class="op-contingency op-c-rain " id="c98660"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia fuerte</strong>Entrar al Louvre: ala egipcia (momias) — 45 min máximo con los gemelos.</div></div></div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">09:30</div>
           <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🎨 Louvre · Jardines de las Tullerías</strong><p>Columpios para los gemelos, bancos para los abuelos.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div></div>
+          <div class="t-content"><img src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=104&h=76&fit=crop&q=75" class="place-thumb-sm" alt="Tullerías" loading="lazy" style="float:right;margin:0 0 6px 10px;border-radius:6px;"><strong>🎨 Louvre · Jardines de las Tullerías</strong><p>Columpios para los gemelos, bancos para los abuelos.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">11:00</div>
           <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>⛵ Batobus → Saint-Germain-des-Prés</strong><p>Cafés históricos. Ritmo tranquilo.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c19416')">😵 Abuelos sin ganas de caminar</button><div class="op-contingency op-c-tired " id="c19416"><span class="oc-icon">😵</span><div class="oc-text"><strong>Abuelos sin ganas de caminar</strong>Sentarse en Café de Flore. El grupo que quiera sigue y vuelve en 30 min.</div></div></div></div>
+          <div class="t-content"><img src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=104&h=76&fit=crop&q=75" class="place-thumb-sm" alt="Saint-Germain" loading="lazy" style="float:right;margin:0 0 6px 10px;border-radius:6px;"><strong>⛵ Batobus → Saint-Germain-des-Prés</strong><p>Cafés históricos. Ritmo tranquilo.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c19416')">😵 Abuelos sin ganas de caminar</button><div class="op-contingency op-c-tired " id="c19416"><span class="oc-icon">😵</span><div class="oc-text"><strong>Abuelos sin ganas de caminar</strong>Sentarse en Café de Flore. El grupo que quiera sigue y vuelve en 30 min.</div></div></div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">13:00</div>
@@ -1492,7 +1527,7 @@ body.presentation .presentation-bar { display:flex; }
         <div class="timeline-item">
           <div class="t-time">15:00</div>
           <div class="t-dot-col"><div class="t-dot"></div></div>
-          <div class="t-content"><strong>🏘️ Le Marais · Place des Vosges</strong><p>Heladerías y calles peatonales. Berthillon a 10 min.</p><div class="op-tags"><span class="op-tag op-tag-optional">Opcional</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c80481')">😵 Sin más energía</button><div class="op-contingency op-c-tired " id="c80481"><span class="oc-icon">😵</span><div class="oc-text"><strong>Sin más energía</strong>Saltar el Marais. Vuelta directa — el día ya ha sido completo.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c78879')">🌧️ Lluvia por la tarde</button><div class="op-contingency op-c-rain " id="c78879"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia por la tarde</strong>El Marais tiene galerías y tiendas cubiertas. Seguir con paraguas.</div></div></div></div>
+          <div class="t-content"><img src="https://images.unsplash.com/photo-1523365280197-f1783db9fe62?w=104&h=76&fit=crop&q=75" class="place-thumb-sm" alt="Le Marais" loading="lazy" style="float:right;margin:0 0 6px 10px;border-radius:6px;"><strong>🏘️ Le Marais · Place des Vosges</strong><p>Heladerías y calles peatonales. Berthillon a 10 min.</p><div class="op-tags"><span class="op-tag op-tag-optional">Opcional</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c80481')">😵 Sin más energía</button><div class="op-contingency op-c-tired " id="c80481"><span class="oc-icon">😵</span><div class="oc-text"><strong>Sin más energía</strong>Saltar el Marais. Vuelta directa — el día ya ha sido completo.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c78879')">🌧️ Lluvia por la tarde</button><div class="op-contingency op-c-rain " id="c78879"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia por la tarde</strong>El Marais tiene galerías y tiendas cubiertas. Seguir con paraguas.</div></div></div></div>
         </div>
       </div>
     </div>
@@ -1519,7 +1554,7 @@ body.presentation .presentation-bar { display:flex; }
         <div class="timeline-item">
           <div class="t-time">09:00</div>
           <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🏰 DIRECTO a Fantasyland · Peter Pan primero</strong><p>Sin parar en Main Street. Peter Pan antes de las 10h = cola mínima.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c36299')">⏱️ Cola Peter Pan ya larga</button><div class="op-contingency op-c-ops " id="c36299"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Cola Peter Pan ya larga</strong>Ir a Dumbo o Small World (siempre cortas). Volver a Peter Pan a las 17h.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c12176')">🌧️ Lluvia</button><div class="op-contingency op-c-rain " id="c12176"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia</strong>Atracciones interior de Fantasyland no se ven afectadas. Colas más cortas.</div></div></div></div>
+          <div class="t-content"><img src="https://images.unsplash.com/photo-1626285861696-9f0bf5a49c6d?w=104&h=76&fit=crop&q=75" class="place-thumb-sm" alt="Fantasyland" loading="lazy" style="float:right;margin:0 0 6px 10px;border-radius:6px;"><strong>🏰 DIRECTO a Fantasyland · Peter Pan primero</strong><p>Sin parar en Main Street. Peter Pan antes de las 10h = cola mínima.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c36299')">⏱️ Cola Peter Pan ya larga</button><div class="op-contingency op-c-ops " id="c36299"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Cola Peter Pan ya larga</strong>Ir a Dumbo o Small World (siempre cortas). Volver a Peter Pan a las 17h.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c12176')">🌧️ Lluvia</button><div class="op-contingency op-c-rain " id="c12176"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia</strong>Atracciones interior de Fantasyland no se ven afectadas. Colas más cortas.</div></div></div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">12:00</div>
@@ -1566,17 +1601,17 @@ body.presentation .presentation-bar { display:flex; }
         <div class="timeline-item">
           <div class="t-time">09:00</div>
           <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>❄️ DIRECTO a Frozen Ever After</strong><p>Sin parar. Antes de las 9:30h = menos de 15 min. Después puede superar 90 min.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core — primera prioridad</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c8470')">🌧️ Lluvia</button><div class="op-contingency op-c-rain " id="c8470"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia</strong>World of Frozen es completamente cubierto. Colas más cortas. Continuar.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c60942')">⏱️ Cola ya larga al llegar</button><div class="op-contingency op-c-ops " id="c60942"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Cola ya larga al llegar</strong>Lightning Lane si disponible. Esta atracción no tiene sustituto.</div></div></div></div>
+          <div class="t-content"><img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=104&h=76&fit=crop&q=75" class="place-thumb-sm" alt="Frozen Ever After" loading="lazy" style="float:right;margin:0 0 6px 10px;border-radius:6px;"><strong>❄️ DIRECTO a Frozen Ever After</strong><p>Sin parar. Antes de las 9:30h = menos de 15 min. Después puede superar 90 min.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core — primera prioridad</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c8470')">🌧️ Lluvia</button><div class="op-contingency op-c-rain " id="c8470"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia</strong>World of Frozen es completamente cubierto. Colas más cortas. Continuar.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c60942')">⏱️ Cola ya larga al llegar</button><div class="op-contingency op-c-ops " id="c60942"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Cola ya larga al llegar</strong>Lightning Lane si disponible. Esta atracción no tiene sustituto.</div></div></div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">10:30</div>
           <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🕷️ Avengers Campus</strong><p>Spider-Man W.E.B., Avengers Assemble con Lightning Lane.</p><div class="op-tags"><span class="op-tag op-tag-optional">Opcional · Solo adultos y niña</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c70697')">😵 Gemelos o abuelos cansados</button><div class="op-contingency op-c-tired " id="c70697"><span class="oc-icon">😵</span><div class="oc-text"><strong>Gemelos o abuelos cansados</strong>Abuelos + gemelos en Adventure Bay. Adultos y niña a Avengers. Reunión en 45 min.</div></div></div></div>
+          <div class="t-content"><img src="https://images.unsplash.com/photo-1569003339405-ea396a5a8a90?w=104&h=76&fit=crop&q=75" class="place-thumb-sm" alt="Avengers" loading="lazy" style="float:right;margin:0 0 6px 10px;border-radius:6px;"><strong>🕷️ Avengers Campus</strong><p>Spider-Man W.E.B., Avengers Assemble con Lightning Lane.</p><div class="op-tags"><span class="op-tag op-tag-optional">Opcional · Solo adultos y niña</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c70697')">😵 Gemelos o abuelos cansados</button><div class="op-contingency op-c-tired " id="c70697"><span class="oc-icon">😵</span><div class="oc-text"><strong>Gemelos o abuelos cansados</strong>Abuelos + gemelos en Adventure Bay. Adultos y niña a Avengers. Reunión en 45 min.</div></div></div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">14:00</div>
           <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🐀 Ratatouille · Toda la familia</strong><p>Sin restricción. Abuelos incluidos.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core — apta para todos</span><span class="op-tag op-tag-cut">✂️ Volver a casa tras Ratatouille si el grupo está al límite</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c5413')">⏱️ Cola Ratatouille >45 min</button><div class="op-contingency op-c-ops " id="c5413"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Cola Ratatouille >45 min</strong>Ir a Cars Road Trip o Slinky Dog (siempre cortas). Volver a Ratatouille a las 17h.</div></div></div></div>
+          <div class="t-content"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=104&h=76&fit=crop&q=75" class="place-thumb-sm" alt="Ratatouille" loading="lazy" style="float:right;margin:0 0 6px 10px;border-radius:6px;"><strong>🐀 Ratatouille · Toda la familia</strong><p>Sin restricción. Abuelos incluidos.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core — apta para todos</span><span class="op-tag op-tag-cut">✂️ Volver a casa tras Ratatouille si el grupo está al límite</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c5413')">⏱️ Cola Ratatouille >45 min</button><div class="op-contingency op-c-ops " id="c5413"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Cola Ratatouille >45 min</strong>Ir a Cars Road Trip o Slinky Dog (siempre cortas). Volver a Ratatouille a las 17h.</div></div></div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">21:30</div>
@@ -1603,7 +1638,7 @@ body.presentation .presentation-bar { display:flex; }
         <div class="timeline-item">
           <div class="t-time">Mañana</div>
           <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🏰 Opción A: Versalles</strong><p>RER A → París → RER C → Versailles Rive Gauche. Jardines gratuitos.</p><div class="op-tags"><span class="op-tag op-tag-optional">Opcional · Si hay energía</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c55964')">🌧️ Lluvia en Versalles</button><div class="op-contingency op-c-rain " id="c55964"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia en Versalles</strong>Cambiar a interior del Palacio (20€/adulto) o cambiar al plan B.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c48386')">😵 Grupo sin energía</button><div class="op-contingency op-c-tired " id="c48386"><span class="oc-icon">😵</span><div class="oc-text"><strong>Grupo sin energía</strong>Cancelar sin drama. Ir a La Vallée Village o quedarse en casa.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c7955')">⏱️ Llegaríais tarde (>11h)</button><div class="op-contingency op-c-ops " id="c7955"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Llegaríais tarde (>11h)</strong>Cambiar al plan B. No merece la pena medio día en Versalles.</div></div></div></div>
+          <div class="t-content"><img src="https://images.unsplash.com/photo-1575996272701-4f1a83c8c3fe?w=104&h=76&fit=crop&q=75" class="place-thumb-sm" alt="Versalles" loading="lazy" style="float:right;margin:0 0 6px 10px;border-radius:6px;"><strong>🏰 Opción A: Versalles</strong><p>RER A → París → RER C → Versailles Rive Gauche. Jardines gratuitos.</p><div class="op-tags"><span class="op-tag op-tag-optional">Opcional · Si hay energía</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle rain-btn" onclick="toggleCont('c55964')">🌧️ Lluvia en Versalles</button><div class="op-contingency op-c-rain " id="c55964"><span class="oc-icon">🌧️</span><div class="oc-text"><strong>Lluvia en Versalles</strong>Cambiar a interior del Palacio (20€/adulto) o cambiar al plan B.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle tired-btn" onclick="toggleCont('c48386')">😵 Grupo sin energía</button><div class="op-contingency op-c-tired " id="c48386"><span class="oc-icon">😵</span><div class="oc-text"><strong>Grupo sin energía</strong>Cancelar sin drama. Ir a La Vallée Village o quedarse en casa.</div></div></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c7955')">⏱️ Llegaríais tarde (>11h)</button><div class="op-contingency op-c-ops " id="c7955"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Llegaríais tarde (>11h)</strong>Cambiar al plan B. No merece la pena medio día en Versalles.</div></div></div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">Mañana</div>
@@ -1645,7 +1680,7 @@ body.presentation .presentation-bar { display:flex; }
         <div class="timeline-item">
           <div class="t-time">10:15</div>
           <div class="t-dot-col"><div class="t-dot"></div><div class="t-line"></div></div>
-          <div class="t-content"><strong>🚐 Traslado privado → Orly · ~45 min</strong><p>Ya está reservado. Sentarse y relajarse.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c49608')">⏱️ Traslado no aparece a las 10:15h</button><div class="op-contingency op-c-ops " id="c49608"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Traslado no aparece a las 10:15h</strong>Llamar inmediatamente. Si no responde en 5 min: Uber/taxi. Vuelo a las 14:05h — hay margen.</div></div></div></div>
+          <div class="t-content"><img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=104&h=76&fit=crop&q=75" class="place-thumb-sm" alt="Traslado privado → Orly" loading="lazy" style="float:right;margin:0 0 6px 10px;border-radius:6px;"><strong>🚐 Traslado privado → Orly · ~45 min</strong><p>Ya está reservado. Sentarse y relajarse.</p><div class="op-tags"><span class="op-tag op-tag-core">⭐ Core</span></div><div class="op-contingency-wrap"><button class="op-cont-toggle ops-btn" onclick="toggleCont('c49608')">⏱️ Traslado no aparece a las 10:15h</button><div class="op-contingency op-c-ops " id="c49608"><span class="oc-icon">⏱️</span><div class="oc-text"><strong>Traslado no aparece a las 10:15h</strong>Llamar inmediatamente. Si no responde en 5 min: Uber/taxi. Vuelo a las 14:05h — hay margen.</div></div></div></div>
         </div>
         <div class="timeline-item">
           <div class="t-time">11:05</div>
@@ -1781,7 +1816,7 @@ body.presentation .presentation-bar { display:flex; }
     <!-- Torre Eiffel -->
     <div class="flip-card" onclick="flipCard(this)">
       <div class="flip-inner">
-        <div class="flip-front">
+        <div class="flip-front"><img src="https://images.unsplash.com/photo-1549144511-f099e773c147?w=300&h=120&fit=crop&q=75" class="flip-front-photo" alt="Torre Eiffel" loading="lazy">
           <div class="monument-emoji">🗼</div>
           <div class="monument-name">Torre Eiffel</div>
           <div class="monument-phonetic">Tour Eiffel [Tur Efél]</div>
@@ -1799,7 +1834,7 @@ body.presentation .presentation-bar { display:flex; }
     <!-- Arco del Triunfo -->
     <div class="flip-card" onclick="flipCard(this)">
       <div class="flip-inner">
-        <div class="flip-front">
+        <div class="flip-front"><img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=300&h=120&fit=crop&q=75" class="flip-front-photo" alt="Arco del Triunfo" loading="lazy">
           <div class="monument-emoji">🏛️</div>
           <div class="monument-name">Arco del Triunfo</div>
           <div class="monument-phonetic">Arc de Triomphe [Arc de Triomf]</div>
@@ -1817,7 +1852,7 @@ body.presentation .presentation-bar { display:flex; }
     <!-- Notre-Dame -->
     <div class="flip-card" onclick="flipCard(this)">
       <div class="flip-inner">
-        <div class="flip-front">
+        <div class="flip-front"><img src="https://images.unsplash.com/photo-1468413253814-1aa97f7c2b79?w=300&h=120&fit=crop&q=75" class="flip-front-photo" alt="Notre-Dame" loading="lazy">
           <div class="monument-emoji">⛪</div>
           <div class="monument-name">Notre-Dame</div>
           <div class="monument-phonetic">Notre-Dame [Notr Dam]</div>
@@ -1835,7 +1870,7 @@ body.presentation .presentation-bar { display:flex; }
     <!-- Louvre -->
     <div class="flip-card" onclick="flipCard(this)">
       <div class="flip-inner">
-        <div class="flip-front">
+        <div class="flip-front"><img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=300&h=120&fit=crop&q=75" class="flip-front-photo" alt="El Louvre" loading="lazy">
           <div class="monument-emoji">🎨</div>
           <div class="monument-name">El Louvre</div>
           <div class="monument-phonetic">Le Louvre [Le Luvr]</div>
@@ -1853,7 +1888,7 @@ body.presentation .presentation-bar { display:flex; }
     <!-- Sena y Batobus -->
     <div class="flip-card" onclick="flipCard(this)">
       <div class="flip-inner">
-        <div class="flip-front">
+        <div class="flip-front"><img src="https://images.unsplash.com/photo-1511739001486-6bfe10ce785f?w=300&h=120&fit=crop&q=75" class="flip-front-photo" alt="El Río Sena" loading="lazy">
           <div class="monument-emoji">⛵</div>
           <div class="monument-name">El Río Sena</div>
           <div class="monument-phonetic">La Seine [La Sen]</div>
@@ -1871,7 +1906,7 @@ body.presentation .presentation-bar { display:flex; }
     <!-- Versalles -->
     <div class="flip-card" onclick="flipCard(this)">
       <div class="flip-inner">
-        <div class="flip-front">
+        <div class="flip-front"><img src="https://images.unsplash.com/photo-1575996272701-4f1a83c8c3fe?w=300&h=120&fit=crop&q=75" class="flip-front-photo" alt="Versalles" loading="lazy">
           <div class="monument-emoji">🏰</div>
           <div class="monument-name">Versalles</div>
           <div class="monument-phonetic">Versailles [Versay]</div>
@@ -1889,7 +1924,7 @@ body.presentation .presentation-bar { display:flex; }
     <!-- La Baguette -->
     <div class="flip-card" onclick="flipCard(this)">
       <div class="flip-inner">
-        <div class="flip-front">
+        <div class="flip-front"><img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?w=300&h=120&fit=crop&q=75" class="flip-front-photo" alt="La Baguette" loading="lazy">
           <div class="monument-emoji">🥖</div>
           <div class="monument-name">La Baguette</div>
           <div class="monument-phonetic">[Ba-guét]</div>
@@ -1907,7 +1942,7 @@ body.presentation .presentation-bar { display:flex; }
     <!-- El Metro de París -->
     <div class="flip-card" onclick="flipCard(this)">
       <div class="flip-inner">
-        <div class="flip-front">
+        <div class="flip-front"><img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=300&h=120&fit=crop&q=75" class="flip-front-photo" alt="El Metro" loading="lazy">
           <div class="monument-emoji">🚇</div>
           <div class="monument-name">El Metro</div>
           <div class="monument-phonetic">Le Métro [Le Metró]</div>
@@ -1925,7 +1960,7 @@ body.presentation .presentation-bar { display:flex; }
     <!-- La Mona Lisa -->
     <div class="flip-card" onclick="flipCard(this)">
       <div class="flip-inner">
-        <div class="flip-front">
+        <div class="flip-front"><img src="https://images.unsplash.com/photo-1567942712661-82b9b407abbf?w=300&h=120&fit=crop&q=75" class="flip-front-photo" alt="La Mona Lisa" loading="lazy">
           <div class="monument-emoji">🖼️</div>
           <div class="monument-name">La Mona Lisa</div>
           <div class="monument-phonetic">La Joconde [La Yocond]</div>
@@ -1943,7 +1978,7 @@ body.presentation .presentation-bar { display:flex; }
     <!-- El RER A -->
     <div class="flip-card" onclick="flipCard(this)">
       <div class="flip-inner">
-        <div class="flip-front">
+        <div class="flip-front"><img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=300&h=120&fit=crop&q=75" class="flip-front-photo" alt="El RER A" loading="lazy">
           <div class="monument-emoji">🚆</div>
           <div class="monument-name">El RER A</div>
           <div class="monument-phonetic">[Er-e-Er A]</div>
@@ -1961,7 +1996,7 @@ body.presentation .presentation-bar { display:flex; }
     <!-- Mickey Mouse -->
     <div class="flip-card" onclick="flipCard(this)">
       <div class="flip-inner">
-        <div class="flip-front">
+        <div class="flip-front"><img src="https://images.unsplash.com/photo-1626285861696-9f0bf5a49c6d?w=300&h=120&fit=crop&q=75" class="flip-front-photo" alt="Mickey Mouse" loading="lazy">
           <div class="monument-emoji">🐭</div>
           <div class="monument-name">Mickey Mouse</div>
           <div class="monument-phonetic">[Miqui Maus]</div>
